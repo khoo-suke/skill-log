@@ -6,30 +6,29 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
-
 
 model Contact {
   id  Int @id @default(autoincrement())
-  name string
-  email string
-  content string
+  name String
+  email String
+  content String
 }
 
 model Profile {
   id  Int @id @default(autoincrement())
-  id  prismaId
-  goal  string
-  profileImageUrl string
+  prismaId  Int
+  goal  String
+  profileImageUrl String
 }
 
 model StudyTime {
   id        Int      @id @default(autoincrement())
   profileId Int
   date      DateTime @default(now())
-  profile   Profile  @relation(fields: [profileId], references: [id], onDelete: Cascade)
 }
 
 
@@ -43,16 +42,14 @@ model Post {
   createdAt     DateTime     @default(now())
   postCategories PostCategory[]
   postTags      PostTag[]
-  studyTime     StudyTime    @relation(fields: [studyTimeId], references: [id], onDelete: Cascade)
-  profile       Profile      @relation(fields: [profileId], references: [id], onDelete: Cascade)
 }
 
 model PostCategory {
   id             Int    @id @default(autoincrement())
   postId         Int
   categoryId     Int
-  post           Post    @relation(fields: [postId], references: [id], onDelete: Cascade)
-  category       Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  post       Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
 }
 
 model Category {
@@ -61,15 +58,14 @@ model Category {
   name          String
   createdAt     DateTime     @default(now())
   postCategories PostCategory[]
-  profile       Profile      @relation(fields: [profileId], references: [id], onDelete: Cascade)
 }
 
 model PostTag {
   id       Int    @id @default(autoincrement())
   postId   Int
   tagId    Int
-  post     Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
-  tag      Tag    @relation(fields: [tagId], references: [id], onDelete: Cascade)
+  post     Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  tag      Tag      @relation(fields: [tagId], references: [id], onDelete: Cascade)
 }
 
 model Tag {
@@ -78,5 +74,4 @@ model Tag {
   name     String
   createdAt DateTime @default(now())
   postTags PostTag[]
-  profile  Profile   @relation(fields: [profileId], references: [id], onDelete: Cascade)
 }

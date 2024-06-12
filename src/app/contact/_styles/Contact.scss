@@ -1,0 +1,91 @@
+.capArea {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 8rem 0 6rem;
+  .Cap {
+    span {
+      color: #E56452;
+      font-weight: bold;
+      letter-spacing: 0.1rem;
+      padding-left: 0.5em;
+    }
+    h2 {
+      font-size: 200%;
+      font-weight: bold;
+      text-align: start;
+    }
+    img {
+      width: min(50%, 470px);
+    }
+  }
+}
+
+form {
+  margin-right: auto;
+  margin-left: auto;
+  width: min(100%, 700px);
+  .contactBox {
+    margin-bottom: 3rem;
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      width: 100%;
+    }
+    input,
+    textarea {
+      border-color: #6D6D6D;
+      border-radius: 5px;
+      border-width: 1px;
+      padding: 1rem;
+      max-width: 100%;
+      width: 100%;
+    }
+    .errorMessage {
+      color: rgb(204, 10, 10);
+    }
+  }
+  .btnArea {
+    text-align: center;
+    button {
+      background-color: #E56452;
+      color: #fff;
+      border: 1px solid #6D6D6D;
+      border-radius: 5px;
+      font-weight: bold;
+      padding: 0.7rem 2rem;
+      margin-right: 2rem;
+    }
+  }
+}
+
+.confirmation {
+  .Cap {
+    margin-top: 10rem;
+    h2 {
+      font-size: 200%;
+      font-weight: bold;
+      text-align: center;
+    }
+  }
+  .btnArea {
+    text-align: center;
+    button {
+      background-color: #E56452;
+      color: #fff;
+      border: 1px solid #6D6D6D;
+      border-radius: 5px;
+      font-weight: bold;
+      padding: 0.7rem 2rem;
+      margin-right: 2rem;
+    }
+  }
+}
+
+.thanks {
+  a {
+    border-bottom: 1px solid #4a76af;
+    color: #4a76af;
+    padding-bottom: 0.1em;
+  }
+}

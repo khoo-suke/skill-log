@@ -1,0 +1,21 @@
+.btnAera {
+  text-align: center;
+  .login {
+    background-color: #1E1E1E;
+    color: #FFF;
+    border: 1px solid #FFF;
+    border-radius: 5px;
+    font-weight: bold;
+    padding: 1.5rem 2.5rem;
+    margin-right: 5rem;
+  }
+  .new {
+    background-color: #FFF;
+    color: #1E1E1E;
+    border: 1px solid #1E1E1E;
+    border-radius: 5px;
+    font-weight: bold;
+    padding: 1.5rem 2.5rem;
+    margin-right: 2rem;
+  }
+}
