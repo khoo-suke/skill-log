@@ -17,8 +17,10 @@
     "next": "14.2.3",
     "nodemailer": "^6.9.13",
     "react": "^18",
+    "react-calendar": "^5.0.0",
     "react-dom": "^18",
-    "react-hook-form": "^7.51.5"
+    "react-hook-form": "^7.51.5",
+    "sass": "^1.77.5"
   },
   "devDependencies": {
     "@slack/webhook": "^7.0.2",

@@ -1,19 +1,20 @@
 'use client';
-import '../_styles/Contact.scss';
+import '../_styles/Signup.scss';
 import Link from 'next/link';
 
 export default function Page() {
   return (
-    <section className="thanks wrapper--600">
-      <div className="Cap">
-        <h2 className="mb-5">お問い合わせ完了</h2>
+    <section className="thanks wrapper--700 card">
+      <div className="cap">
+        <h2>ユーザー登録完了</h2>
       </div>
-      <div className='mb-5'>
+      <div className='text'>
         <p>
-          お問い合わせありがとうございます。<br />5営業日以内にご返信いたしますので、しばらくお待ちください。
+          ユーザー登録ありがとうございます。<br />
+          ご登録いただいたメールアドレスに、ユーザー登録完了メールを送信しました。
         </p>
       </div>
-      <Link href='/'>>>トップページへ戻る</Link>
+      <Link href='/login'>ログインページへ</Link>
     </section>
   );
 };

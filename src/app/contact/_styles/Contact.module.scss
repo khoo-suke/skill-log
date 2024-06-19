@@ -2,8 +2,8 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  padding: 8rem 0 6rem;
-  .Cap {
+  padding: 8rem 0 0;
+  .cap {
     span {
       color: #E56452;
       font-weight: bold;
@@ -21,19 +21,18 @@
   }
 }
 
-form {
+.form {
   margin-right: auto;
   margin-left: auto;
   width: min(100%, 700px);
   .contactBox {
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
     label {
       display: block;
       margin-bottom: 0.5rem;
       width: 100%;
     }
-    input,
-    textarea {
+    input{
       border-color: #6D6D6D;
       border-radius: 5px;
       border-width: 1px;
@@ -43,6 +42,22 @@ form {
     }
     .errorMessage {
       color: rgb(204, 10, 10);
+    }
+  }
+  .contactTextArea {
+    margin-bottom: 5rem;
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      width: 100%;
+    }
+    textarea {
+      border-color: #6D6D6D;
+      border-radius: 5px;
+      border-width: 1px;
+      padding: 1rem;
+      max-width: 100%;
+      width: 100%;
     }
   }
   .btnArea {
@@ -60,13 +75,22 @@ form {
 }
 
 .confirmation {
-  .Cap {
-    margin-top: 10rem;
+  margin-bottom: clamp(5rem, 7vw, 10rem);
+  .cap {
+    margin-top: 8rem;
     h2 {
       font-size: 200%;
       font-weight: bold;
       text-align: center;
+      margin-bottom: clamp(2rem, 3vw, 4rem);
     }
+  }
+  .nameArea,
+  .mailArea {
+    margin-bottom: 2rem;
+  }
+  .textArea {
+    margin-bottom: clamp(5rem, 7vw, 10rem);
   }
   .btnArea {
     text-align: center;
@@ -83,6 +107,15 @@ form {
 }
 
 .thanks {
+  h2 {
+    font-size: 200%;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: clamp(3rem, 5vw, 7rem);;
+  }
+  p {
+    margin-bottom: 4rem;
+  }
   a {
     border-bottom: 1px solid #4a76af;
     color: #4a76af;

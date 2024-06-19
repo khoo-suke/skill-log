@@ -1,17 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
-import { IncomingWebhook } from '@slack/webhook';
-import nodemailer from 'nodemailer';
+import { Slack } from "@/app/_utils/Slack";
+import { SendMail } from "@/app/_hooks/SendMail";
 
-//POST
 const prisma = new PrismaClient();
 
+//POST
 export const POST = async (request: NextRequest) => {
   try {
-
     // データベースに保存
-    const body = await request.json()
-    const { name, email, content } = body
+    const body = await request.json();
+    const { name, email, content } = body;
     const contact = await prisma.contact.create({
       data: {
         name,
@@ -21,71 +20,21 @@ export const POST = async (request: NextRequest) => {
     });
 
     // スラックに通知を送信
-    const url = process.env.SLACK_WEBHOOK_URL;
-    if (!url) {
-      throw new Error('Slackのwebhook URLのエラー');
-    }
-    const webhook = new IncomingWebhook(url);
-    const payload = {
-      text: `新規お問い合わせ\n名前: ${name}\nメールアドレス: ${email}\n内容: ${content}`,
-    }
-    await webhook.send(payload);
+    await Slack(name, email, content); 
 
-    //問い合わせ完了メール送信
-    const transporter = nodemailer.createTransport({
-      host: "smtp.gmail.com",
-      port: 587,
-      auth: {
-        user: process.env.GMAIL_USER,
-        pass: process.env.GMAIL_PASSWORD,
-      },
-    });
+    // 問い合わせ完了メール送信
+    await SendMail(name, email, content); 
 
-    //管理人側
-    const toHostMailData = {
-      from: `${email}`,
-      to: process.env.GMAIL_USER,
-      sugjest: `[お問い合わせ]${name}様`,
-      text: `${content} Send from ${email}`,
-      html: `
-        <p>【名前】</p>
-        <p>${name}</p>
-        <p>【メールアドレス】</p>
-        <p>${email}</p>
-        <p>【内容】</p>
-        <p>${content}</p>
-        `,
-    };
-    transporter.sendMail(toHostMailData, function (err, info) {
-      if (err) console.log(err);
-      else console.log(info);
-    })
-
-    //ユーザー側
-    const toUserMailData = {
-      from: process.env.GMAIL_USER,
-      to: `${email}`,
-      sugjest: `【Skill-Log】お問い合わせ受け付けました`,
-      html: `
-        <p>${name}様</p>
-        <p>お問い合わせありがとうございます。</p>
-        <p>5営業日以内にご連絡いたしますので、しばらくお待ちください。</p>
-        `,
-    };
-    transporter.sendMail(toUserMailData, function (err, info) {
-      if (err) console.log(err);
-      else console.log(info);
-    })
-
-    //成功
+    // 成功
     return NextResponse.json({
       status: 'OK',
       message: 'お問い合わせ完了',
       id: contact.id,
-    })
+    });
 
   } catch (error) {
-    if (error instanceof Error)
-      return NextResponse.json({ status: error.message }, { status: 400 })
-  }
-}
+    if (error instanceof Error) {
+      return NextResponse.json({ status: 'error', message: error.message }, { status: 400 });
+    }
+  };
+};

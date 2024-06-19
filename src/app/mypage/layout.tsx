@@ -1,17 +1,18 @@
+'use client';
+
 import "../globals.scss";
-import MypageHeader from "./_components/MypageHeader/MypageHeader";
+import { useRouteGuard } from "./_hooks/useRouteGuard";
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: {
+  children: React.ReactNode
+}) {
+  useRouteGuard();
+
   return (
-    <html lang="ja">
-      <body>
-        <MypageHeader />
-        {children}
-      </body>
-    </html>
-  )
-}
+    <>
+      {children}
+    </>
+  );
+};

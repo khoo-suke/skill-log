@@ -67,14 +67,14 @@
       }
     }
   }
+  h2 {
+    font-size: clamp(2rem, 2.7vw, 4.5rem);
+    font-weight: bold;
+    line-height: 1.5;
+    text-align: center;
+  }
 }
 
-h2 {
-  font-size: clamp(2rem, 2.7vw, 4.5rem);
-  font-weight: bold;
-  line-height: 1.5;
-  text-align: center;
-}
 
 .oneLank {
   background-color: #EEF6F6;

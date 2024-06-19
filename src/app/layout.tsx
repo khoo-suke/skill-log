@@ -1,5 +1,5 @@
-import Header from "./_components/Header/Header";
-import Footer from "./_components/Footer/Foooter";
+import Header from "@/app/_components/Header";
+import Footer from "@/app/_components/Foooter";
 import './globals.scss';
 
 export default function RootLayout({
@@ -11,7 +11,7 @@ export default function RootLayout({
     <>
     <html lang="ja">
       <body>
-        <Header />
+        <Header pattern="default"/>
           {children}
         <Footer />
       </body>

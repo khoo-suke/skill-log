@@ -13,12 +13,14 @@
   }
 }
 
-form {
-  margin-bottom: clamp(3rem, 5vw, 7rem);
-  .signupInner {
+.form {
+  margin-right: auto;
+  margin-left: auto;
+  width: min(100%, 700px);
+  .loginInner {
     margin-bottom: 3rem;
     label {
-    padding-left: 0.5em;
+      padding-left: 0.5em;
       margin-bottom: 0.5rem;
     }
     input {
@@ -36,6 +38,7 @@ form {
   }
   .btnArea {
     text-align: center;
+    margin-bottom: clamp(2rem, 3vw, 5rem);
     button {
       background-color: #E56452;
       color: #fff;
@@ -61,9 +64,6 @@ form {
 
 .thanks {
   text-align: center;
-  p {
-    margin-bottom: clamp(3rem, 4vw, 5rem);;
-  }
   a {
     border-bottom: 1px solid #4a76af;
     color: #4a76af;

@@ -1,0 +1,26 @@
+.posts {
+  background-color: #EEF6F6;
+  padding: calmp(3rem, 5vw, 8rem) 0;
+  .home_container {
+    background-color: #fff;
+    margin: 0rem auto;
+    width: min(92%, 800px);
+    ul {
+      padding: 0;
+      margin: 0;
+      li {
+        border-radius: 3px;
+        padding: 3rem;
+        margin-bottom: 3rem;
+        h2 {
+          font-size: 120%;
+          font-weight: bold;
+        }
+        a {
+          color: #111;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+}
