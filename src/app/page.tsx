@@ -1,113 +1,98 @@
-import Image from "next/image";
+'use client';
+
+import Image from 'next/image';
+import Link from 'next/link';
+import '@/app/globals.scss';
+import style from '@/app/_styles/index.module.scss';
+import BtnAera from '@/app/_components/BtnArea';
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:size-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <>
+      <div className={style.fv}>
+        <div className={style.fvInner}>
+          <div className={style.fvText}>
+            <Image src="/images/fv_logo.png" alt="" width={516} height={107}/>
+            <strong>勉強時間とナレッジを一元管理</strong>
+            <p>
+            エンジニアの勉強時間とナレッジの記録に特化したアプリ勉強時間やコードの記録を記録して、勉強のモチベーションをナレッジを記録して、知識をメモしよう。
+            </p>
+            <div className={style.btnArea}>
+              <Link href="/login" className={style.login}>
+                ログイン
+              </Link>
+              <Link href="/signup" className={style.new}>
+                新規登録
+              </Link>
+              <Link href="/" className={style.test}>
+                テストユーザー
+              </Link>
+          </div>
+          </div>
+          <div className={style.fvImg}>
+            <Image src="/images/fv_img.png" alt="" width={401} height={431} />
+          </div>
         </div>
       </div>
 
-      <div className="relative z-[-1] flex place-items-center before:absolute before:h-[300px] before:w-full before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 sm:before:w-[480px] sm:after:w-[240px] before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
+      <section className={`${style.oneLank}, ${style.card}`}>
+        <div>{/* wrapper--800 */}
+          <h2>{/* mb-[80px] */}
+            日々のナレッジを蓄積して、<br/>ワンランク上のエンジニアに。
           </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-balance text-sm opacity-50">
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+          <div className={style.flexBox}>{/* mb-[100px] */}
+              <div className={style.img}>
+              <Image src="/images/index_img01.png" alt="" width={476} height={358} />
+              </div>
+              <div  className={style.text}>
+                <p>{/* mb-5 */}
+                  本サービスはエンジニア特化型のナレッジ蓄積＆勉強記録サービスです。
+                </p>
+                <p>{/* mb-5 */}
+                  新たなプログラム言語の習得や日々のナレッジを蓄積をし、自身のスキルのメモ機能としてお使いいただけます。
+                </p>
+                <p>
+                  新たなプログラム言語の習得や日々のナレッジを蓄積をし、自身のスキルのメモ機能としてお使いいただけます。
+                </p>
+              </div>
+          </div>
+          <BtnAera/>
+        </div>
+      </section>
+      
+      <section className={style.about}>{/* card */}
+        <div>{/* wrapper--1000 */}
+          <h2>ABOUT</h2>
+          <span>本サービスについて</span>{/* mb-[60px] */}
+          <div className={style.flexBox}>{/* mb-[100px] */}
+            <div className={style.box}>
+              <Image src="/images/index_img02.png" alt="ポイント1" width={244} height={187} className={style.point1}/>
+              <h3>勉強時間の管理に</h3>
+              <p>
+              日々の勉強時間を簡単に記録することが可能！<br/>
+              資格取得やプログラミング言語習得へのモチベーション維持に。
+              </p>
+            </div>
+            <div className={style.box}>
+              <Image src="/images/index_img03.png" alt="ポイント2" width={258} height={188} className={style.point2}/>
+              <h3>ナレッジ蓄積メモに</h3>
+              <p>
+              仕事で得た知識や、調べて分かったコードなど、忘れないようにメモとして残すことが可能。<br/>
+              自分のオリジナル辞書のように活用することも。
+              </p>
+            </div>
+            <div className={style.box}>
+              <Image src="/images/index_img04.png" alt="ポイント3" width={256} height={188} className={style.point3}/>
+              <h3>Todoリストとしての活用</h3>
+              <p>
+              その日のタスク管理や、勉強でわからない点などをタグで管理。<br/>
+              タスクや疑問点を整理することが可能に。
+              </p>
+            </div>
+          </div>
+          <BtnAera/>
+        </div>
+      </section>
+    </>
   );
 }

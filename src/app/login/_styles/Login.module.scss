@@ -1,0 +1,72 @@
+.cap {
+  text-align: center;
+  span {
+    color: #E56452;
+    font-weight: bold;
+    letter-spacing: 0.1rem;
+    padding-left: 0.5em;
+  }
+  h2 {
+    font-size: 200%;
+    font-weight: bold;
+    margin-bottom: clamp(3rem, 4vw, 5rem);
+  }
+}
+
+.form {
+  margin-right: auto;
+  margin-left: auto;
+  width: min(100%, 700px);
+  .loginInner {
+    margin-bottom: 3rem;
+    label {
+      padding-left: 0.5em;
+      margin-bottom: 0.5rem;
+    }
+    input {
+      border-color: #6D6D6D;
+      border-radius: 5px;
+      border-width: 1px;
+      padding: 1.4rem;
+      margin-bottom: 1.5rem;
+      max-width: 100%;
+      width: 100%;
+    }
+    .errorMessage {
+      color: rgb(204, 10, 10);
+    }
+  }
+  .btnArea {
+    text-align: center;
+    margin-bottom: clamp(2rem, 3vw, 5rem);
+    button {
+      background-color: #E56452;
+      color: #fff;
+      border: 1px solid #6D6D6D;
+      border-radius: 5px;
+      font-weight: bold;
+      padding: 0.7rem 2rem;
+      margin-right: 2rem;
+    }
+  }
+}
+
+.textArea {
+  p {
+    font-size: 80%;
+    a {
+      border-bottom: 1px solid #4a76af;
+      color: #4a76af;
+      padding-bottom: 0.1em;
+    }
+  }
+}
+
+.thanks {
+  text-align: center;
+  a {
+    border-bottom: 1px solid #4a76af;
+    color: #4a76af;
+    padding-bottom: 0.1em;
+  }
+}

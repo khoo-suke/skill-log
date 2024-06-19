@@ -1,0 +1,130 @@
+.fv {
+  padding: 8rem 0 12rem;
+  .fvInner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-right: auto;
+    margin-left: auto;
+    width: min(92%, 1000px);
+    .fvText {
+      width: 55%;
+      img {
+        width: min(100%, 516px);
+      }
+      strong {
+        font-size: 150%;
+        display: block;
+        padding: 0 2rem;
+      }
+      p {
+        font-size: 85%;
+        padding: 0 5rem 0 2rem;
+      }
+    }
+    .fvImg {
+      width: 41%;
+      img {
+        width: min(100%, 401px);
+      }
+    }
+    .btnArea {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      text-align: center;
+      a {
+        width: 33%;
+        &.login {
+          background-color: #1E1E1E;
+          color: #FFF;
+          border: 1px solid #FFF;
+          border-radius: 5px;
+          font-weight: bold;
+          padding: 1.1rem 2.5rem;
+          margin-right: 5rem;
+          margin-bottom: 2.5rem;
+        }
+        &.new {
+          background-color: #FFF;
+          color: #1E1E1E;
+          border: 1px solid #1E1E1E;
+          border-radius: 5px;
+          font-weight: bold;
+          padding: 1.1rem 2.5rem;
+          margin-right: 2rem;
+          margin-bottom: 2.5rem;
+        }
+        &.test {
+          background-color: #E56452;
+          color: #FFF;
+          border: 1px solid #1E1E1E;
+          border-radius: 5px;
+          font-weight: bold;
+          padding: 1.1rem 2.5rem;
+          margin-right: 2rem;
+        }
+      }
+    }
+  }
+  h2 {
+    font-size: clamp(2rem, 2.7vw, 4.5rem);
+    font-weight: bold;
+    line-height: 1.5;
+    text-align: center;
+  }
+}
+
+
+.oneLank {
+  background-color: #EEF6F6;
+  .flexBox {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    .img {
+      width: 48%;
+    }
+    .text {
+      width: 46%;
+    }
+  }
+}
+
+.about {
+  span {
+    color: #46A997;
+    display: block;
+    text-align: center;
+  }
+  .flexBox {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    .box {
+      width: 30%;
+      img {
+        margin-bottom: 3rem;
+        &.point1 {
+          width: min(90%, 244px);
+        }
+        &.point2 {
+          width: min(90%, 258px);
+        }
+        &.point3 {
+          width: min(90%, 256px);
+        }
+      }
+      h3 {
+        color: #1F2E58;
+        font-size: clamp(1.5rem, 1.7vw, 2rem);
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 1rem;
+      }
+      p {
+        font-size: clamp(1.3rem, 1.4vw, 1.5rem);
+      }
+    }
+  }
+}

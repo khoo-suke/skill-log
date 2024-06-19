@@ -1,0 +1,41 @@
+.footer {
+  background-color: #46A997;
+  color: #FFF;
+  font-weight: bold;
+  padding: 10rem 0 6rem;
+  .footerInner {
+    margin-right: auto;
+    margin-left: auto;
+    width: min(90%, 1100px);
+    .flexBox {
+      border-bottom: 1px solid #FFF;
+      display: flex;
+      justify-content: space-between;
+      padding-bottom: 2rem;
+      margin-bottom: 1rem;
+      a {
+        width: 55%;
+        img {
+          width: min(100%, 527px);
+        }
+      }
+      nav {
+        width: 40%;
+        ul {
+          li {
+            a {
+              font-size: 1.4rem;
+            }
+          }
+        }
+      }
+    }
+    .copyLight {
+      text-align: end;
+      small {
+        font-weight: lighter;
+        padding-right: 1rem;
+      }
+    }
+  }
+}
