@@ -16,10 +16,12 @@
         font-size: 150%;
         display: block;
         padding: 0 2rem;
+        margin-bottom: 1rem;
       }
       p {
         font-size: 85%;
         padding: 0 5rem 0 2rem;
+        margin-bottom: 2rem;
       }
     }
     .fvImg {
@@ -34,6 +36,9 @@
       justify-content: center;
       text-align: center;
       a {
+        padding: 1.1rem 2.5rem;
+        margin-right: 5rem;
+        margin-bottom: 2.5rem;
         width: 33%;
         &.login {
           background-color: #1E1E1E;
@@ -41,9 +46,7 @@
           border: 1px solid #FFF;
           border-radius: 5px;
           font-weight: bold;
-          padding: 1.1rem 2.5rem;
-          margin-right: 5rem;
-          margin-bottom: 2.5rem;
+
         }
         &.new {
           background-color: #FFF;
@@ -75,32 +78,47 @@
   }
 }
 
-
 .oneLank {
   background-color: #EEF6F6;
+  padding-top: clamp(4rem, 6vw, 8rem);
+  padding-bottom: clamp(6rem, 8vw, 10rem);
   .flexBox {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    margin-bottom: clamp(3rem, 4vw, 6rem);
     .img {
       width: 48%;
     }
     .text {
       width: 46%;
+      p {
+        margin-bottom: 2rem;
+      }
     }
   }
 }
 
 .about {
+  padding-top: clamp(4rem, 6vw, 8rem);
+  padding-bottom: clamp(6rem, 8vw, 10rem);
+  h2 {
+    font-size: 200%;
+    font-weight: bold;
+    line-height: 1.5;
+    text-align: center;
+  }
   span {
     color: #46A997;
     display: block;
     text-align: center;
+    margin-bottom: 6rem;
   }
   .flexBox {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    margin-bottom: clamp(5rem, 6vw, 8rem);
     .box {
       width: 30%;
       img {
@@ -127,4 +145,12 @@
       }
     }
   }
+}
+
+.cap {
+  font-size: 200%;
+  font-weight: bold;
+  line-height: 1.5;
+  text-align: center;
+  margin-bottom: clamp(4rem, 5vw, 8rem);
 }

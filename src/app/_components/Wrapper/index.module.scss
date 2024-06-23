@@ -1,0 +1,7 @@
+@each $size in 600, 700, 800, 900, 1000 {
+  .wrapper#{$size} {
+    margin-right: auto;
+    margin-left: auto;
+    width: min(92%, #{$size}px);
+  }
+}

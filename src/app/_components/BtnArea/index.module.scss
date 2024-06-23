@@ -1,0 +1,12 @@
+.btnAera {
+  text-align: center;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+  margin-right: auto;
+  margin-left: auto;
+  a {
+    &:first-child {
+      margin-right: 5rem;
+    }
+  }
+}

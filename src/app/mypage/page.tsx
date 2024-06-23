@@ -7,11 +7,7 @@ import Link from 'next/link';
 import { useSupabaseSession } from "@/app/_hooks/useSupabaseSession";
 import 'react-calendar/dist/Calendar.css';
 import Calendar from 'react-calendar';
-// import { createClient } from "@supabase/supabase-js";
-
-// const supabaseUrl = 'https://your-supabase-url.supabase.co';
-// const supabaseKey = 'your-anon-key';
-// const supabase = createClient(supabaseUrl, supabaseKey);
+import Wrapper from "../_components/Wrapper";
 
 const Mypage = () => {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -36,15 +32,41 @@ const Mypage = () => {
 
   return (
     <>
-      <div>
-      <div className="calendar">
-        <Calendar
-          locale="ja-JP"
-          />
-      </div>
+      <div className={styles.calendarArea}>
+        <Wrapper size={800}>
+          <div className={styles.flexBox}>
+            <div className="calendar">
+              <Calendar
+                locale="ja-JP"
+                />
+            </div>
+            <div className="studyTime">
+              <h2>
+                平均勉強時間
+              </h2>
+              <div className="">
+                <Link href="">年</Link>/<Link href="">月</Link>/<Link href="">週</Link>
+              </div>
+              <div className="">
+                <span>期間設定:</span>
+              </div>
+              <div className="">
+                <p>一日あたり<strong>2.5h</strong></p>
+              </div>
+            </div>
+          </div>
+        </Wrapper>
       </div>
       <div className={styles.posts}>
-        <div>{/* wrapper--800 card */}
+        <div className={styles.cap}>
+          <Wrapper size={1000}>
+            <h2>
+              投稿一覧
+            </h2>
+          </Wrapper>
+        </div>
+        <div className={styles.postArea}>
+        <Wrapper size={800}>
           {posts.map((post) => (
             <div className={styles.home_container} key={post.id}>
               <ul>
@@ -72,6 +94,7 @@ const Mypage = () => {
               </ul>
             </div>
           ))}
+          </Wrapper>
         </div>
       </div>
     </>

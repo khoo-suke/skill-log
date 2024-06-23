@@ -1,10 +1,39 @@
 import { NextRequest, NextResponse } from "next/server";
 import nodemailer from 'nodemailer';
+import { PrismaClient } from "@prisma/client";
+import { supabase } from '@/utils/supabase';
+
+const prisma = new PrismaClient();
 
 //POST
 export const POST = async (request: NextRequest) => {
   try {
-    const { email } = await request.json();
+    const { email, password } = await request.json();
+
+    // Supabaseで新規ユーザー作成
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+      emailRedirectTo: `/login`,
+      },
+    });
+
+    if (error) {
+      alert('登録失敗');
+      console.log('Supabase signUp error:', error);
+    };
+
+    // SupabaseのユーザーIDを取得
+    const user = data.user;
+
+    // PrismaのProfileテーブルにユーザー情報を保存
+    const newProfile = await prisma.profile.create({
+      data: {
+        supabaseUserId,
+        email,
+      },
+    });
 
     //ユーザー登録完了メール送信
     const transporter = nodemailer.createTransport({
@@ -32,6 +61,7 @@ export const POST = async (request: NextRequest) => {
     return NextResponse.json({
       status: 'OK',
       message: 'ユーザー登録完了',
+      profile: newProfile
     });
 
   } catch (error) {

@@ -1,0 +1,45 @@
+.header {
+  background-color: #46A997;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  padding: 2rem;
+  .headerLogo {
+    width: 15%;
+    img {
+      margin-left: 0;
+      width: min(100%, 132px);
+    }
+  }
+  .btnArea {
+    a {
+      &:first-child {
+        margin-right: 2rem;
+      }
+    }
+  }
+}
+
+.headerLogin {
+  background-color: #fff;
+  color: #111;
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  padding: 2rem;
+  .headerLogo {
+    width: 15%;
+    img {
+      margin-left: 0;
+      width: min(100%, 132px);
+    }
+  }
+  .btnArea {
+    a {
+      &:first-child {
+        margin-right: 2rem;
+      }
+    }
+  }
+}

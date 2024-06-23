@@ -1,15 +1,10 @@
-.btnAera {
-  text-align: center;
-}
-
 .black {
   background-color: #1E1E1E;
   color: #FFF;
   border: 1px solid #FFF;
   border-radius: 5px;
   font-weight: bold;
-  padding: 1.5rem 2.5rem;
-  margin-right: 5rem;
+  text-align: center;
 }
 
 .white {
@@ -18,8 +13,6 @@
   border: 1px solid #1E1E1E;
   border-radius: 5px;
   font-weight: bold;
-  padding: 1.5rem 2.5rem;
-  margin-right: 2rem;
 }
 
 .pink {
@@ -28,6 +21,17 @@
   border: 1px solid #1E1E1E;
   border-radius: 5px;
   font-weight: bold;
+}
+
+.large {
+  padding: 1.8rem 3rem;
+  font-size: 110%;
+}
+
+.middle {
   padding: 1.5rem 2.5rem;
-  margin-right: 2rem;
+}
+
+.small {
+  padding: 1.2rem 2rem;
 }

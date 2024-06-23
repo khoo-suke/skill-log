@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
 import { supabase } from '@/utils/supabase';
+import { Post } from '@/app/mypage/_types/Post';
 
 const prisma = new PrismaClient();
 
@@ -9,14 +10,10 @@ export const POST = async (request: NextRequest) => {
   try {
     const body = await request.json();
 
-    const { title, content, studyTimeId, profileId, imageUrl, postCategories } = body;
+    const { title, content, studyTimeId, profileId, imageUrl, postCategories, postTags } = body;
 
-    if (!title || !content || !studyTimeId || !profileId || !imageUrl || !postCategories) {
-      throw new Error('Missing required fields');
-    }
-
-    if (!Array.isArray(postCategories)) {
-      throw new Error('カテゴリー登録エラー');
+    if (!title || !content || !studyTimeId || !profileId || !imageUrl || !postCategories || !postTags) {
+      throw new Error('error');
     }
 
     const data = await prisma.post.create({
@@ -26,12 +23,23 @@ export const POST = async (request: NextRequest) => {
         studyTimeId,
         profileId,
         imageUrl,
+        createdAt: new Date(),
         postCategories: {
           create: postCategories.map((category: string) => ({
             category: {
               connectOrCreate: {
                 where: { name: category },
-                create: { name: category, profileId },
+                create: { name: category },
+              },
+            },
+          })),
+        },
+        postTags: {
+          create: postTags.map((tag: string) => ({
+            tag: {
+              connectOrCreate: {
+                where: { name: tag },
+                create: { name: tag },
               },
             },
           })),
@@ -49,7 +57,6 @@ export const POST = async (request: NextRequest) => {
       return NextResponse.json({ status: error.message }, { status: 400 })
   }
 }
-
 
 //GET
 export const GET = async (request: NextRequest) => {

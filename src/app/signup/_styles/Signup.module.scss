@@ -1,4 +1,4 @@
-.login {
+.signup {
   padding-top: clamp(4rem, 6vw, 8rem);
   padding-bottom: clamp(6rem, 8vw, 10rem);
   .cap {
@@ -15,14 +15,12 @@
       margin-bottom: clamp(3rem, 4vw, 5rem);
     }
   }
-  .form {
-    margin-right: auto;
-    margin-left: auto;
-    width: min(100%, 700px);
-    .loginInner {
+  form {
+    margin-bottom: clamp(3rem, 5vw, 7rem);
+    .signupInner {
       margin-bottom: 3rem;
       label {
-        padding-left: 0.5em;
+      padding-left: 0.5em;
         margin-bottom: 0.5rem;
       }
       input {
@@ -40,7 +38,6 @@
     }
     .btnArea {
       text-align: center;
-      margin-bottom: clamp(2rem, 3vw, 5rem);
       button {
         background-color: #E56452;
         color: #fff;
@@ -64,10 +61,34 @@
   }
   .thanks {
     text-align: center;
+    p {
+      margin-bottom: clamp(3rem, 4vw, 5rem);;
+    }
     a {
       border-bottom: 1px solid #4a76af;
       color: #4a76af;
       padding-bottom: 0.1em;
     }
+  }
+}
+
+.thanks {
+  padding-top: clamp(4rem, 6vw, 8rem);
+  padding-bottom: clamp(6rem, 8vw, 10rem);
+  .cap {
+    text-align: center;
+    h2 {
+      font-size: 200%;
+      font-weight: bold;
+      margin-bottom: clamp(3rem, 4vw, 5rem);
+    }
+  }
+  p {
+    margin-bottom: clamp(3rem, 4vw, 5rem);;
+  }
+  a {
+    border-bottom: 1px solid #4a76af;
+    color: #4a76af;
+    padding-bottom: 0.1em;
   }
 }

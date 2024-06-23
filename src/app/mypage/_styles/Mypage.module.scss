@@ -1,10 +1,39 @@
+.calendarArea {
+  padding-top: clamp(4rem, 6vw, 8rem);
+  padding-bottom: clamp(6rem, 8vw, 10rem);
+  .flexBox {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    .calendar {
+      width: 45%;
+    }
+    .studyTime {
+      width: 50%;
+      h2 {
+        text-align: start;
+      }
+    }
+  }
+}
+
 .posts {
-  background-color: #EEF6F6;
-  padding: calmp(3rem, 5vw, 8rem) 0;
+  background-color: #eef6f6;
+  padding-bottom: clamp(6rem, 8vw, 10rem);
+  .cap {
+    background-color: #46A997;
+    h2 {
+      color: #fff;
+      padding-top: clamp(4rem, 6vw, 8rem);
+      padding-bottom: clamp(6rem, 8vw, 10rem);
+    }
+  }
+}
+
+.postArea {
+  padding-top: clamp(4rem, 6vw, 8rem);
   .home_container {
     background-color: #fff;
-    margin: 0rem auto;
-    width: min(92%, 800px);
     ul {
       padding: 0;
       margin: 0;
