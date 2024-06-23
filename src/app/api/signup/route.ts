@@ -15,7 +15,7 @@ export const POST = async (request: NextRequest) => {
       email,
       password,
       options: {
-      emailRedirectTo: `/login`,
+      emailRedirectTo: `http://localhost:3000/login`,
       },
     });
 

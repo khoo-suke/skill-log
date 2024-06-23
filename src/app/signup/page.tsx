@@ -58,7 +58,9 @@ export default function Page() {
   //   };
   // };
 
-const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    
     try {
       const response = await fetch('/api/signup', {
         method: 'POST',
@@ -72,7 +74,6 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         throw new Error('登録失敗');
       }
 
-      const data = await response.json();
       alert('確認メール送信');
       router.push('/signup/thanks');
     } catch (error) {
