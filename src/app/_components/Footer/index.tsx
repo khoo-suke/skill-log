@@ -13,11 +13,11 @@ const Footer: React.FC = () => {
     window.location.href = '/';
   };
 
-  const { session, isLoding } = useSupabaseSession();
+  const { session, isLoading } = useSupabaseSession();
 
   return (
     <>
-      {!isLoding && (
+      {!isLoading && (
         <footer className={styles.footer}>
           <div className={styles.footerInner}>
               {session ? (
@@ -29,7 +29,7 @@ const Footer: React.FC = () => {
                   <nav>
                     <ul>
                       <li><Link href='/mypage'>HOME</Link></li>
-                      <li><Link href='/mypage'>アカウント設定</Link></li>
+                      <li><Link href='/mypage/account'>アカウント設定</Link></li>
                         <li><Link href='/' onClick={handleLogout}>ログアウト</Link></li>
                     </ul>
                   </nav>
@@ -48,11 +48,10 @@ const Footer: React.FC = () => {
                     <ul>
                       <li><Link href='/'>HOME</Link></li>
                       <li><Link href='/login'>ログイン</Link></li>
-                      <li><Link href='/'>Q&A</Link></li>
-                      <li><Link href='/'>製作者情報</Link></li>
+                      <li><Link href='/faq'>Q&A</Link></li>
                       <li><Link href='/contact'>お問い合わせ</Link></li>
                       <li><Link href='/terms'>利用規約</Link></li>
-                      <li><Link href='/'>プライバシーポリシー</Link></li>
+                      <li><Link href='/privacy'>プライバシーポリシー</Link></li>
                     </ul>
                   </nav>
                 </div>

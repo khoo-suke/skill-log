@@ -15,22 +15,23 @@ export const POST = async (request: NextRequest) => {
       email,
       password,
       options: {
-      emailRedirectTo: `http://localhost:3000/login`,
+        emailRedirectTo: `http://localhost:3000/login`,
       },
     });
 
     if (error) {
-      alert('登録失敗');
-      console.log('Supabase signUp error:', error);
-    };
+      return NextResponse.json({ status: error.message }, { status: 400 });
+    } else if(!data.user) {
+        return NextResponse.json({ status: "error", message: "ユーザー作成失敗" }, { status: 400 });
+    }
 
     // SupabaseのユーザーIDを取得
-    const user = data.user;
+    const userId = data.user.id;
 
     // PrismaのProfileテーブルにユーザー情報を保存
     const newProfile = await prisma.profile.create({
       data: {
-        supabaseUserId,
+        supabaseUserId: userId,
         email,
       },
     });

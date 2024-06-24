@@ -13,8 +13,8 @@ export default function Page() {
   const [password, setPassword] = useState('')
   const router = useRouter()
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
     const { error } = await supabase.auth.signInWithPassword({
       email,

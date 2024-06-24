@@ -22,16 +22,17 @@ model Contact {
 model Profile {
   id  Int @id @default(autoincrement())
   supabaseUserId String  @unique
+  name String?
   email String  @unique
-  goal  String
-  profileImageUrl String
+  goal  String?
+  profileImageUrl String?
 }
 
 model StudyTime {
   id        Int      @id @default(autoincrement())
   profileId Int
   date      DateTime @default(now())
-  studyTime Int
+  studyTime Int?
 }
 
 model Post {
@@ -40,7 +41,7 @@ model Post {
   profileId     Int
   title         String
   content       String
-  imageUrl      String
+  imageUrl      String?
   createdAt     DateTime     @default(now())
   postCategories PostCategory[]
   postTags      PostTag[]

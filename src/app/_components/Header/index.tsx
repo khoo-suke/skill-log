@@ -23,10 +23,10 @@ const HeaderDefault: React.FC = () => {
               <Image src="/images/header_logo_black.png" alt="skill-log" width={132} height={27}/>
             </Link>
             <div className={styles.btnArea}>
-              <Button isLink={true} href={"/mypage/posts/new"} color={"pink"} size={"middle"}>
+              <Button isLink={true} href={"/mypage/posts/new"} color={"pink"} size={"small"}>
                 新規投稿
               </Button>
-              <Button isLink={true} href={"/mypage"} color={"black"} size={"middle"}>
+              <Button isLink={true} href={"/mypage"} color={"black"} size={"small"}>
                 テスト
               </Button>
             </div>

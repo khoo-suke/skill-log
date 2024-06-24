@@ -1,14 +1,13 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { PrismaClient } from '@prisma/client';
+import { NextRequest, NextResponse } from "next/server";
+import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient()
 
 // GET
-export const GET = async (
-  request: NextRequest,
+export const GET = async ( request: NextRequest,
   { params }: { params: { id: string } },
 ) => {
-  const { id } = params
+  const { id } = params;
 
   try {
     const post = await prisma.post.findUnique({

@@ -3,7 +3,7 @@
 import styles from './_styles/Terms.module.scss';
 import Wrapper from '../_components/Wrapper';
 
-export default function Contact() {
+export default function Page() {
 
   return (
     <>

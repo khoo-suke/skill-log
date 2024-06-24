@@ -1,0 +1,39 @@
+.Cap {
+  background-color: #46A997;
+  padding-top: clamp(4rem, 6vw, 8rem);
+  padding-bottom: clamp(6rem, 8vw, 10rem);
+  h2 {
+    color: #fff;
+    font-size: 200%;
+  }
+}
+
+.Account {
+  padding-top: clamp(4rem, 6vw, 8rem);
+  padding-bottom: clamp(6rem, 8vw, 10rem);
+  .Label {
+    margin-bottom: 3rem;
+    label {
+      display: block;
+      margin-bottom: 0.3em;
+      margin-left: 0.3em;
+    }
+    input {
+      border: 1px solid #6D6D6D;
+      padding: 1.4rem;
+      margin-bottom: 1.5rem;
+      max-width: 100%;
+      width: 100%;
+    }
+    textarea {
+      border: 1px solid #6D6D6D;
+      padding: 1.4rem;
+      margin-bottom: 1.5rem;
+      max-width: 100%;
+      width: 100%;
+    }
+  }
+  .btnArea {
+    text-align: center;
+  }
+}
