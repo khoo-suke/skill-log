@@ -1,7 +1,7 @@
 import { PrismaClient } from '@prisma/client'
 import { NextRequest, NextResponse } from 'next/server'
 import { supabase } from '@/utils/supabase'
-import { Category } from '@/app/mypage/_types/Category'
+import { Tag } from '@/app/mypage/_types/Tag'
 
 const prisma = new PrismaClient()
 
@@ -15,13 +15,13 @@ export const GET = async (request: NextRequest) => {
     return NextResponse.json({ status: error.message }, { status: 400})
 
   try {
-    const categories = await prisma.category.findMany({
+    const tags = await prisma.tag.findMany({
       orderBy: {
         createdAt: 'desc',
       },
     })
 
-    return NextResponse.json({ status: 'OK', categories }, { status: 200 })
+    return NextResponse.json({ status: 'OK', tags }, { status: 200 })
   } catch (error) {
     if (error instanceof Error)
       return NextResponse.json({ status: error.message }, { status: 400 })
@@ -36,7 +36,7 @@ export const GET = async (request: NextRequest) => {
 
 //     const { name } = body
 
-//     const data = await prisma.category.create({
+//     const data = await prisma.tag.create({
 //       data: {
 //         name,
 //       },

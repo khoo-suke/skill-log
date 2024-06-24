@@ -1,6 +1,6 @@
 'use client';
 
-import style from '@/app/_styles/Footer.module.scss';
+import styles from '@/app/_components/Footer/index.module.scss';
 import Link from 'next/link';
 import React from 'react';
 import Image from 'next/image';
@@ -9,8 +9,8 @@ import { supabase } from '@/utils/supabase';
 
 const Footer: React.FC = () => {
   const handleLogout = async () => {
-    await supabase.auth.signOut()
-    window.location.href = '/'
+    await supabase.auth.signOut();
+    window.location.href = '/';
   };
 
   const { session, isLoding } = useSupabaseSession();
@@ -18,11 +18,11 @@ const Footer: React.FC = () => {
   return (
     <>
       {!isLoding && (
-        <footer className={style.footer}>
-          <div className={style.footerInner}>
+        <footer className={styles.footer}>
+          <div className={styles.footerInner}>
               {session ? (
                 <>
-                <div className={style.flexBox}>
+                <div className={styles.flexBox}>
                   <Link href="/">
                     <Image src="/images/footer_logo.png" alt="skill-log" width={527} height={109}/>
                   </Link>
@@ -34,13 +34,13 @@ const Footer: React.FC = () => {
                     </ul>
                   </nav>
               </div>
-              <div className={style.copyLight}>
+              <div className={styles.copyLight}>
                 <small>copylight</small>
               </div>
               </>
           ) : (
                 <>
-                <div className={style.flexBox}>
+                <div className={styles.flexBox}>
                   <Link href="/">
                     <Image src="/images/footer_logo.png" alt="skill-log" width={527} height={109}/>
                   </Link>
@@ -51,12 +51,12 @@ const Footer: React.FC = () => {
                       <li><Link href='/'>Q&A</Link></li>
                       <li><Link href='/'>製作者情報</Link></li>
                       <li><Link href='/contact'>お問い合わせ</Link></li>
-                      <li><Link href='/'>利用規約</Link></li>
+                      <li><Link href='/terms'>利用規約</Link></li>
                       <li><Link href='/'>プライバシーポリシー</Link></li>
                     </ul>
                   </nav>
                 </div>
-                <div className={style.copyLight}>
+                <div className={styles.copyLight}>
                   <small>copylight</small>
                 </div>
                 </>

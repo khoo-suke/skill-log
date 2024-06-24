@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import styles from './_styles/Contact.module.scss';
 import Image from 'next/image';
 import { ContactForm } from '@/app/contact/_types/ContactForm';
+import Wrapper from '../_components/Wrapper';
 
 export default function Contact() {
   const [formData, setFormData] = useState<ContactForm>({
@@ -26,7 +27,7 @@ export default function Contact() {
 
   return (
     <>
-    <div>{/* wrapper--800*/}
+    <Wrapper size={800}>
       <div className={styles.capArea}>
         <div className={styles.cap}>
           <span>CONTACT</span>
@@ -35,8 +36,8 @@ export default function Contact() {
         </div>
         <Image src="/images/contact.png" alt="お問い合わせ" width={470} height={193} />
       </div>
-    </div>
-    <div>{/* wrapper--600 card */}
+    </Wrapper>
+    <Wrapper size={600}>
       <form onSubmit={handleSubmit(onSubmit)} noValidate className={styles.form}>
         <div className={styles.contactBox}>
           <label htmlFor="name">お名前</label>
@@ -84,7 +85,7 @@ export default function Contact() {
           <button type="submit" disabled={isSubmitting}>確認</button>
         </div>
       </form>
-      </div>
+    </Wrapper>
     </>
   );
 }

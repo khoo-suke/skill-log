@@ -22,6 +22,8 @@
 }
 
 .form {
+  padding-top: clamp(4rem, 6vw, 8rem);
+  padding-bottom: clamp(6rem, 8vw, 10rem);
   margin-right: auto;
   margin-left: auto;
   width: min(100%, 700px);

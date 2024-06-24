@@ -21,7 +21,8 @@ model Contact {
 
 model Profile {
   id  Int @id @default(autoincrement())
-  prismaId  Int
+  supabaseUserId String  @unique
+  email String  @unique
   goal  String
   profileImageUrl String
 }
@@ -32,7 +33,6 @@ model StudyTime {
   date      DateTime @default(now())
   studyTime Int
 }
-
 
 model Post {
   id            Int          @id @default(autoincrement())
@@ -73,7 +73,7 @@ model PostTag {
 model Tag {
   id       Int    @id @default(autoincrement())
   profileId Int
-  name     String
+  name     String       @unique
   createdAt DateTime @default(now())
   postTags PostTag[]
 }
