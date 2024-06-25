@@ -1,14 +1,15 @@
 'use client';
 
 import styles from '@/app/login/_styles/Login.module.scss';
-import { useState } from "react";
+import { useState } from 'react';
 import { useRouter } from "next/navigation";
 import { supabase } from '@/utils/supabase';
 import Link from 'next/link';
 import Button from '../_components/Button';
 import Wrapper from '../_components/Wrapper';
+import Input from '../_components/Input';
 
-export default function Page() {
+export default function Page () {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const router = useRouter()
@@ -43,28 +44,28 @@ export default function Page() {
             <label htmlFor="email">
               ID(メールアドレス)
             </label>
-            <input
-              type="email"
-              name="email"
-              id="email"
-              placeholder="name@company.com"
+            <Input
+              type={'email'}
+              name={'email'}
+              id={'email'}
+              placeholder={'name@company.com'}
               required
-              onChange={(e) => setEmail(e.target.value)}
-            />
+              onChange={setEmail}
+              />
             <label htmlFor="password">
               パスワード
             </label>
-            <input
-              type="password"
-              name="password"
-              id="password"
-              placeholder="••••••••"
-              required
-              onChange={(e) => setPassword(e.target.value)}
+            <Input
+            type={'password'}
+            name={'password'}
+            id={'password'}
+            placeholder={'••••••••'}
+            required
+            onChange={setPassword}
             />
           </div>
           <div className={styles.btnArea}>
-            <Button isLink={false} type="submit" color={"pink"}>
+            <Button isLink={false} type="submit" color={"pink"} size={"large"}>
               ログイン
             </Button>
           </div>

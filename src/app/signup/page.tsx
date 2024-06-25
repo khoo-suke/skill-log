@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Wrapper from '../_components/Wrapper';
+import Input from '../_components/Input';
 
 export default function Page() {
   const router = useRouter();
@@ -47,15 +48,15 @@ export default function Page() {
             <label htmlFor="email">
               メールアドレス
             </label>
-              <input
-                type="email"
-                name="email"
-                id="email"
-                placeholder="name@company.com"
-                required
-                onChange={(e) => setEmail(e.target.value)}
-                value={email}
-              />
+            <Input
+              type={'email'}
+              name={'email'}
+              id={'email'}
+              placeholder={'name@company.com'}
+              required
+              onChange={setEmail}
+              value={email}
+            />
             <label htmlFor="password">
               パスワード
             </label>

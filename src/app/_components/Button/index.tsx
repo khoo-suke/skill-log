@@ -11,7 +11,7 @@ interface ButtonProps {
   children: React.ReactNode;
   isLink?: boolean;
   href?: string;
-} 
+};
 
 const Button: React.FC<ButtonProps> = ({ type = 'button', color = 'black', size = 'middle', children, isLink, href }) => {
   const Color = () => {
@@ -24,8 +24,8 @@ const Button: React.FC<ButtonProps> = ({ type = 'button', color = 'black', size 
         return styles.pink;
       default:
         return styles.black;
-    }
-  }
+    };
+  };
 
   const Size = () => {
     switch (size) {
@@ -37,22 +37,22 @@ const Button: React.FC<ButtonProps> = ({ type = 'button', color = 'black', size 
         return styles.small;
       default:
         return styles.middle;
-    }
-  }
+    };
+  };
 
   if (isLink && href) {
     return (
       <Link href={href} className={`${Color()} ${Size()}`}>
         {children}
       </Link>
-    )
-  } 
+    );
+  };
 
   return (
     <button type={type} className={`${Color()} ${Size()}`}>
       {children}
     </button>
-  )
-}
+  );
+};
 
 export default Button;

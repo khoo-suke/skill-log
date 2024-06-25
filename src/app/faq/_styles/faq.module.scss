@@ -1,10 +1,98 @@
-.faq {
+.capArea {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 8rem 0 0;
+  .cap {
+    width: 57%;
+    span {
+      color: #E56452;
+      font-weight: bold;
+      letter-spacing: 0.1rem;
+      padding-left: 0.5em;
+    }
+    h2 {
+      font-size: 200%;
+      font-weight: bold;
+      text-align: start;
+      margin-bottom: 2rem;
+    }
+    p {
+      a {
+        border-bottom: 1px solid #4a76af;
+        color: #4a76af;
+        padding-bottom: 0.1em;
+      }
+    }
+  }
+  img {
+    margin-right: 0;
+    width: min(40%, 257px);
+  }
+}
+
+.Faq {
   padding-top: clamp(4rem, 6vw, 8rem);
   padding-bottom: clamp(6rem, 8vw, 10rem);
-  h2 {
-    font-size: 200%;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 5rem;
+  .FaqArea {
+    border-bottom: 1px solid #1E1E1E;
+    padding: 0 0.5em 1em;
+    margin-bottom: 4rem;
+    &:last-child {
+      margin-bottom: 0;
+    }
+    .FaqQuestion {
+      padding-bottom: 0.3em;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      .QuestionText {
+        font-size: 110%;
+        span {
+          background-color: #46A997;
+          color: #FFF;
+          font-size: clamp(1.8rem, 2vw, 2rem);
+          padding: 0.1em 0.3em;
+          margin-right: 0.5em;
+        }
+      }
+      .AccordionBtn {
+        position: relative;
+        height: 10px;
+        width: 10px;
+        &::before {
+          content: "";
+          background-color: #1E1E1E;
+          position: absolute;
+          top: 50%;
+          left: 0;
+          height: 1px;
+          width: 100%;
+        }
+        &::after {
+          content: "";
+          background-color: #1E1E1E;
+          position: absolute;
+          top: 50%;
+          left: 0;
+          height: 1px;
+          width: 100%;
+          transform: rotate(0deg);
+          transition: transform .2s;
+        }
+      }
+    }
+    .FaqAnswer {
+      font-size: 95%;
+      padding-left: 2.5em;
+      text-indent: -2.5em;
+      span {
+        background-color: #E56452;
+        color: #FFF;
+        font-size: clamp(1.8rem, 2vw, 2rem);
+        padding: 0.1em 0.3em;
+        margin-right: 0.5em;
+      }
+    }
   }
 }

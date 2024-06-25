@@ -2,14 +2,10 @@
 
 import styles from '@/app/_components/Header/index.module.scss';
 import Link from 'next/link';
-import React from 'react';
 import Image from 'next/image';
 import { useSupabaseSession } from '@/app/_hooks/useSupabaseSession';
 import Button from '@/app/_components/Button';
-
-type HeaderProps = {
-  pattern: 'default' | 'thanks';
-};
+import { useRouter } from 'next/router';
 
 const HeaderDefault: React.FC = () => {
   const { session, isLoading } = useSupabaseSession();
@@ -59,13 +55,13 @@ const HeaderThanks: React.FC = () => (
   </header>
 );
 
-const Header: React.FC<HeaderProps> = ({ pattern }) => {
-  return (
-    <>
-      {pattern === 'default' && <HeaderDefault />}
-      {pattern === 'thanks' && <HeaderThanks />}
-    </>
-  );
+const Header: React.FC = () => {
+  const router = useRouter();
+  if (router.pathname === '/signup/thanks') {
+    return <HeaderThanks />;
+  }
+
+  return <HeaderDefault />;
 };
 
 export default Header;
