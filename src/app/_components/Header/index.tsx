@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useSupabaseSession } from '@/app/_hooks/useSupabaseSession';
 import Button from '@/app/_components/Button';
-import { useRouter } from 'next/router';
+import { useSearchParams } from 'next/navigation';
 
 const HeaderDefault: React.FC = () => {
   const { session, isLoading } = useSupabaseSession();
@@ -56,8 +56,12 @@ const HeaderThanks: React.FC = () => (
 );
 
 const Header: React.FC = () => {
-  const router = useRouter();
-  if (router.pathname === '/signup/thanks') {
+  const searchParams = useSearchParams();
+  const currentUrl = searchParams.get('/signup/thanks');
+
+  console.log(currentUrl);
+
+  if (currentUrl === '/signup/thanks') {
     return <HeaderThanks />;
   }
 
