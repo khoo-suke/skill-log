@@ -66,7 +66,7 @@ export const GET = async (request: NextRequest) => {
 
   if (error)
     return NextResponse.json({ status: error.message }, { status: 400 });
-
+  
   try {
     const posts = await prisma.post.findMany({
       include: {

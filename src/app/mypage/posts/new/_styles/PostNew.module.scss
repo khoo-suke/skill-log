@@ -24,9 +24,7 @@
     }
     .title {
       input {
-        border-color: #6D6D6D;
-        border-radius: 5px;
-        border-width: 1px;
+        border: 1px solid #6D6D6D;
         padding: 1.4rem;
         margin-bottom: 1.5rem;
         max-width: 100%;
@@ -39,9 +37,7 @@
       .studyTime {
         width: 30%;
         input {
-          border-color: #6D6D6D;
-          border-radius: 5px;
-          border-width: 1px;
+          border: 1px solid #6D6D6D;
           padding: 1.4rem;
           margin-bottom: 1.5rem;
           width: 50%;
@@ -54,11 +50,9 @@
           justify-content: space-between;
           .year,
           .month,
-          .day, {
+          .day {
             input {
-              border-color: #6D6D6D;
-              border-radius: 5px;
-              border-width: 1px;
+              border: 1px solid #6D6D6D;
               padding: 1.4rem;
               margin-bottom: 1.5rem;
               width: 50%;
@@ -66,9 +60,7 @@
           }
           .time {
             input {
-              border-color: #6D6D6D;
-              border-radius: 5px;
-              border-width: 1px;
+              border: 1px solid #6D6D6D;
               padding: 1.4rem;
               margin-bottom: 1.5rem;
               width: 30%;
