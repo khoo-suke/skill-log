@@ -12,37 +12,45 @@ datasource db {
 }
 
 model Contact {
-  id  Int @id @default(autoincrement())
+  id  Int @id              @default(autoincrement())
   name String
   email String
   content String
-  createdAt     DateTime     @default(now())
+  createdAt     DateTime   @default(now())
 }
 
 model Profile {
-  id  Int @id @default(autoincrement())
+  id    Int @id @default(autoincrement())
   supabaseUserId String  @unique
-  name String?
+  name  String?
   email String  @unique
   goal  String?
   profileImageUrl String?
+  post  Post[]
+  studyTime StudyTime[]
+  category  Category[]
+  tag Tag[]
 }
 
 model StudyTime {
-  id        Int      @id @default(autoincrement())
-  profileId Int
-  date      DateTime @default(now())
+  id        Int           @id @default(autoincrement())
+  date      DateTime      @default(now())
   studyTime Int?
+  post     Post?
+  profileId     Int
+  profile       Profile       @relation(fields: [profileId], references: [id])
 }
 
 model Post {
-  id            Int          @id @default(autoincrement())
-  studyTimeId   Int
+  id            Int           @id @default(autoincrement())
+  studyTimeId   Int?          @unique
+  study         StudyTime?    @relation(fields: [studyTimeId], references: [id])
   profileId     Int
+  profile       Profile       @relation(fields: [profileId], references: [id])
   title         String
   content       String
   imageUrl      String?
-  createdAt     DateTime     @default(now())
+  createdAt     DateTime       @default(now())
   postCategories PostCategory[]
   postTags      PostTag[]
 }
@@ -57,14 +65,15 @@ model PostCategory {
 
 model Category {
   id            Int          @id @default(autoincrement())
-  profileId     Int
   name          String       @unique
   createdAt     DateTime     @default(now())
   postCategories PostCategory[]
+  profileId     Int
+  profile       Profile       @relation(fields: [profileId], references: [id])
 }
 
 model PostTag {
-  id       Int    @id @default(autoincrement())
+  id       Int      @id @default(autoincrement())
   postId   Int
   tagId    Int
   post     Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
@@ -72,9 +81,10 @@ model PostTag {
 }
 
 model Tag {
-  id       Int    @id @default(autoincrement())
-  profileId Int
-  name     String       @unique
-  createdAt DateTime @default(now())
-  postTags PostTag[]
+  id            Int        @id @default(autoincrement())
+  name          String     @unique
+  createdAt     DateTime   @default(now())
+  postTags      PostTag[]
+  profileId     Int
+  profile       Profile    @relation(fields: [profileId], references: [id])
 }

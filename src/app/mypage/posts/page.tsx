@@ -28,15 +28,7 @@ export default function ListPost() {
 
   return (
     <>
-      {posts.map(() => (
-        <div className={styles.home_container}>
-          <ul>
-            <li>
 
-            </li>
-          </ul>
-        </div>
-      ))}
     </>
   );
 }

@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useSupabaseSession } from '@/app/_hooks/useSupabaseSession';
 import Button from '@/app/_components/Button';
-import { useSearchParams } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 
 const HeaderDefault: React.FC = () => {
   const { session, isLoading } = useSupabaseSession();
@@ -22,9 +22,7 @@ const HeaderDefault: React.FC = () => {
               <Button isLink={true} href={"/mypage/posts/new"} color={"pink"} size={"small"}>
                 新規投稿
               </Button>
-              <Button isLink={true} href={"/mypage"} color={"black"} size={"small"}>
-                テスト
-              </Button>
+              <Link href="mypage/account" className={styles.account}></Link>
             </div>
           </header>
         ) : (
@@ -56,8 +54,7 @@ const HeaderThanks: React.FC = () => (
 );
 
 const Header: React.FC = () => {
-  const searchParams = useSearchParams();
-  const currentUrl = searchParams.get('/signup/thanks');
+  const currentUrl = usePathname();
 
   console.log(currentUrl);
 

@@ -5,6 +5,7 @@
   h2 {
     color: #fff;
     font-size: 200%;
+    font-weight: 600;
   }
 }
 
@@ -18,19 +19,17 @@
       margin-bottom: 0.3em;
       margin-left: 0.3em;
     }
-    input {
-      border: 1px solid #6D6D6D;
-      padding: 1.4rem;
-      margin-bottom: 1.5rem;
-      max-width: 100%;
-      width: 100%;
-    }
-    textarea {
-      border: 1px solid #6D6D6D;
-      padding: 1.4rem;
-      margin-bottom: 1.5rem;
-      max-width: 100%;
-      width: 100%;
+    p {
+      font-size: 80%;
+      line-height: 1.7;
+      padding-left: 1em;
+      text-indent: -1em;
+      a {
+        border-bottom: 1px solid #4a76af;
+        color: #4a76af;
+        font-weight: 500;
+        padding-bottom: 0.1em;
+      }
     }
   }
   .btnArea {

@@ -1,9 +1,8 @@
-import { PrismaClient } from '@prisma/client'
-import { NextRequest, NextResponse } from 'next/server'
-import { supabase } from '@/utils/supabase'
-import { Tag } from '@/app/mypage/_types/Tag'
+import { PrismaClient } from '@prisma/client';
+import { NextRequest, NextResponse } from 'next/server';
+import { supabase } from '@/utils/supabase';
 
-const prisma = new PrismaClient()
+const prisma = new PrismaClient();
 
 // GET
 export const GET = async (request: NextRequest) => {
@@ -30,26 +29,27 @@ export const GET = async (request: NextRequest) => {
 
 
 // POST
-// export const POST = async (request: NextRequest, context: any) => {
-//   try {
-//     const body = await request.json()
+export const POST = async (request: NextRequest) => {
+  try {
+    const body = await request.json()
 
-//     const { name } = body
+    const { name, profileId } = body
 
-//     const data = await prisma.tag.create({
-//       data: {
-//         name,
-//       },
-//     })
+    const data = await prisma.tag.create({
+      data: {
+        name,
+        profileId,
+      },
+    })
 
-//     return NextResponse.json({
-//       status: 'OK',
-//       message: '作成しました',
-//       id: data.id,
-//     })
-//   } catch (error) {
-//     if (error instanceof Error) {
-//       return NextResponse.json({ status: error.message }, { status: 400 })
-//     }
-//   }
-// }
+    return NextResponse.json({
+      status: 'OK',
+      message: '作成しました',
+      id: data.id,
+    })
+  } catch (error) {
+    if (error instanceof Error) {
+      return NextResponse.json({ status: error.message }, { status: 400 })
+    }
+  }
+}

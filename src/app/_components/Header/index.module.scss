@@ -2,13 +2,13 @@
   background-color: #46A997;
   color: #fff;
   display: flex;
+  align-items: center;
   justify-content: space-between;
   font-weight: bold;
   padding: 2rem;
   .headerLogo {
     width: 15%;
     img {
-      margin-left: 0;
       width: min(100%, 132px);
     }
   }
@@ -29,6 +29,8 @@
   font-weight: bold;
   padding: 2rem;
   .headerLogo {
+    display: flex;
+    align-items: center;
     width: 15%;
     img {
       margin-left: 0;
@@ -36,9 +38,19 @@
     }
   }
   .btnArea {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     a {
       &:first-child {
-        margin-right: 2rem;
+        margin-right: 2.5rem;
+      }
+      &.account {
+        background-color: #46A997;
+        border-radius: 50%;
+        display: block;
+        height: 45px;
+        width: 45px;
       }
     }
   }

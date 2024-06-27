@@ -1,8 +1,7 @@
 'use client';
 
-import React from "react";
+import React from 'react';
 import styles from '@/app/_components/Input/index.module.scss';
-import { Button } from "@slack/web-api";
 
 interface InputProps {
   type: 'text' | 'password' | 'email';
@@ -12,9 +11,10 @@ interface InputProps {
   value?: string;
   required?: boolean;
   placeholder?: string;
+  defaultValue?: string;
 };
 
-const Input: React.FC<InputProps> = ({ type = 'text', name, id,onChange, value, placeholder}) => {
+const Input: React.FC<InputProps> = ({ type = 'text', name, id, onChange, value, placeholder, defaultValue }) => {
   
   return <input
           type={type}
@@ -23,8 +23,9 @@ const Input: React.FC<InputProps> = ({ type = 'text', name, id,onChange, value, 
           className={styles.Input}
           value={value}
           placeholder={placeholder}
-          required
+          required={!!defaultValue}
           onChange={(e) => onChange?.(e.target.value)}
+          defaultValue={defaultValue}
           />
 };
 

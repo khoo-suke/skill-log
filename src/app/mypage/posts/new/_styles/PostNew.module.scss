@@ -13,23 +13,12 @@
   }
   form {
     label {
+      display: block;
       padding-left: 0.5em;
       margin-bottom: 0.5rem;
     }
     .errorMessage {
       color: rgb(204, 10, 10);
-    }
-    label {
-      display: block;
-    }
-    .title {
-      input {
-        border: 1px solid #6D6D6D;
-        padding: 1.4rem;
-        margin-bottom: 1.5rem;
-        max-width: 100%;
-        width: 100%;
-      }
     }
     .flexBox {
       display: flex;
@@ -52,22 +41,19 @@
           .month,
           .day {
             input {
-              border: 1px solid #6D6D6D;
-              padding: 1.4rem;
-              margin-bottom: 1.5rem;
               width: 50%;
             }
           }
           .time {
             input {
-              border: 1px solid #6D6D6D;
-              padding: 1.4rem;
-              margin-bottom: 1.5rem;
               width: 30%;
             }
           }
         }
       }
+    }
+    .btnArea {
+      text-align: center;
     }
   }
 }

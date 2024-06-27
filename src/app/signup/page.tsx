@@ -60,12 +60,12 @@ export default function Page() {
             <label htmlFor="password">
               パスワード
             </label>
-            <input
-              type="password"
-              name="password"
-              id="password"
-              placeholder="••••••••"
-              onChange={(e) => setPassword(e.target.value)}
+            <Input
+              type={'password'}
+              name={'password'}
+              id={'password'}
+              placeholder={'••••••••'}
+              onChange={setPassword}
               value={password}
             />
           </div>

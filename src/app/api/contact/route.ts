@@ -1,7 +1,7 @@
-import { NextRequest, NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
-import { Slack } from "@/app/_utils/Slack";
-import { SendMail } from "@/app/_hooks/SendMail";
+import { NextRequest, NextResponse } from 'next/server';
+import { PrismaClient } from '@prisma/client';
+import { Slack } from '@/app/_utils/Slack';
+import { SendMail } from '@/app/_hooks/SendMail';
 
 const prisma = new PrismaClient();
 
