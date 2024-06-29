@@ -6,12 +6,12 @@ const prisma = new PrismaClient();
 
 // GET
 export const GET = async (request: NextRequest) => {
-  const token = request.headers.get('Authorization') ?? ''
+  const token = request.headers.get('Authorization') ?? '';
 
-  const { error } = await supabase.auth.getUser(token)
+  const { error } = await supabase.auth.getUser(token);
 
   if (error)
-    return NextResponse.json({ status: error.message }, { status: 400})
+    return NextResponse.json({ status: error.message }, { status: 400 });
 
   try {
     const tags = await prisma.tag.findMany({
@@ -30,6 +30,13 @@ export const GET = async (request: NextRequest) => {
 
 // POST
 export const POST = async (request: NextRequest) => {
+  const token = request.headers.get('Authorization') ?? '';
+
+  const { error } = await supabase.auth.getUser(token);
+
+  if (error)
+    return NextResponse.json({ status: 'トークン無効' }, { status: 400 });
+  
   try {
     const body = await request.json()
 

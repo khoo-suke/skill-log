@@ -80,6 +80,7 @@ export default function Page() {
 
     const fetcher = async () => {
       const res = await fetch(`/api/categories`, {
+        method: 'GET',
         headers: {
           'Content-Type': 'application/json',
           Authorization: token,
@@ -117,6 +118,7 @@ export default function Page() {
       
       const fetcher = async () => {
         const res = await fetch(`/api/tags`, {
+          method: 'GET',
           headers: {
             'Content-Type': 'application/json',
             Authorization: token,

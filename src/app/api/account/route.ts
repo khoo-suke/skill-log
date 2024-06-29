@@ -7,6 +7,7 @@ const prisma = new PrismaClient();
 // GET
 export const GET = async (request: NextRequest) => {
   const token = request.headers.get('Authorization') ?? '';
+  
   // supabaseに対してtoken
   const { data, error } = await supabase.auth.getUser(token);
 
@@ -17,7 +18,7 @@ export const GET = async (request: NextRequest) => {
   const userId = data.user.id;
 
   try {
-    const profile = await prisma.profile.findMany({
+    const profile = await prisma.profile.findUnique({
       where: {
           supabaseUserId: userId,
       },

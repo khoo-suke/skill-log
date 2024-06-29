@@ -7,11 +7,14 @@ const prisma = new PrismaClient();
 // POST
 export const POST = async (request: NextRequest) => {
   const token = request.headers.get('Authorization') ?? '';
+  
   // supabaseに対してtoken
   const { data, error } = await supabase.auth.getUser(token);
 
-  if (error)
-    return NextResponse.json({ status: error.message }, { status: 400 });
+  if (error ) {
+    console.log('トークンの取得に失敗:', error);
+    return NextResponse.json({ status: 'トークン無効' }, { status: 400 });
+  }
   
   // SupabaseのユーザーIDを取得
   const userId = data.user.id;
@@ -35,7 +38,7 @@ export const POST = async (request: NextRequest) => {
     console.log('Received request body:', body);
 
     if (!title || !content) {
-      throw new Error('必須項目');
+      throw new Error('必須項目が未入力');
     };
 
     const data = await prisma.post.create({
@@ -97,22 +100,26 @@ export const POST = async (request: NextRequest) => {
     });
 
   } catch (error) {
-    if (error instanceof Error)
-      return NextResponse.json({ status: error.message }, { status: 400 })
+    if (error instanceof Error) {
+      console.error('リクエスト処理エラー:', error.message);
+      return NextResponse.json({ status: error.message }, { status: 400 });
+    };
   };
 };
+
 
 //GET
 export const GET = async (request: NextRequest) => {
   const token = request.headers.get('Authorization') ?? '';
+  
   // supabaseに対してtoken
   const { data, error } = await supabase.auth.getUser(token);
 
   if (error)
-    return NextResponse.json({ status: error.message }, { status: 400 });
+    return NextResponse.json({ status: 'トークン無効' }, { status: 400 });
 
-    // SupabaseのユーザーIDを取得
-    const userId = data.user.id;
+  // SupabaseのユーザーIDを取得
+  const userId = data.user.id;
 
     // Profileテーブルからユーザー情報を取得
     const profile = await prisma.profile.findUnique({
