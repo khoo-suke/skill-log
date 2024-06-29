@@ -1,6 +1,9 @@
-import Header from "@/app/_components/Header/index";
-import Footer from "@/app/_components/Footer/index";
+import Header from '@/app/_components/Header';
+import Footer from '@/app/_components/Footer';
+import { Noto_Sans_JP } from 'next/font/google';
 import './globals.scss';
+
+const notoSansJP = Noto_Sans_JP({ subsets:["latin"], weight: ["400","500","600","700","800"]})
 
 export default function RootLayout({
   children,
@@ -10,8 +13,8 @@ export default function RootLayout({
   return (
     <>
     <html lang="ja">
-      <body>
-        <Header pattern="default"/>
+      <body className={notoSansJP.className}>
+        <Header />
           {children}
         <Footer />
       </body>

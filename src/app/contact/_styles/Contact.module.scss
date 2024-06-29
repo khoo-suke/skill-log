@@ -4,6 +4,7 @@
   justify-content: space-between;
   padding: 8rem 0 0;
   .cap {
+    width: 45%;
     span {
       color: #E56452;
       font-weight: bold;
@@ -14,10 +15,12 @@
       font-size: 200%;
       font-weight: bold;
       text-align: start;
+      margin-bottom: 2rem;
     }
-    img {
-      width: min(50%, 470px);
-    }
+  }
+  img {
+    margin-right: 0;
+    width: min(50%, 470px);
   }
 }
 

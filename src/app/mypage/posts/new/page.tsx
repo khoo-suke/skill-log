@@ -6,19 +6,18 @@ import {
   useEffect,
   useState,
 } from 'react';
-import { useParams } from 'next/navigation'
-import { Post } from '@/app/mypage/_types/Post';
-import { Category } from "@/app/mypage/_types/Category";
-import { Tag } from '@/app/mypage/_types/Tag';
-import { studyTime } from '@/app/mypage/_types/StudyTime';
-import { Profile } from '@/app/mypage/_types/Profile';
-import { useSupabaseSession } from "@/app/_hooks/useSupabaseSession";
-import { supabase } from "@/utils/supabase";
-import { useRouter } from "next/navigation"
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { useSupabaseSession } from '@/app/_hooks/useSupabaseSession';
+import { Post } from '@/app/mypage/_types/Post';
+import { Category } from '@/app/mypage/_types/Category';
+import { Tag } from '@/app/mypage/_types/Tag';
 import '@/app/globals.scss';
 import styles from '@/app/mypage/posts/new/_styles/PostNew.module.scss';
 import Wrapper from '@/app/_components/Wrapper';
+import Input from '@/app/_components/Input';
+import Button from '@/app/_components/Button';
+import Textarea from '@/app/_components/Textarea';
 
 export default function Page() {
   const [title, setTitle] = useState<string>('');
@@ -44,9 +43,9 @@ export default function Page() {
           Authorization: token,
         },
       })
-      const { posts } = await res.json()
-      setPosts([...posts])
-    }
+      const { posts } = await res.json();
+      setPosts([...posts]);
+    };
 
     fetcher()
   }, [token]);
@@ -67,20 +66,21 @@ export default function Page() {
         imageUrl,
         createdAt,
         categories: selectCategories,
+        postTags: selectTags,
       }),
-  }
-  )
+    });
 
-    router.replace('/mypage')
-    alert('記事作成')
-  }
+    router.replace('/mypage');
+    alert('記事作成');
+  };
 
   // GET カテゴリー用
   useEffect(() => {
-    if (!token) return
-    
+    if (!token) return;
+
     const fetcher = async () => {
       const res = await fetch(`/api/categories`, {
+        method: 'GET',
         headers: {
           'Content-Type': 'application/json',
           Authorization: token,
@@ -88,7 +88,7 @@ export default function Page() {
       });
       const data = await res.json();
       setAllCategories(data.categories);
-    }
+    };
 
     fetcher();
   }, [token]);
@@ -109,8 +109,8 @@ export default function Page() {
         (category) => category.id === Number(value)
       );
       setSelectCategories([...selectCategories, selectCategory!]);
-      }
-  }
+    };
+  };
 
     // GET タグ用
     useEffect(() => {
@@ -118,6 +118,7 @@ export default function Page() {
       
       const fetcher = async () => {
         const res = await fetch(`/api/tags`, {
+          method: 'GET',
           headers: {
             'Content-Type': 'application/json',
             Authorization: token,
@@ -161,21 +162,25 @@ export default function Page() {
               <label>
                 タイトル
               </label>
-              <input
-                id="title"
-                type="text"
-                onChange={(e) => setTitle(e.target.value)}
-              />
+              <Input
+              type={'text'}
+              name={'title'}
+              id={'title'}
+              onChange={setTitle}
+              value={title}
+            />
             </div>
             <div className={styles.flexBox}>
               <div className={styles.studyTime}>
                 <label>
                   勉強・作業時間(h)
                 </label>
-                <input
-                  id="studyTimeId"
-                  type="text"
-                  onChange={(e) => setStudyTimeId(e.target.value)}
+                <Input
+                  type={'text'}
+                  name={'studyTimeId'}
+                  id={'studyTimeId'}
+                  onChange={setStudyTimeId}
+                  value={studyTimeId}
                 />
                 <span>時間</span>
               </div>
@@ -185,36 +190,46 @@ export default function Page() {
                 </label>
                 <div className={styles.inner}>
                   <div className={styles.year}>
-                    <input
-                      type="text"
+                  <Input
+                      type={'text'}
+                      name={'year'}
+                      id={'year'}
                     />
                     <span>年</span>
                   </div>
                   <div className={styles.month}>
-                    <input
-                      type="text"
+                    <Input
+                      type={'text'}
+                      name={'month'}
+                      id={'month'}
                     />
                     <span>月</span>
                   </div>
                   <div className={styles.day}>
-                    <input
-                      type="text"
+                    <Input
+                      type={'text'}
+                      name={'day'}
+                      id={'day'}
                     />
                     <span>日</span>
                   </div>
                   <div className={styles.time}>
-                    <input
-                      type="text"
+                    <Input
+                        type={'text'}
+                        name={'hour'}
+                        id={'hour'}
                     />
                     <span>:</span>
-                    <input
-                      type="text"
+                    <Input
+                        type={'text'}
+                        name={'minutes'}
+                        id={'minutes'}
                     />
                   </div>
                 </div>
               </div>
             </div>
-            <div className="mb-10">
+            <div>
               <label>
                 カテゴリー
               </label>
@@ -230,7 +245,7 @@ export default function Page() {
                 ))}
               </select>
             </div>
-            <div className="mb-10">
+            <div>
               <label>
                 タグ
               </label>
@@ -246,28 +261,25 @@ export default function Page() {
                 ))}
               </select>
             </div>
-            <div className="mb-5">
+            <div>
               <label>
                 内容
               </label>
-              <textarea
-                id="content"
-                cols={30}
-                rows={6}
-                onChange={(e) => setContent(e.target.value)}
-              />
+              <Textarea
+              id={'content'}
+              cols={30}
+              rows={6}
+              onChange={setContent}
+            />
             </div>
-            <div>
-              <button
-                type="submit"
-                className="delete"
-              >
+            <div className={styles.btnArea}>
+              <Button type='submit' color='pink' size='large'>
                 投稿
-              </button>
+              </Button>
             </div>
           </form>
         </Wrapper>
       </div>
     </>
   );
-}
+};

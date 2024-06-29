@@ -1,6 +1,6 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest, NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from '@prisma/client';
 import { supabase } from '@/utils/supabase';
 
 const prisma = new PrismaClient();
@@ -10,12 +10,15 @@ export const POST = async (request: NextRequest) => {
   try {
     const { email, password } = await request.json();
 
+    // 環境変数からベースURLを取得
+    const baseUrl = process.env.BASE_URL;
+
     // Supabaseで新規ユーザー作成
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
       options: {
-        emailRedirectTo: `http://localhost:3000/login`,
+        emailRedirectTo: `${baseUrl}/login`,
       },
     });
 

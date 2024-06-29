@@ -1,7 +1,6 @@
 'use client';
 
 import styles from '@/app/_components/BtnArea/index.module.scss';
-import Link from 'next/link';
 import React from 'react';
 import Button from '../Button';
 

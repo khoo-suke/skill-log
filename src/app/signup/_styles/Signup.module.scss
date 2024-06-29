@@ -23,15 +23,6 @@
       padding-left: 0.5em;
         margin-bottom: 0.5rem;
       }
-      input {
-        border-color: #6D6D6D;
-        border-radius: 5px;
-        border-width: 1px;
-        padding: 1.4rem;
-        margin-bottom: 1.5rem;
-        max-width: 100%;
-        width: 100%;
-      }
       .errorMessage {
         color: rgb(204, 10, 10);
       }
@@ -55,6 +46,7 @@
       a {
         border-bottom: 1px solid #4a76af;
         color: #4a76af;
+        font-weight: 500;
         padding-bottom: 0.1em;
       }
     }

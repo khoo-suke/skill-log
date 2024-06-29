@@ -1,20 +1,23 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { FormEventHandler, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useSupabaseSession } from '@/app/_hooks/useSupabaseSession';
 import styles from './_styles/Account.module.scss';
 import Image from 'next/image';
 import Wrapper from '@/app/_components/Wrapper';
 import Link from 'next/link';
 import Button from '@/app/_components/Button';
-import { useSupabaseSession } from '@/app/_hooks/useSupabaseSession';
+import Input from '@/app/_components/Input';
+import Textarea from '@/app/_components/Textarea';
 
 export default function Account() {
   const [name, setName] = useState('');
-  const [mail, setMail] = useState('');
+  const [email, setEmail] = useState('');
   const [goal, setGoal] = useState('');
+  const [profileImageUrl, setProfileImageUrl] = useState('');
   const { token } = useSupabaseSession();
+  const router = useRouter();
 
 
   //GET profile情報
@@ -23,20 +26,62 @@ export default function Account() {
     
     const fetcher = async () => {
       const response = await fetch(`/api/account`, {
+        method: 'GET',
         headers: {
           'Content-Type': 'application/json',
           Authorization: token,
         },
       });
+
+      if (!response.ok) {
+        throw new Error('プロフィールが見つからない');
+      };
       
-      const profile = await response.json();
+      const data = await response.json();
+      const profile = data.profile[0];
       setName(profile.name);
-      setMail(profile.email);
+      setEmail(profile.email);
       setGoal(profile.goal);
-    }
+      setProfileImageUrl(profile.profileImageUrl);
+      console.log(profile);
+    };
 
     fetcher();
   }, [token]);
+
+  // PUT
+  const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
+    e.preventDefault();
+    if (!token) return;
+
+    const requestData = {
+      name,
+      goal,
+    };
+
+    console.log('送信するデータ:', requestData);
+
+    try {
+      await fetch(`/api/account`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: token,
+        },
+
+        body: JSON.stringify({
+          name,
+          goal,
+        }),
+      });
+
+      alert('更新完了');
+      router.replace('/mypage/account');
+    } catch (error) {
+      console.error('プロフィール情報の更新中にエラー', error);
+    };
+  };
+
 
   return (
     <>
@@ -48,52 +93,54 @@ export default function Account() {
         </Wrapper>
     </div>
       <Wrapper size={700}>
-        <div className={styles.Account}>
+        <form onSubmit={handleSubmit} className={styles.Account}>
           <div className={styles.Label}>
             <label>ユーザー名</label>
-            <input
-              id="name"
-              type="text"
-              defaultValue={name}
-              onChange={(e) => setName(e.target.value)}
+            <Input
+              name={'name'}
+              id={'name'}
+              type={'text'}
+              value={name}
+              onChange={setName}
               />
           </div>
           <div className={styles.Label}>
             <label>メールアドレス（ユーザーID）</label>
-            <input
-              id="mail"
-              type="text"
-              defaultValue={mail}
-              onChange={(e) => setMail(e.target.value)}
-            />
+            <Input
+              name={'email'}
+              id={'email'}
+              type={'email'}
+              value={email}
+              />
             <p>
-              ※メールアドレスの変更はこのページから変更できません。<br />
-              メールアドレスを変更する場合は、<Link href="">こちら</Link>から実施してください。
+              ※メールアドレス（ユーザーID）の変更はこのページから変更できません。変更したい場合は、<Link href="">こちら</Link>から実施してください。
             </p>
           </div>
           <div className={styles.Label}>
             <label>パスワード</label>
-            <input
-              type="password"
-              name="password"
-              id="password"
-              value="••••••••"
-              />
+            <Input
+              name={'password'}
+              id={'password'}
+              type={'password'}
+              value={'••••••••'}
+            />
+            <p>※パスワードはこの画面からは変更できません。変更したい場合は<Link href="">こちら</Link>のページから再設定してください。</p>
           </div>
           <div className={styles.Label}>
             <label>目標</label>
-            <textarea
-              id="goal"
+            <Textarea
+              id={'goal'}
               cols={30}
               rows={4}
-              onChange={(e) => setGoal(e.target.value)}
+              value={goal}
+              onChange={setGoal}
             />
           </div>
           <div className={styles.btnArea}>
             <Button type='submit' color='black' size='middle'>変更</Button>
           </div>
-        </div>
+        </form>
     </Wrapper>
     </>
   );
-}
+};

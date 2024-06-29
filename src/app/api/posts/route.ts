@@ -1,20 +1,45 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
 import { supabase } from '@/utils/supabase';
-import { Post } from '@/app/mypage/_types/Post';
 
 const prisma = new PrismaClient();
 
 // POST
 export const POST = async (request: NextRequest) => {
+  const token = request.headers.get('Authorization') ?? '';
+  
+  // supabaseに対してtoken
+  const { data, error } = await supabase.auth.getUser(token);
+
+  if (error ) {
+    console.log('トークンの取得に失敗:', error);
+    return NextResponse.json({ status: 'トークン無効' }, { status: 400 });
+  }
+  
+  // SupabaseのユーザーIDを取得
+  const userId = data.user.id;
+
+  // Profileテーブルからユーザー情報を取得
+  const profile = await prisma.profile.findUnique({
+    where: { supabaseUserId: userId },
+  });
+
+  if (!profile) {
+    return NextResponse.json({ status: 'プロフィールIDなし' }, { status: 404 });
+  }
+
+  const profileId = profile.id;
+
   try {
     const body = await request.json();
 
-    const { title, content, studyTimeId, profileId, imageUrl, postCategories, postTags } = body;
+    const { title, content, studyTimeId, postCategories, postTags, categories, tags } = body;
 
-    if (!title || !content || !studyTimeId || !profileId || !imageUrl || !postCategories || !postTags) {
-      throw new Error('error');
-    }
+    console.log('Received request body:', body);
+
+    if (!title || !content) {
+      throw new Error('必須項目が未入力');
+    };
 
     const data = await prisma.post.create({
       data: {
@@ -22,7 +47,6 @@ export const POST = async (request: NextRequest) => {
         content,
         studyTimeId,
         profileId,
-        imageUrl,
         createdAt: new Date(),
         postCategories: {
           create: postCategories.map((category: string) => ({
@@ -45,30 +69,74 @@ export const POST = async (request: NextRequest) => {
           })),
         },
       },
-    })
+      include: {
+        postCategories: true,
+        postTags: true
+      },
+    });
+
+    for (const category of categories) {
+      await prisma.postCategory.create({
+        data: {
+          categoryId: category.id,
+          postId: data.id,
+        },
+      });
+    };
+
+    for (const tag of tags) {
+      await prisma.postTag.create({
+        data: {
+          tagId: tag.id,
+          postId: data.id,
+        },
+      });
+    };
 
     return NextResponse.json({
       status: 'OK',
       message: '作成しました',
       id: data.id,
-    })
+    });
+
   } catch (error) {
-    if (error instanceof Error)
-      return NextResponse.json({ status: error.message }, { status: 400 })
-  }
-}
+    if (error instanceof Error) {
+      console.error('リクエスト処理エラー:', error.message);
+      return NextResponse.json({ status: error.message }, { status: 400 });
+    };
+  };
+};
+
 
 //GET
 export const GET = async (request: NextRequest) => {
   const token = request.headers.get('Authorization') ?? '';
+  
   // supabaseに対してtoken
-  const { error } = await supabase.auth.getUser(token);
+  const { data, error } = await supabase.auth.getUser(token);
 
   if (error)
-    return NextResponse.json({ status: error.message }, { status: 400 });
+    return NextResponse.json({ status: 'トークン無効' }, { status: 400 });
+
+  // SupabaseのユーザーIDを取得
+  const userId = data.user.id;
+
+    // Profileテーブルからユーザー情報を取得
+    const profile = await prisma.profile.findUnique({
+      where: { supabaseUserId: userId },
+    });
+  
+    if (!profile) {
+      return NextResponse.json({ status: 'プロフィールIDなし' }, { status: 404 });
+  };
+  
+  const profileId = profile.id;
   
   try {
     const posts = await prisma.post.findMany({
+      where: {
+        profileId: profileId,
+      },
       include: {
         postCategories: {
           include: {
@@ -94,11 +162,11 @@ export const GET = async (request: NextRequest) => {
       orderBy: {
         createdAt: 'desc',
       },
-    })
+    });
 
     return NextResponse.json({ status: 'OK', posts: posts }, { status: 200 })
   } catch (error) {
     if (error instanceof Error)
       return NextResponse.json({ status: error.message }, { status: 400 })
-  }
-}
+  };
+};

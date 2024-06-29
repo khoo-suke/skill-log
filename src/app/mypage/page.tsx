@@ -1,13 +1,13 @@
 'use client';
 
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 import styles from '@/app/mypage/_styles/Mypage.module.scss';
 import { Post } from '@/app/mypage/_types/Post';
 import Link from 'next/link';
-import { useSupabaseSession } from "@/app/_hooks/useSupabaseSession";
+import { useSupabaseSession } from '@/app/_hooks/useSupabaseSession';
 import 'react-calendar/dist/Calendar.css';
 import Calendar from 'react-calendar';
-import Wrapper from "../_components/Wrapper";
+import Wrapper from '../_components/Wrapper';
 
 const Mypage = () => {
   const [posts, setPosts] = useState<Post[]>([]);

@@ -2,14 +2,10 @@
 
 import styles from '@/app/_components/Header/index.module.scss';
 import Link from 'next/link';
-import React from 'react';
 import Image from 'next/image';
 import { useSupabaseSession } from '@/app/_hooks/useSupabaseSession';
 import Button from '@/app/_components/Button';
-
-type HeaderProps = {
-  pattern: 'default' | 'thanks';
-};
+import { usePathname } from 'next/navigation';
 
 const HeaderDefault: React.FC = () => {
   const { session, isLoading } = useSupabaseSession();
@@ -26,9 +22,7 @@ const HeaderDefault: React.FC = () => {
               <Button isLink={true} href={"/mypage/posts/new"} color={"pink"} size={"small"}>
                 新規投稿
               </Button>
-              <Button isLink={true} href={"/mypage"} color={"black"} size={"small"}>
-                テスト
-              </Button>
+              <Link href="mypage/account" className={styles.account}></Link>
             </div>
           </header>
         ) : (
@@ -59,13 +53,16 @@ const HeaderThanks: React.FC = () => (
   </header>
 );
 
-const Header: React.FC<HeaderProps> = ({ pattern }) => {
-  return (
-    <>
-      {pattern === 'default' && <HeaderDefault />}
-      {pattern === 'thanks' && <HeaderThanks />}
-    </>
-  );
+const Header: React.FC = () => {
+  const currentUrl = usePathname();
+
+  console.log(currentUrl);
+
+  if (currentUrl === '/signup/thanks') {
+    return <HeaderThanks />;
+  }
+
+  return <HeaderDefault />;
 };
 
 export default Header;

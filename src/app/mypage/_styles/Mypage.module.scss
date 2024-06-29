@@ -24,7 +24,9 @@
     background-color: #46A997;
     h2 {
       color: #fff;
-      padding-top: clamp(4rem, 6vw, 8rem);
+      font-size: 180%;
+      font-weight: 900;
+      padding-top: clamp(4rem, 4vw, 6rem);
       padding-bottom: clamp(6rem, 8vw, 10rem);
     }
   }
