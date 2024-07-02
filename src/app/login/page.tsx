@@ -8,6 +8,7 @@ import Link from 'next/link';
 import Button from '../_components/Button';
 import Wrapper from '../_components/Wrapper';
 import Input from '../_components/Input';
+import Label from '../_components/Label';
 
 export default function Page () {
   const [email, setEmail] = useState('')
@@ -40,29 +41,25 @@ export default function Page () {
       </Wrapper>
       <Wrapper size={700}>
         <form onSubmit={handleSubmit} className={styles.form}>
-          <div className={styles.loginInner}>
-            <label htmlFor="email">
-              ID(メールアドレス)
-            </label>
-            <Input
-              type={'email'}
-              name={'email'}
-              id={'email'}
-              placeholder={'name@company.com'}
-              required
-              onChange={setEmail}
+            <div className={styles.loginInner}>
+              <Label value={'ID(メールアドレス)'} htmlfor={'emal'} />
+              <Input
+                type={'email'}
+                name={'email'}
+                id={'email'}
+                placeholder={'name@company.com'}
+                required
+                onChange={setEmail}
               />
-            <label htmlFor="password">
-              パスワード
-            </label>
-            <Input
-            type={'password'}
-            name={'password'}
-            id={'password'}
-            placeholder={'••••••••'}
-            required
-            onChange={setPassword}
-            />
+              <Label value={'パスワード'} htmlfor={'password'} />
+              <Input
+              type={'password'}
+              name={'password'}
+              id={'password'}
+              placeholder={'••••••••'}
+              required
+              onChange={setPassword}
+              />
           </div>
           <div className={styles.btnArea}>
             <Button isLink={false} type="submit" color={"pink"} size={"large"}>

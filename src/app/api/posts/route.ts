@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
 import { supabase } from '@/utils/supabase';
+import { Post } from '@/app/mypage/_types/Post';
 
 const prisma = new PrismaClient();
 
@@ -11,7 +12,7 @@ export const POST = async (request: NextRequest) => {
   // supabaseに対してtoken
   const { data, error } = await supabase.auth.getUser(token);
 
-  if (error ) {
+  if (error) {
     console.log('トークンの取得に失敗:', error);
     return NextResponse.json({ status: 'トークン無効' }, { status: 400 });
   }
@@ -33,9 +34,9 @@ export const POST = async (request: NextRequest) => {
   try {
     const body = await request.json();
 
-    const { title, content, studyTimeId, postCategories, postTags, categories, tags } = body;
+    const { title, content, studyTimeId, postCategories, postTags, } = body;
 
-    console.log('Received request body:', body);
+    console.log('登録する値:', body);
 
     if (!title || !content) {
       throw new Error('必須項目が未入力');
@@ -45,29 +46,9 @@ export const POST = async (request: NextRequest) => {
       data: {
         title,
         content,
-        studyTimeId,
+        // studyTimeId: Number(studyTimeId),
         profileId,
         createdAt: new Date(),
-        postCategories: {
-          create: postCategories.map((category: string) => ({
-            category: {
-              connectOrCreate: {
-                where: { name: category },
-                create: { name: category },
-              },
-            },
-          })),
-        },
-        postTags: {
-          create: postTags.map((tag: string) => ({
-            tag: {
-              connectOrCreate: {
-                where: { name: tag },
-                create: { name: tag },
-              },
-            },
-          })),
-        },
       },
       include: {
         postCategories: true,
@@ -75,23 +56,29 @@ export const POST = async (request: NextRequest) => {
       },
     });
 
-    for (const category of categories) {
-      await prisma.postCategory.create({
-        data: {
-          categoryId: category.id,
-          postId: data.id,
-        },
-      });
-    };
+    // カテゴリー 紐づけ
+    if (postCategories && Array.isArray(postCategories)) {
+      for (const category of postCategories) {
+        await prisma.postCategory.create({
+          data: {
+            categoryId: category.id,
+            postId: data.id,
+          },
+        })
+      }
+    }
 
-    for (const tag of tags) {
-      await prisma.postTag.create({
-        data: {
-          tagId: tag.id,
-          postId: data.id,
-        },
-      });
-    };
+    // タグ 紐づけ
+    if (postTags && Array.isArray(postTags)) {
+      for (const tag of postTags) {
+        await prisma.postTag.create({
+          data: {
+            tagId: tag.id,
+            postId: data.id,
+          },
+        })
+      }
+    }
 
     return NextResponse.json({
       status: 'OK',

@@ -4,7 +4,7 @@ import React from 'react';
 import styles from '@/app/_components/Input/index.module.scss';
 
 interface InputProps {
-  type: 'text' | 'password' | 'email';
+  type: 'text' | 'password' | 'email' | 'button';
   name: string;
   id: string;
   onChange?: (value: string) => void;

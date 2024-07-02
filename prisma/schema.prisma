@@ -58,9 +58,11 @@ model Post {
 model PostCategory {
   id             Int      @id @default(autoincrement())
   postId         Int
-  categoryId     Int
   post           Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  categoryId     Int
   category       Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@unique([postId, categoryId])
 }
 
 model Category {
@@ -75,9 +77,11 @@ model Category {
 model PostTag {
   id       Int      @id @default(autoincrement())
   postId   Int
-  tagId    Int
   post     Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  tagId    Int
   tag      Tag      @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@unique([postId, tagId])
 }
 
 model Tag {

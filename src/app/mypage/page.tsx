@@ -15,15 +15,16 @@ const Mypage = () => {
 
   useEffect(() => {
     if (!token) return;
+    
     const fetcher = async () => {
-      const res = await fetch('/api/posts', {
+      const response = await fetch('/api/posts', {
         headers: {
           'Content-Type': 'application/json',
           Authorization: token,
         },
       });
 
-      const { posts } = await res.json();
+      const { posts } = await response.json();
       setPosts([...posts]);
     }
 
@@ -72,10 +73,9 @@ const Mypage = () => {
               <ul>
                 <li>
                   <Link href={`/mypage/posts/${post.id}`}>
-                    <div>
+                    <div className={styles.top}>
                       <h2>{post.title}</h2>
                       <div>
-                        <span>{new Date(post.createdAt).toLocaleDateString()}</span>
                         <div className={styles.home_categories}>
                           {post.postCategories.map(category => (
                             <p key={category.category.id}>{category.category.name}</p>
@@ -87,6 +87,9 @@ const Mypage = () => {
                           ))}
                         </div>
                       </div>
+                    </div>
+                    <div>
+                      <span>{new Date(post.createdAt).toLocaleDateString()}</span>
                     </div>
                     <p>{post.content}</p>
                   </Link>

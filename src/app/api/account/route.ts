@@ -11,12 +11,15 @@ export const GET = async (request: NextRequest) => {
   // supabaseに対してtoken
   const { data, error } = await supabase.auth.getUser(token);
 
-  if (error)
+  if (error) {
+    console.log('トークンの取得に失敗:', error);
     return NextResponse.json({ status: 'トークン無効' }, { status: 400 });
+  }
 
   // SupabaseのユーザーIDを取得
   const userId = data.user.id;
 
+  // Profileテーブルからユーザー情報を取得
   try {
     const profile = await prisma.profile.findUnique({
       where: {
