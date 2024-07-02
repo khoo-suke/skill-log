@@ -1,0 +1,17 @@
+.postId {
+  background-color: #EEF6F6;
+  padding-top: clamp(4rem, 6vw, 8rem);
+  padding-bottom: clamp(6rem, 8vw, 10rem);
+  .inner {
+    background-color: #fff;
+    padding: clamp(2rem, 4vw, 5rem);
+    .topArea {
+        display: flex;
+        justify-content: space-between;
+      h2 {
+        font-size: 150%;
+        margin-bottom: 1rem;
+      }
+    }
+  }
+}

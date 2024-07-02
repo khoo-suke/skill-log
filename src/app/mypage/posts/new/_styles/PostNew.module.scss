@@ -12,11 +12,6 @@
     }
   }
   form {
-    label {
-      display: block;
-      padding-left: 0.5em;
-      margin-bottom: 0.5rem;
-    }
     .errorMessage {
       color: rgb(204, 10, 10);
     }
@@ -49,6 +44,18 @@
               width: 30%;
             }
           }
+        }
+      }
+    }
+    .editorArea {
+      padding-top: clamp(4rem, 6vw, 8rem);
+      padding-bottom: clamp(6rem, 8vw, 10rem);
+      .inner {
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        .text {
+          padding: 1em;
         }
       }
     }

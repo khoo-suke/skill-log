@@ -18,13 +18,15 @@ import Wrapper from '@/app/_components/Wrapper';
 import Input from '@/app/_components/Input';
 import Button from '@/app/_components/Button';
 import Textarea from '@/app/_components/Textarea';
+import Label from '@/app/_components/Label';
+import TextEditor from '@/app/mypage/posts/new/_components/TextEditor';
 
 export default function Page() {
-  const [title, setTitle] = useState<string>('');
-  const [content, setContent] = useState<string>('');
-  const [imageUrl, setImageUrl] = useState<string>('');
-  const [createdAt, setCreatedAt] = useState<string>('');
-  const [studyTimeId, setStudyTimeId] = useState('');
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
+  const [imageUrl, setImageUrl] = useState('');
+  const [createdAt, setCreatedAt] = useState('');
+  const [studyTimeId, setStudyTimeId] = useState<number | ''>();
   const [profileId, setProfileId] = useState('');
   const { token } = useSupabaseSession();
   const router = useRouter();
@@ -34,6 +36,7 @@ export default function Page() {
   const [allTags, setAllTags] = useState<Tag[]>([]);
   const [selectTags, setSelectTags] = useState<Tag[]>([]);
 
+  // トークン
   useEffect(() => {
     if (!token) return;
     const fetcher = async () => {
@@ -48,24 +51,28 @@ export default function Page() {
     };
 
     fetcher()
+
   }, [token]);
 
   // POST
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
+    if (!token) return;
+    
     await fetch('/api/posts', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: token,
       },
       body: JSON.stringify({
         title,
         content,
-        studyTimeId,
+        studyTimeId: Number(studyTimeId),
         profileId,
         imageUrl,
         createdAt,
-        categories: selectCategories,
+        postCategories: selectCategories,
         postTags: selectTags,
       }),
     });
@@ -148,8 +155,15 @@ export default function Page() {
         );
         setSelectTags([...selectTags, selectTag!]);
         }
-      }
+  }
 
+  // 現在の時間を取得
+  useEffect(() => {
+    const now = new Date();
+    const defaultDate = now.toISOString();
+    setCreatedAt(defaultDate);
+  })
+  
   return (
     <>
       <div className={styles.newPost}>
@@ -159,9 +173,7 @@ export default function Page() {
           </div>
           <form onSubmit={handleSubmit}>
             <div className={styles.title}>
-              <label>
-                タイトル
-              </label>
+              <Label value={'タイトル'} />
               <Input
               type={'text'}
               name={'title'}
@@ -172,28 +184,25 @@ export default function Page() {
             </div>
             <div className={styles.flexBox}>
               <div className={styles.studyTime}>
-                <label>
-                  勉強・作業時間(h)
-                </label>
-                <Input
+                <Label value={'勉強・作業時間(h)'} />
+                <input
                   type={'text'}
                   name={'studyTimeId'}
                   id={'studyTimeId'}
-                  onChange={setStudyTimeId}
+                  onChange={(e) => setStudyTimeId(Number(e.target.value))}
                   value={studyTimeId}
                 />
                 <span>時間</span>
               </div>
               <div className={styles.date}>
-                <label>
-                  投稿日
-                </label>
+                <Label value={'投稿日'} />
                 <div className={styles.inner}>
                   <div className={styles.year}>
                   <Input
                       type={'text'}
                       name={'year'}
                       id={'year'}
+                      defaultValue={String(new Date(createdAt).getFullYear())}
                     />
                     <span>年</span>
                   </div>
@@ -202,6 +211,7 @@ export default function Page() {
                       type={'text'}
                       name={'month'}
                       id={'month'}
+                      defaultValue={String(new Date(createdAt).getMonth() + 1)}
                     />
                     <span>月</span>
                   </div>
@@ -210,29 +220,30 @@ export default function Page() {
                       type={'text'}
                       name={'day'}
                       id={'day'}
+                      defaultValue={String(new Date(createdAt).getDate())}
                     />
                     <span>日</span>
                   </div>
                   <div className={styles.time}>
                     <Input
-                        type={'text'}
-                        name={'hour'}
-                        id={'hour'}
+                      type={'text'}
+                      name={'hour'}
+                      id={'hour'}
+                      defaultValue={String(new Date(createdAt).getHours())}
                     />
                     <span>:</span>
                     <Input
                         type={'text'}
                         name={'minutes'}
-                        id={'minutes'}
+                      id={'minutes'}
+                      defaultValue={String(new Date(createdAt).getMinutes())}
                     />
                   </div>
                 </div>
               </div>
             </div>
             <div>
-              <label>
-                カテゴリー
-              </label>
+              <Label value={'カテゴリー'} />
               <select
                   multiple
                   value={selectCategories.map((category) => String(category.id))}
@@ -246,9 +257,7 @@ export default function Page() {
               </select>
             </div>
             <div>
-              <label>
-                タグ
-              </label>
+              <Label value={'タグ'} />
               <select
                   multiple
                   value={selectTags.map((tag) => String(tag.id))}
@@ -262,15 +271,14 @@ export default function Page() {
               </select>
             </div>
             <div>
-              <label>
-                内容
-              </label>
+              <Label value={'内容'} />
               <Textarea
               id={'content'}
               cols={30}
               rows={6}
               onChange={setContent}
-            />
+              />
+              {/* <TextEditor /> */}
             </div>
             <div className={styles.btnArea}>
               <Button type='submit' color='pink' size='large'>

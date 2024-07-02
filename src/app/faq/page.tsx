@@ -4,6 +4,7 @@ import styles from './_styles/faq.module.scss';
 import Wrapper from '../_components/Wrapper';
 import Image from 'next/image';
 import Link from 'next/link';
+import FaqArea from './_components/FaqArea';
 
 export default function Page() {
 
@@ -19,53 +20,29 @@ export default function Page() {
         <Image src="/images/faq_img01.png" alt="よくある質問" width={257} height={269} />
       </div>
     </Wrapper>
-    <Wrapper size={700}>
-      <div className={styles.Faq}>
-        <div className={styles.FaqArea}>
-          <div className={styles.FaqQuestion}>
-            <p className={styles.QuestionText}>
-              <span>Q</span>テキストテキストテキストテキストテキスト
-            </p>
-              <div className={styles.AccordionBtn}></div>
-          </div>
-          <div className={styles.FaqAnswer}>
-            <span>A</span>テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト
-          </div>
+      <Wrapper size={700}>
+        <div className={styles.Faq}>
+          <FaqArea
+            toggle='+'
+            question='質問1'
+            answer='答え1'
+          />
+          <FaqArea
+            toggle='−'
+            question='質問2'
+            answer='答え2'
+          />
+          <FaqArea
+            toggle='−'
+            question='質問3'
+            answer='答え3'
+          />
+          <FaqArea
+            toggle='−'
+            question='質問3'
+            answer='答え3'
+          />
         </div>
-        <div className={styles.FaqArea}>
-          <div className={styles.FaqQuestion}>
-            <p className={styles.QuestionText}>
-              <span>Q</span>テキストテキストテキストテキストテキスト
-            </p>
-              <div className={styles.AccordionBtn}></div>
-          </div>
-          <div className={styles.FaqAnswer}>
-            <span>A</span>テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト
-          </div>
-        </div>
-        <div className={styles.FaqArea}>
-          <div className={styles.FaqQuestion}>
-            <p className={styles.QuestionText}>
-              <span>Q</span>テキストテキストテキストテキストテキスト
-            </p>
-              <div className={styles.AccordionBtn}></div>
-          </div>
-          <div className={styles.FaqAnswer}>
-            <span>A</span>テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト
-          </div>
-        </div>
-        <div className={styles.FaqArea}>
-          <div className={styles.FaqQuestion}>
-            <p className={styles.QuestionText}>
-              <span>Q</span>テキストテキストテキストテキストテキスト
-            </p>
-              <div className={styles.AccordionBtn}></div>
-          </div>
-          <div className={styles.FaqAnswer}>
-            <span>A</span>テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト
-          </div>
-        </div>
-      </div>
     </Wrapper>
     </>
   );

@@ -25,25 +25,31 @@ export default function Account() {
     if (!token) return;
     
     const fetcher = async () => {
-      const response = await fetch(`/api/account`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: token,
-        },
-      });
+      try {
+        const response = await fetch(`/api/account`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: token,
+          },
+        });
 
-      if (!response.ok) {
-        throw new Error('プロフィールが見つからない');
-      };
+        if (!response.ok) {
+          throw new Error('プロフィールが見つからない');
+        };
       
-      const data = await response.json();
-      const profile = data.profile[0];
-      setName(profile.name);
-      setEmail(profile.email);
-      setGoal(profile.goal);
-      setProfileImageUrl(profile.profileImageUrl);
-      console.log(profile);
+        const user = await response.json();
+
+        const profile = user.profile;
+        setName(profile.name || '');
+        setEmail(profile.email || '');
+        setGoal(profile.goal || '');
+        setProfileImageUrl(profile.profileImageUrl || '');
+        console.log(profile);
+
+      } catch (error) {
+        console.error('プロフィール情報の取得中にエラー', error);
+      };
     };
 
     fetcher();

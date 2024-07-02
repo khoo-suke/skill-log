@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import nodemailer from 'nodemailer';
+// import nodemailer from 'nodemailer';
 import { PrismaClient } from '@prisma/client';
 import { supabase } from '@/utils/supabase';
 
@@ -39,27 +39,27 @@ export const POST = async (request: NextRequest) => {
       },
     });
 
-    //ユーザー登録完了メール送信
-    const transporter = nodemailer.createTransport({
-      host: "smtp.gmail.com",
-      port: 587,
-      auth: {
-        user: process.env.GMAIL_USER,
-        pass: process.env.GMAIL_PASSWORD,
-      },
-    });
+    // //ユーザー登録完了メール送信
+    // const transporter = nodemailer.createTransport({
+    //   host: "smtp.gmail.com",
+    //   port: 587,
+    //   auth: {
+    //     user: process.env.GMAIL_USER,
+    //     pass: process.env.GMAIL_PASSWORD,
+    //   },
+    // });
 
-    //ユーザー側
-    const toUserMailData = {
-      from: process.env.GMAIL_USER,
-      to: `${email}`,
-      subject: `【Skill-Log】ユーザー登録完了`,
-      html: `
-        <p>ユーザー登録完了しました。</p>
-        `,
-    };
+    // //ユーザー側
+    // const toUserMailData = {
+    //   from: process.env.GMAIL_USER,
+    //   to: `${email}`,
+    //   subject: `【Skill-Log】ユーザー登録完了`,
+    //   html: `
+    //     <p>ユーザー登録完了しました。</p>
+    //     `,
+    // };
 
-    await transporter.sendMail(toUserMailData);
+    // await transporter.sendMail(toUserMailData);
 
     //成功
     return NextResponse.json({
