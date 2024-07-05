@@ -42,8 +42,8 @@ export default function Contact() {
       <form onSubmit={handleSubmit(onSubmit)} noValidate className={styles.form}>
           <div className={styles.contactBox}>
             <Label
-              value={'お名前'}
-              htmlfor={'name'}
+              value='お名前'
+              htmlfor='name'
             />
           <div>
             <input id="name" type="text"
@@ -59,8 +59,8 @@ export default function Contact() {
         </div>
           <div className={styles.contactBox}>
           <Label
-              value={'メールアドレス'}
-              htmlfor={'email'}
+              value='メールアドレス'
+              htmlfor='email'
             />
           <div>
             <input id="email" type="email"
@@ -76,8 +76,8 @@ export default function Contact() {
         </div>
           <div className={styles.contactTextArea}>
             <Label
-              value={'お問い合わせ内容'}
-              htmlfor={'content'}
+              value='お問い合わせ内容'
+              htmlfor='content'
             />
           <div>
             <textarea id="content" cols={30} rows={8}

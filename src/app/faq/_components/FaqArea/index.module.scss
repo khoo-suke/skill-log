@@ -35,5 +35,22 @@
       padding: 0.1em 0.3em;
       margin-right: 0.5em;
     }
+    &.active {
+      animation: accordion 0.5s ease;
+    }
+  }
+}
+
+@keyframes accordion {
+  0% {
+    opacity: 0; 
+    transform: translateY(-20px);
+  }
+  20% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    transform: none;
   }
 }

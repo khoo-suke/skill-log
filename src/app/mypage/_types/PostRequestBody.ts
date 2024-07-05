@@ -1,7 +1,7 @@
 import { Category } from './Category';
 import { Tag } from './Tag';
 
-export type Post = {
+export type PostRequestBody = {
   id: number,
   title: string,
   content: string,

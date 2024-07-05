@@ -10,6 +10,7 @@ import Link from 'next/link';
 import Button from '@/app/_components/Button';
 import Input from '@/app/_components/Input';
 import Textarea from '@/app/_components/Textarea';
+import Label from '@/app/_components/Label';
 
 export default function Account() {
   const [name, setName] = useState('');
@@ -101,7 +102,7 @@ export default function Account() {
       <Wrapper size={700}>
         <form onSubmit={handleSubmit} className={styles.Account}>
           <div className={styles.Label}>
-            <label>ユーザー名</label>
+            <Label value='ユーザー名'/>
             <Input
               name={'name'}
               id={'name'}
@@ -111,7 +112,7 @@ export default function Account() {
               />
           </div>
           <div className={styles.Label}>
-            <label>メールアドレス（ユーザーID）</label>
+            <Label value='メールアドレス（ユーザーID）'/>
             <Input
               name={'email'}
               id={'email'}
@@ -123,7 +124,7 @@ export default function Account() {
             </p>
           </div>
           <div className={styles.Label}>
-            <label>パスワード</label>
+          <Label value='パスワード'/>
             <Input
               name={'password'}
               id={'password'}

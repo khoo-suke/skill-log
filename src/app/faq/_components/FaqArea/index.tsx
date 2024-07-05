@@ -4,12 +4,13 @@ import React,{ useState } from 'react';
 import styles from './index.module.scss';
 import { FaqAreaProps } from '../../_types/FaqAreaProps';
 
-export default function FaqArea({ toggle, question, answer }: FaqAreaProps) {
-  const [toggleValue, setToggleValue] = useState(toggle);
+export default function FaqArea({ boolean, question, answer }: FaqAreaProps) {
+  const [isOpen, setIsOpen] = useState(boolean);
 
   const handleClick = () => {
-    setToggleValue(toggleValue === '−' ? '+' : '−');
+    setIsOpen(!isOpen);
   };
+
 
   return (
     <>
@@ -18,13 +19,20 @@ export default function FaqArea({ toggle, question, answer }: FaqAreaProps) {
           <p className={styles.QuestionText}>
             <span>Q</span>{question}
           </p>
-          <input className={styles.AccordionBtn} type="button" value={toggle} onClick={handleClick} />
+          <button
+            className={styles.AccordionBtn}
+            onClick={handleClick}
+          >
+            {isOpen ? '−' : '+'}
+          </button>
         </div>
-        {toggleValue === '+' && (
-        <div className={styles.FaqAnswer}>
+        <div className={`${styles.FaqAnswer} ${isOpen ? styles.active : ''}`}>
+        {isOpen && (
+          <p>
           <span>A</span>{answer}
+          </p>
+          )}
         </div>
-        )}
       </div>
     </>
   );

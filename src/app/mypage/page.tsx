@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import styles from '@/app/mypage/_styles/Mypage.module.scss';
-import { Post } from '@/app/mypage/_types/Post';
+import { PostRequestBody } from '@/app/mypage/_types/PostRequestBody';
 import Link from 'next/link';
 import { useSupabaseSession } from '@/app/_hooks/useSupabaseSession';
 import 'react-calendar/dist/Calendar.css';
@@ -10,7 +10,7 @@ import Calendar from 'react-calendar';
 import Wrapper from '../_components/Wrapper';
 
 const Mypage = () => {
-  const [posts, setPosts] = useState<Post[]>([]);
+  const [posts, setPosts] = useState<PostRequestBody[]>([]);
   const { token } = useSupabaseSession();
 
   useEffect(() => {
@@ -76,16 +76,16 @@ const Mypage = () => {
                     <div className={styles.top}>
                       <h2>{post.title}</h2>
                       <div>
+                        {post.postCategories.map(category => (
                         <div className={styles.home_categories}>
-                          {post.postCategories.map(category => (
-                            <p key={category.category.id}>{category.category.name}</p>
-                          ))}
+                          <p key={category.category.id}>{category.category.name}</p>
                         </div>
+                        ))}
+                        {post.postTags.map(tag => (
                         <div className={styles.home_tags}>
-                          {post.postTags.map(tag => (
-                            <p key={tag.tag.id}>{tag.tag.name}</p>
-                          ))}
+                          <p key={tag.tag.id}>{tag.tag.name}</p>
                         </div>
+                        ))}
                       </div>
                     </div>
                     <div>

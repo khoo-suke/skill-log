@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
 import { supabase } from '@/utils/supabase';
-import { Post } from '@/app/mypage/_types/Post';
 
 const prisma = new PrismaClient();
 
@@ -34,7 +33,7 @@ export const POST = async (request: NextRequest) => {
   try {
     const body = await request.json();
 
-    const { title, content, studyTimeId, postCategories, postTags, } = body;
+    const { title, content, postCategories, postTags, } = body;
 
     console.log('登録する値:', body);
 
@@ -46,7 +45,6 @@ export const POST = async (request: NextRequest) => {
       data: {
         title,
         content,
-        // studyTimeId: Number(studyTimeId),
         profileId,
         createdAt: new Date(),
       },
@@ -64,9 +62,9 @@ export const POST = async (request: NextRequest) => {
             categoryId: category.id,
             postId: data.id,
           },
-        })
-      }
-    }
+        });
+      };
+    };
 
     // タグ 紐づけ
     if (postTags && Array.isArray(postTags)) {
@@ -76,9 +74,9 @@ export const POST = async (request: NextRequest) => {
             tagId: tag.id,
             postId: data.id,
           },
-        })
-      }
-    }
+        });
+      };
+    };
 
     return NextResponse.json({
       status: 'OK',

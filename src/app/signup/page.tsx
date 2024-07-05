@@ -34,7 +34,7 @@ export default function Page() {
     } catch (error) {
       console.error('登録エラー:', error);
       alert('登録失敗');
-    }
+    };
   };
 
   return (
@@ -46,7 +46,7 @@ export default function Page() {
         </div>
         <form onSubmit={handleSubmit}>
           <div className={styles.signupInner}>
-            <Label value={'メールアドレス'} htmlfor={'emal'} />
+            <Label value='メールアドレス' htmlfor='emal' />
             <Input
               type={'email'}
               name={'email'}
@@ -56,7 +56,7 @@ export default function Page() {
               onChange={setEmail}
               value={email}
             />
-            <Label value={'パスワード'} htmlfor={'password'} />
+            <Label value='パスワード' htmlfor='password' />
             <Input
               type={'password'}
               name={'password'}

@@ -12,7 +12,7 @@ import { Tag } from '@/app/mypage/_types/Tag';
 import { useSupabaseSession } from "@/app/_hooks/useSupabaseSession";
 import { supabase } from "@/utils/supabase";
 import { useRouter } from "next/navigation"
-import { Post } from '@/app/mypage/_types/Post';
+import { PostRequestBody } from '@/app/mypage/_types/PostRequestBody';
 import styles from './_styles/PostId.module.scss';
 import Wrapper from '@/app/_components/Wrapper';
 

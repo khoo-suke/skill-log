@@ -35,16 +35,13 @@ model Profile {
 model StudyTime {
   id        Int           @id @default(autoincrement())
   date      DateTime      @default(now())
-  studyTime Int?
-  post     Post?
+  studyTime Int
   profileId     Int
   profile       Profile       @relation(fields: [profileId], references: [id])
 }
 
 model Post {
   id            Int           @id @default(autoincrement())
-  studyTimeId   Int?          @unique
-  study         StudyTime?    @relation(fields: [studyTimeId], references: [id])
   profileId     Int
   profile       Profile       @relation(fields: [profileId], references: [id])
   title         String

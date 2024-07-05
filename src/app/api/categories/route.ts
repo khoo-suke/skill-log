@@ -28,20 +28,47 @@ export const GET = async (request: NextRequest) => {
   };
 };
 
-
 // POST
-export const POST = async (request: NextRequest, context: any) => {
+export const POST = async (request: NextRequest) => {
+  const token = request.headers.get('Authorization') ?? '';
+
+  // supabaseに対してtoken
+  const { data, error } = await supabase.auth.getUser(token);
+
+  if (error) {
+    console.log('トークンの取得に失敗:', error);
+    return NextResponse.json({ status: 'トークン無効' }, { status: 400 });
+  };
+  
+  // SupabaseのユーザーIDを取得
+  const userId = data.user.id;
+
+  // Profileテーブルからユーザー情報を取得
+  const profile = await prisma.profile.findUnique({
+    where: { supabaseUserId: userId },
+  });
+
+  if (!profile) {
+    return NextResponse.json({ status: 'プロフィールIDなし' }, { status: 404 });
+  };
+
+  const profileId = profile.id;
+
   try {
     const body = await request.json();
 
-    const { name, profileId } = body;
+    const { name } = body;
 
     const data = await prisma.category.create({
       data: {
         name,
         profileId,
       },
+      include: {
+        postCategories: true,
+      },
     });
+
 
     return NextResponse.json({
       status: 'OK',

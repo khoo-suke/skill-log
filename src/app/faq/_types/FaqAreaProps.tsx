@@ -1,6 +1,6 @@
 
 export type FaqAreaProps = {
-  toggle: string;
+  boolean: boolean;
   question: string;
   answer: string;
 }

@@ -23,22 +23,22 @@ export default function Page() {
       <Wrapper size={700}>
         <div className={styles.Faq}>
           <FaqArea
-            toggle='+'
+            boolean={true}
             question='質問1'
             answer='答え1'
           />
           <FaqArea
-            toggle='−'
+            boolean={false}
             question='質問2'
             answer='答え2'
           />
           <FaqArea
-            toggle='−'
+            boolean={false}
             question='質問3'
             answer='答え3'
           />
           <FaqArea
-            toggle='−'
+            boolean={false}
             question='質問3'
             answer='答え3'
           />
