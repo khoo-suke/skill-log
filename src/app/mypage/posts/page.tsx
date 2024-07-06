@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
 import { useEffect, useState } from 'react';
 import styles from '@/app/_styles/Mypage.module.scss';
 import Link from 'next/link';
-import { Post } from '@/app/mypage/_types/Post';
-import { useSupabaseSession } from "@/app/_hooks/useSupabaseSession";
+import { PostRequestBody } from '@/app/mypage/_types/PostRequestBody';
+import { useSupabaseSession } from '@/app/_hooks/useSupabaseSession';
 
 export default function ListPost() {
-  const [posts, setPosts] = useState<Post[]>([]);
+  const [posts, setPosts] = useState<PostRequestBody[]>([]);
   const { token } = useSupabaseSession();
 
   useEffect(() => {
@@ -31,4 +31,4 @@ export default function ListPost() {
 
     </>
   );
-}
+};

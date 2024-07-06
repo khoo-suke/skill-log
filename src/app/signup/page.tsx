@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Wrapper from '../_components/Wrapper';
 import Input from '../_components/Input';
+import Label from '../_components/Label';
 
 export default function Page() {
   const router = useRouter();
@@ -33,7 +34,7 @@ export default function Page() {
     } catch (error) {
       console.error('登録エラー:', error);
       alert('登録失敗');
-    }
+    };
   };
 
   return (
@@ -45,9 +46,7 @@ export default function Page() {
         </div>
         <form onSubmit={handleSubmit}>
           <div className={styles.signupInner}>
-            <label htmlFor="email">
-              メールアドレス
-            </label>
+            <Label value='メールアドレス' htmlfor='emal' />
             <Input
               type={'email'}
               name={'email'}
@@ -57,9 +56,7 @@ export default function Page() {
               onChange={setEmail}
               value={email}
             />
-            <label htmlFor="password">
-              パスワード
-            </label>
+            <Label value='パスワード' htmlfor='password' />
             <Input
               type={'password'}
               name={'password'}

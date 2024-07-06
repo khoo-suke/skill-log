@@ -3,13 +3,14 @@
 import {
   ChangeEventHandler,
   FormEventHandler,
+  MouseEventHandler,
   useEffect,
   useState,
 } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useSupabaseSession } from '@/app/_hooks/useSupabaseSession';
-import { Post } from '@/app/mypage/_types/Post';
+import { PostRequestBody } from '@/app/mypage/_types/PostRequestBody';
 import { Category } from '@/app/mypage/_types/Category';
 import { Tag } from '@/app/mypage/_types/Tag';
 import '@/app/globals.scss';
@@ -18,54 +19,69 @@ import Wrapper from '@/app/_components/Wrapper';
 import Input from '@/app/_components/Input';
 import Button from '@/app/_components/Button';
 import Textarea from '@/app/_components/Textarea';
+import Label from '@/app/_components/Label';
+import TextEditor from '@/app/mypage/posts/new/_components/TextEditor';
+import usePost from './_hooks/usePost';
 
 export default function Page() {
-  const [title, setTitle] = useState<string>('');
-  const [content, setContent] = useState<string>('');
-  const [imageUrl, setImageUrl] = useState<string>('');
-  const [createdAt, setCreatedAt] = useState<string>('');
-  const [studyTimeId, setStudyTimeId] = useState('');
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
+  const [imageUrl, setImageUrl] = useState('');
+  const [createdAt, setCreatedAt] = useState('');
+  const [studyTimeId, setStudyTimeId] = useState<number | ''>();
   const [profileId, setProfileId] = useState('');
   const { token } = useSupabaseSession();
   const router = useRouter();
-  const [posts, setPosts] = useState<Post[]>([]);
+  const [posts, setPosts] = useState<PostRequestBody[]>([]);
   const [allCategories, setAllCategories] = useState<Category[]>([]);
   const [selectCategories, setSelectCategories] = useState<Category[]>([]);
   const [allTags, setAllTags] = useState<Tag[]>([]);
   const [selectTags, setSelectTags] = useState<Tag[]>([]);
+  const [year, setYear] = useState(String(new Date(createdAt).getFullYear()));
+  const [month, setMonth] = useState(String(new Date(createdAt).getMonth() + 1));
+  const [day, setDay] = useState(String(new Date(createdAt).getDay()));
+  const [hour, setHour] = useState(String(new Date(createdAt).getHours()))
+  const [minutes, setMinutes] = useState(String(new Date(createdAt).getMinutes()));
+  const [newCategory, setNewCategory] = useState("");
 
+
+  // トークン
   useEffect(() => {
     if (!token) return;
     const fetcher = async () => {
-      const res = await fetch('/api/posts', {
+      const response = await fetch('/api/posts', {
         headers: {
           'Content-Type': 'application/json',
           Authorization: token,
         },
       })
-      const { posts } = await res.json();
+      const { posts } = await response.json();
       setPosts([...posts]);
     };
 
     fetcher()
+
   }, [token]);
 
-  // POST
+  // POST 新規記事作成
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
+    if (!token) return;
+    
     await fetch('/api/posts', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: token,
       },
       body: JSON.stringify({
         title,
         content,
-        studyTimeId,
+        studyTimeId: Number(studyTimeId),
         profileId,
         imageUrl,
         createdAt,
-        categories: selectCategories,
+        postCategories: selectCategories,
         postTags: selectTags,
       }),
     });
@@ -79,34 +95,58 @@ export default function Page() {
     if (!token) return;
 
     const fetcher = async () => {
-      const res = await fetch(`/api/categories`, {
+      const response = await fetch(`/api/categories`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
           Authorization: token,
-        }
+        },
       });
-      const data = await res.json();
+      const data = await response.json();
       setAllCategories(data.categories);
     };
 
     fetcher();
   }, [token]);
 
+  //POST カテゴリー作成用
+  const handleAddCategory: MouseEventHandler<HTMLButtonElement> = async (e) => {
+    e.preventDefault();
+
+    if (!token) return;
+
+    const response = await fetch(`/api/categories`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: token,
+      },
+      body: JSON.stringify({
+        name: newCategory,
+      }),
+    });
+    if (response.ok) {
+      const data = await response.json();
+      setAllCategories([...allCategories, data.category]);
+      setNewCategory('');
+    }
+    alert('カテゴリー作成');
+  };
+
+
   // SELECT カテゴリー
-  const handleChangeCategory: ChangeEventHandler<HTMLSelectElement> = (e) => {
-    const value = e.target.value;
+  const handleChangeCategory = (categoryId: number) => {
+
     const isSelected = !!selectCategories.find(
-      (category) => category.id === Number(value)
-    );
+      (category) => category.id === categoryId);
   
     if (isSelected) {
       setSelectCategories(
-        selectCategories.filter((category) => category.id !== Number(value))
+        selectCategories.filter((category) => category.id !== categoryId)
       );
     } else {
       const selectCategory = allCategories.find(
-        (category) => category.id === Number(value)
+        (category) => category.id === categoryId
       );
       setSelectCategories([...selectCategories, selectCategory!]);
     };
@@ -132,24 +172,36 @@ export default function Page() {
     }, [token]);
   
     // SELECT タグ
-    const handleChangeTag: ChangeEventHandler<HTMLSelectElement> = (e) => {
-      const value = e.target.value;
-      const isSelected = !!selectTags.find(
+  const handleChangeTag: ChangeEventHandler<HTMLSelectElement> = (e) => {
+    const value = e.target.value;
+    const isSelected = !!selectTags.find(
+      (tag) => tag.id === Number(value)
+    );
+    
+    if (isSelected) {
+      setSelectTags(
+        selectTags.filter((tag) => tag.id !== Number(value))
+      );
+    } else {
+      const selectTag = allTags.find(
         (tag) => tag.id === Number(value)
       );
-    
-      if (isSelected) {
-        setSelectTags(
-          selectTags.filter((tag) => tag.id !== Number(value))
-        );
-      } else {
-        const selectTag = allTags.find(
-          (tag) => tag.id === Number(value)
-        );
-        setSelectTags([...selectTags, selectTag!]);
-        }
-      }
+      setSelectTags([...selectTags, selectTag!]);
+    };
+  };
 
+  // 現在の時間を取得
+  useEffect(() => {
+    const now = new Date();
+    const defaultDate = now.toISOString();
+    setCreatedAt(defaultDate);
+    setYear(String(now.getFullYear()));
+    setMonth(String(now.getMonth() + 1));
+    setDay(String(now.getDate()));
+    setHour(String(now.getHours()));
+    setMinutes(String(now.getMinutes()));
+  }, []);
+  
   return (
     <>
       <div className={styles.newPost}>
@@ -159,9 +211,7 @@ export default function Page() {
           </div>
           <form onSubmit={handleSubmit}>
             <div className={styles.title}>
-              <label>
-                タイトル
-              </label>
+              <Label value='タイトル' />
               <Input
               type={'text'}
               name={'title'}
@@ -170,70 +220,56 @@ export default function Page() {
               value={title}
             />
             </div>
-            <div className={styles.flexBox}>
-              <div className={styles.studyTime}>
-                <label>
-                  勉強・作業時間(h)
-                </label>
+            <div className={styles.date}>
+              <Label value='投稿日' />
+              <div className={styles.inner}>
+                <div className={styles.year}>
                 <Input
-                  type={'text'}
-                  name={'studyTimeId'}
-                  id={'studyTimeId'}
-                  onChange={setStudyTimeId}
-                  value={studyTimeId}
-                />
-                <span>時間</span>
-              </div>
-              <div className={styles.date}>
-                <label>
-                  投稿日
-                </label>
-                <div className={styles.inner}>
-                  <div className={styles.year}>
+                    type={'text'}
+                    name={'year'}
+                    id={'year'}
+                    value={year}
+                  />
+                  <span>年</span>
+                </div>
+                <div className={styles.month}>
+                  <Input
+                    type={'text'}
+                    name={'month'}
+                    id={'month'}
+                    value={month}
+                  />
+                  <span>月</span>
+                </div>
+                <div className={styles.day}>
+                  <Input
+                    type={'text'}
+                    name={'day'}
+                    id={'day'}
+                    value={day}
+                  />
+                  <span>日</span>
+                </div>
+                <div className={styles.time}>
+                  <Input
+                    type={'text'}
+                    name={'hour'}
+                    id={'hour'}
+                    value={hour}
+                  />
+                  <span>:</span>
                   <Input
                       type={'text'}
-                      name={'year'}
-                      id={'year'}
-                    />
-                    <span>年</span>
-                  </div>
-                  <div className={styles.month}>
-                    <Input
-                      type={'text'}
-                      name={'month'}
-                      id={'month'}
-                    />
-                    <span>月</span>
-                  </div>
-                  <div className={styles.day}>
-                    <Input
-                      type={'text'}
-                      name={'day'}
-                      id={'day'}
-                    />
-                    <span>日</span>
-                  </div>
-                  <div className={styles.time}>
-                    <Input
-                        type={'text'}
-                        name={'hour'}
-                        id={'hour'}
-                    />
-                    <span>:</span>
-                    <Input
-                        type={'text'}
-                        name={'minutes'}
-                        id={'minutes'}
-                    />
-                  </div>
+                      name={'minutes'}
+                    id={'minutes'}
+                    value={minutes}
+                  />
                 </div>
               </div>
             </div>
             <div>
-              <label>
-                カテゴリー
-              </label>
-              <select
+              <Label value='カテゴリー' />
+              {/* <select
                   multiple
                   value={selectCategories.map((category) => String(category.id))}
                   onChange={handleChangeCategory}
@@ -243,12 +279,31 @@ export default function Page() {
                     {category.name}
                   </option>
                 ))}
-              </select>
+              </select> */}
+              <div className={styles.category}>
+                <ul>
+                  {allCategories && allCategories.map(category => (
+                    <li key={category.id}>
+                      <input
+                        type="checkbox"
+                        onChange={() => handleChangeCategory(category.id)}
+                      />
+                      <label>{category.name}</label>
+                    </li>
+                  ))}
+                </ul>
+                <div>
+                <input
+                  type="text"
+                  value={newCategory}
+                  onChange={(e) => setNewCategory(e.target.value)}
+                />
+                <button type="button" onClick={handleAddCategory}>＋</button>
+              </div>
+              </div>
             </div>
             <div>
-              <label>
-                タグ
-              </label>
+              <Label value='タグ' />
               <select
                   multiple
                   value={selectTags.map((tag) => String(tag.id))}
@@ -262,15 +317,14 @@ export default function Page() {
               </select>
             </div>
             <div>
-              <label>
-                内容
-              </label>
+              <Label value='内容' />
               <Textarea
               id={'content'}
               cols={30}
               rows={6}
               onChange={setContent}
-            />
+              />
+              {/* <TextEditor /> */}
             </div>
             <div className={styles.btnArea}>
               <Button type='submit' color='pink' size='large'>

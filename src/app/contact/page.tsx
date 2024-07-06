@@ -7,6 +7,7 @@ import styles from './_styles/Contact.module.scss';
 import Image from 'next/image';
 import { ContactForm } from '@/app/contact/_types/ContactForm';
 import Wrapper from '../_components/Wrapper';
+import Label from '../_components/Label';
 
 export default function Contact() {
   const [formData, setFormData] = useState<ContactForm>({
@@ -39,8 +40,11 @@ export default function Contact() {
     </Wrapper>
     <Wrapper size={600}>
       <form onSubmit={handleSubmit(onSubmit)} noValidate className={styles.form}>
-        <div className={styles.contactBox}>
-          <label htmlFor="name">お名前</label>
+          <div className={styles.contactBox}>
+            <Label
+              value='お名前'
+              htmlfor='name'
+            />
           <div>
             <input id="name" type="text"
               {...register('name', {
@@ -53,8 +57,11 @@ export default function Contact() {
             {<p className={styles.errorMessage}>{errors.name?.message}</p>}
           </div>
         </div>
-        <div className={styles.contactBox}>
-          <label htmlFor="email">メールアドレス</label>
+          <div className={styles.contactBox}>
+          <Label
+              value='メールアドレス'
+              htmlfor='email'
+            />
           <div>
             <input id="email" type="email"
               {...register('email', {
@@ -67,8 +74,11 @@ export default function Contact() {
             {<p className={styles.errorMessage}>{errors.email?.message}</p>}
           </div>
         </div>
-        <div className={styles.contactTextArea}>
-          <label htmlFor="content">お問い合わせ内容</label>
+          <div className={styles.contactTextArea}>
+            <Label
+              value='お問い合わせ内容'
+              htmlfor='content'
+            />
           <div>
             <textarea id="content" cols={30} rows={8}
               {...register('content', {

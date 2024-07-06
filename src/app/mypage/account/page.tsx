@@ -10,6 +10,7 @@ import Link from 'next/link';
 import Button from '@/app/_components/Button';
 import Input from '@/app/_components/Input';
 import Textarea from '@/app/_components/Textarea';
+import Label from '@/app/_components/Label';
 
 export default function Account() {
   const [name, setName] = useState('');
@@ -25,25 +26,31 @@ export default function Account() {
     if (!token) return;
     
     const fetcher = async () => {
-      const response = await fetch(`/api/account`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: token,
-        },
-      });
+      try {
+        const response = await fetch(`/api/account`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: token,
+          },
+        });
 
-      if (!response.ok) {
-        throw new Error('プロフィールが見つからない');
-      };
+        if (!response.ok) {
+          throw new Error('プロフィールが見つからない');
+        };
       
-      const data = await response.json();
-      const profile = data.profile[0];
-      setName(profile.name);
-      setEmail(profile.email);
-      setGoal(profile.goal);
-      setProfileImageUrl(profile.profileImageUrl);
-      console.log(profile);
+        const user = await response.json();
+
+        const profile = user.profile;
+        setName(profile.name || '');
+        setEmail(profile.email || '');
+        setGoal(profile.goal || '');
+        setProfileImageUrl(profile.profileImageUrl || '');
+        console.log(profile);
+
+      } catch (error) {
+        console.error('プロフィール情報の取得中にエラー', error);
+      };
     };
 
     fetcher();
@@ -95,7 +102,7 @@ export default function Account() {
       <Wrapper size={700}>
         <form onSubmit={handleSubmit} className={styles.Account}>
           <div className={styles.Label}>
-            <label>ユーザー名</label>
+            <Label value='ユーザー名'/>
             <Input
               name={'name'}
               id={'name'}
@@ -105,7 +112,7 @@ export default function Account() {
               />
           </div>
           <div className={styles.Label}>
-            <label>メールアドレス（ユーザーID）</label>
+            <Label value='メールアドレス（ユーザーID）'/>
             <Input
               name={'email'}
               id={'email'}
@@ -117,7 +124,7 @@ export default function Account() {
             </p>
           </div>
           <div className={styles.Label}>
-            <label>パスワード</label>
+          <Label value='パスワード'/>
             <Input
               name={'password'}
               id={'password'}

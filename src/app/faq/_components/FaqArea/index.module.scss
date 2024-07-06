@@ -1,0 +1,56 @@
+.FaqArea {
+  border-bottom: 1px solid #1E1E1E;
+  padding: 0 0.5em 1em;
+  margin-bottom: 4rem;
+  &:last-child {
+    margin-bottom: 0;
+  }
+  .FaqQuestion {
+    padding-bottom: 0.3em;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .QuestionText {
+      font-size: 110%;
+      span {
+        background-color: #46A997;
+        color: #FFF;
+        font-size: clamp(1.8rem, 2vw, 2rem);
+        padding: 0.1em 0.3em;
+        margin-right: 0.5em;
+      }
+    }
+    .AccordionBtn {
+      color: #1E1E1E;
+    }
+  }
+  .FaqAnswer {
+    font-size: 95%;
+    padding-left: 2.5em;
+    text-indent: -2.5em;
+    span {
+      background-color: #E56452;
+      color: #FFF;
+      font-size: clamp(1.8rem, 2vw, 2rem);
+      padding: 0.1em 0.3em;
+      margin-right: 0.5em;
+    }
+    &.active {
+      animation: accordion 0.5s ease;
+    }
+  }
+}
+
+@keyframes accordion {
+  0% {
+    opacity: 0; 
+    transform: translateY(-20px);
+  }
+  20% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}

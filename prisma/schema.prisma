@@ -35,16 +35,13 @@ model Profile {
 model StudyTime {
   id        Int           @id @default(autoincrement())
   date      DateTime      @default(now())
-  studyTime Int?
-  post     Post?
+  studyTime Int
   profileId     Int
   profile       Profile       @relation(fields: [profileId], references: [id])
 }
 
 model Post {
   id            Int           @id @default(autoincrement())
-  studyTimeId   Int?          @unique
-  study         StudyTime?    @relation(fields: [studyTimeId], references: [id])
   profileId     Int
   profile       Profile       @relation(fields: [profileId], references: [id])
   title         String
@@ -58,9 +55,11 @@ model Post {
 model PostCategory {
   id             Int      @id @default(autoincrement())
   postId         Int
-  categoryId     Int
   post           Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  categoryId     Int
   category       Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@unique([postId, categoryId])
 }
 
 model Category {
@@ -75,9 +74,11 @@ model Category {
 model PostTag {
   id       Int      @id @default(autoincrement())
   postId   Int
-  tagId    Int
   post     Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  tagId    Int
   tag      Tag      @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@unique([postId, tagId])
 }
 
 model Tag {

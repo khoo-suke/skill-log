@@ -12,7 +12,9 @@ import { Tag } from '@/app/mypage/_types/Tag';
 import { useSupabaseSession } from "@/app/_hooks/useSupabaseSession";
 import { supabase } from "@/utils/supabase";
 import { useRouter } from "next/navigation"
-import { Post } from '@/app/mypage/_types/Post';
+import { PostRequestBody } from '@/app/mypage/_types/PostRequestBody';
+import styles from './_styles/PostId.module.scss';
+import Wrapper from '@/app/_components/Wrapper';
 
 export default function Page() {
   const [title, setTitle] = useState('');
@@ -49,18 +51,20 @@ export default function Page() {
 
   return (
     <>
-      <div className="card">
-        <div className="wrapper--800">
-          <div>
-            <h2>記事詳細</h2>
+      <div className={styles.postId}>
+        <Wrapper size={800}>
+          <div className={styles.inner}>
+            <div className={styles.topArea}>
+              <h2>{title}</h2>
+            </div>
+            <div>
+              <h2>{title}</h2>
+            </div>
+            <div>
+              <p>{content}</p>
+            </div>
           </div>
-          <div>
-            <p>{title}</p>
-          </div>
-          <div>
-            <p>{content}</p>
-          </div>
-        </div>
+        </Wrapper>
       </div>
     </>
   );

@@ -12,43 +12,53 @@
     }
   }
   form {
-    label {
-      display: block;
-      padding-left: 0.5em;
-      margin-bottom: 0.5rem;
-    }
     .errorMessage {
       color: rgb(204, 10, 10);
     }
-    .flexBox {
-      display: flex;
-      justify-content: space-between;
-      .studyTime {
-        width: 30%;
-        input {
-          border: 1px solid #6D6D6D;
-          padding: 1.4rem;
-          margin-bottom: 1.5rem;
-          width: 50%;
+    .date {
+      .inner {
+        display: flex;
+        justify-content: start;
+        .year,
+        .month,
+        .day {
+          input {
+            width: 42%;
+          }
+        }
+        .time {
+          input {
+            width: 17%;
+          }
         }
       }
-      .date {
-        width: 65%;
-        .inner {
-          display: flex;
-          justify-content: space-between;
-          .year,
-          .month,
-          .day {
-            input {
-              width: 50%;
-            }
-          }
-          .time {
-            input {
-              width: 30%;
-            }
-          }
+    }
+    .category {
+      display: flex;
+      justify-content: start;
+      ul {
+        display: flex;
+        justify-content: start;
+        li {
+          margin-right: 1rem;
+        }
+      }
+      a {
+        background-color: #707070;
+        border-radius: 3px;
+        color: #fff;
+        padding: 0 0.6em;
+      }
+    }
+    .editorArea {
+      padding-top: clamp(4rem, 6vw, 8rem);
+      padding-bottom: clamp(6rem, 8vw, 10rem);
+      .inner {
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        .text {
+          padding: 1em;
         }
       }
     }
