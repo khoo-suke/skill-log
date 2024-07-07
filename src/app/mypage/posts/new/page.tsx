@@ -1,7 +1,6 @@
 'use client';
 
 import {
-  ChangeEventHandler,
   FormEventHandler,
   MouseEventHandler,
   useEffect,
@@ -18,17 +17,19 @@ import styles from '@/app/mypage/posts/new/_styles/PostNew.module.scss';
 import Wrapper from '@/app/_components/Wrapper';
 import Input from '@/app/_components/Input';
 import Button from '@/app/_components/Button';
-import Textarea from '@/app/_components/Textarea';
 import Label from '@/app/_components/Label';
 import TextEditor from '@/app/mypage/posts/new/_components/TextEditor';
-import usePost from './_hooks/usePost';
+import CustomModal from '@/app/_components/Modal';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
+import { faSquarePlus } from '@fortawesome/free-solid-svg-icons';
+import { faAnglesRight } from '@fortawesome/free-solid-svg-icons';
 
 export default function Page() {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [imageUrl, setImageUrl] = useState('');
   const [createdAt, setCreatedAt] = useState('');
-  const [studyTimeId, setStudyTimeId] = useState<number | ''>();
   const [profileId, setProfileId] = useState('');
   const { token } = useSupabaseSession();
   const router = useRouter();
@@ -42,8 +43,11 @@ export default function Page() {
   const [day, setDay] = useState(String(new Date(createdAt).getDay()));
   const [hour, setHour] = useState(String(new Date(createdAt).getHours()))
   const [minutes, setMinutes] = useState(String(new Date(createdAt).getMinutes()));
-  const [newCategory, setNewCategory] = useState("");
-
+  const [newCategory, setNewCategory] = useState('');
+  const [newTag, setNewTag] = useState('');
+  const [isCategoryModalOpen, setCategoryModalOpen] = useState(false);
+  const [isTagModalOpen, setTagModalOpen] = useState(false);
+  
 
   // トークン
   useEffect(() => {
@@ -77,7 +81,6 @@ export default function Page() {
       body: JSON.stringify({
         title,
         content,
-        studyTimeId: Number(studyTimeId),
         profileId,
         imageUrl,
         createdAt,
@@ -115,6 +118,12 @@ export default function Page() {
 
     if (!token) return;
 
+    // カテゴリーがnullの場合
+    if (!newTag) {
+      alert('カテゴリー名を入力してください');
+      return;
+    }
+
     const response = await fetch(`/api/categories`, {
       method: 'POST',
       headers: {
@@ -125,14 +134,13 @@ export default function Page() {
         name: newCategory,
       }),
     });
+
     if (response.ok) {
       const data = await response.json();
-      setAllCategories([...allCategories, data.category]);
+      setAllCategories((categories) => [...categories, data.category]);
       setNewCategory('');
     }
-    alert('カテゴリー作成');
   };
-
 
   // SELECT カテゴリー
   const handleChangeCategory = (categoryId: number) => {
@@ -152,39 +160,76 @@ export default function Page() {
     };
   };
 
-    // GET タグ用
-    useEffect(() => {
-      if (!token) return
-      
-      const fetcher = async () => {
-        const res = await fetch(`/api/tags`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: token,
-          }
-        });
-        const data = await res.json();
-        setAllTags(data.tags);
+  // GET タグ用
+  useEffect(() => {
+    if (!token) return
+    
+    const fetcher = async () => {
+      const response = await fetch(`/api/tags`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: token,
+        }
+      });
+      const data = await response.json();
+      console.log(data.tags); // タグデータをログに出力して確認
+
+    // データの構造を確認
+    if (Array.isArray(data.tags)) {
+      setAllTags(data.tags);
+    } else {
+      console.error('Unexpected data structure:', data);
+    }
+  };
+
+    fetcher();
+  }, [token]);
+  
+    // POST タグ作成用
+    const handleAddTag: FormEventHandler<HTMLButtonElement> = async (e) => {
+      e.preventDefault();
+  
+      if (!token) return;
+
+      // タグがnullの場合
+      if (!newTag) {
+        alert('タグ名を入力してください');
+        return;
       }
   
-      fetcher();
-    }, [token]);
+      const response = await fetch(`/api/tags`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: token,
+        },
+        body: JSON.stringify({
+          name: newTag,
+        }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log('新規作成タグ名:', data.tag);
+        setAllTags((tags) => [...tags, data.tag]);
+        setNewTag('');
+      };
+    };
   
     // SELECT タグ
-  const handleChangeTag: ChangeEventHandler<HTMLSelectElement> = (e) => {
-    const value = e.target.value;
+    const handleChangeTag = (tagId: number) => {
+
     const isSelected = !!selectTags.find(
-      (tag) => tag.id === Number(value)
-    );
-    
+      (tag) => tag.id === tagId);
+  
     if (isSelected) {
       setSelectTags(
-        selectTags.filter((tag) => tag.id !== Number(value))
+        selectTags.filter((tag) => tag.id !== tagId)
       );
     } else {
       const selectTag = allTags.find(
-        (tag) => tag.id === Number(value)
+        (tag) => tag.id === tagId
       );
       setSelectTags([...selectTags, selectTag!]);
     };
@@ -201,13 +246,34 @@ export default function Page() {
     setHour(String(now.getHours()));
     setMinutes(String(now.getMinutes()));
   }, []);
+
+  // モーダル カテゴリー
+  const openCategoryModal = () => {
+    setCategoryModalOpen(true);
+  };
+
+  const closeCategoryModal = () => {
+    setCategoryModalOpen(false);
+  };
+
+  // モーダル タグ
+  const openTagModal = () => {
+    setTagModalOpen(true);
+  };
+
+  const closeTagModal = () => {
+    setTagModalOpen(false);
+  };
+  
   
   return (
     <>
       <div className={styles.newPost}>
         <Wrapper size={800}>
           <div className={styles.topLink}>
-            <Link href="/mypage">トップページに戻る</Link>
+            <Link href="/mypage">
+              <FontAwesomeIcon icon={faAnglesRight} />トップページに戻る
+            </Link>
           </div>
           <form onSubmit={handleSubmit}>
             <div className={styles.title}>
@@ -267,67 +333,120 @@ export default function Page() {
                 </div>
               </div>
             </div>
-            <div>
+            <div className={styles.selectArea}>
               <Label value='カテゴリー' />
-              {/* <select
-                  multiple
-                  value={selectCategories.map((category) => String(category.id))}
-                  onChange={handleChangeCategory}
-                >
-                {allCategories && allCategories.map(category => (
-                  <option key={category.id} value={category.id}>
-                    {category.name}
-                  </option>
-                ))}
-              </select> */}
               <div className={styles.category}>
                 <ul>
                   {allCategories && allCategories.map(category => (
                     <li key={category.id}>
-                      <input
-                        type="checkbox"
-                        onChange={() => handleChangeCategory(category.id)}
-                      />
-                      <label>{category.name}</label>
+                      <button
+                        type="button"
+                        onClick={() => handleChangeCategory(category.id)}
+                        className={selectCategories.find((e) => e.id === category.id) ? styles.selected : ''}
+                      >{category.name}</button>
                     </li>
                   ))}
                 </ul>
                 <div>
-                <input
-                  type="text"
-                  value={newCategory}
-                  onChange={(e) => setNewCategory(e.target.value)}
-                />
-                <button type="button" onClick={handleAddCategory}>＋</button>
-              </div>
+                  <button
+                    type="button"
+                    onClick={openCategoryModal}>
+                    <FontAwesomeIcon icon={faSquarePlus} />
+                  </button>
+                </div>
+                <CustomModal
+                  isOpen={isCategoryModalOpen}
+                  onRequestClose={closeCategoryModal}
+                  className='modal'
+                >
+                  <div className={styles.modalTop}>
+                    <button
+                      className={styles.close}
+                      onClick={closeCategoryModal}
+                    >
+                    <FontAwesomeIcon icon={faCircleXmark} />
+                    </button>
+                  </div>
+                  <Label value='新規カテゴリー名'/>
+                  <input
+                    type="text"
+                    value={newCategory}
+                    onChange={(e) => setNewCategory(e.target.value)}
+                  />
+                  <Button
+                    type='button'
+                    color='black'
+                    size='small'
+                    onClick={handleAddCategory}
+                  >
+                    追加
+                  </Button>
+                </CustomModal>
               </div>
             </div>
-            <div>
+            <div className={styles.selectArea}>
               <Label value='タグ' />
-              <select
-                  multiple
-                  value={selectTags.map((tag) => String(tag.id))}
-                  onChange={handleChangeTag}
+              <div className={styles.tag}>
+                <ul>
+                  {allTags && allTags
+                    .map(tag => (
+                    <li key={tag.id}>
+                      <button
+                        type="button"
+                        onClick={() => handleChangeTag(tag.id)}
+                        className={selectTags.find((e) => e.id === tag.id) ? styles.selected : ''}
+                      >{tag.name}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+                <div>
+                  <button
+                    type="button"
+                    onClick={openTagModal}
+                  >
+                    <FontAwesomeIcon icon={faSquarePlus} />
+                  </button>
+                </div>
+                <CustomModal
+                  isOpen={isTagModalOpen}
+                  onRequestClose={closeTagModal}
                 >
-                {allTags && allTags.map(tag => (
-                  <option key={tag.id} value={tag.id}>
-                    {tag.name}
-                  </option>
-                ))}
-              </select>
+                  <div className={styles.modalTop}>
+                    <button
+                      className={styles.close}
+                      onClick={closeTagModal}
+                    >
+                    <FontAwesomeIcon icon={faCircleXmark} />
+                    </button>
+                  </div>
+                  <Label value='新規タグ名'/>
+                  <input
+                    type="text"
+                    value={newTag}
+                    onChange={(e) => setNewTag(e.target.value)}
+                  />
+                  <Button
+                    type='button'
+                    color='black'
+                    size='small'
+                    onClick={handleAddTag}
+                  >
+                    追加
+                  </Button>
+                </CustomModal>
+              </div>
             </div>
             <div>
               <Label value='内容' />
-              <Textarea
-              id={'content'}
-              cols={30}
-              rows={6}
-              onChange={setContent}
-              />
-              {/* <TextEditor /> */}
+              <TextEditor />
             </div>
             <div className={styles.btnArea}>
-              <Button type='submit' color='pink' size='large'>
+              <Button
+                type='submit'
+                color='pink'
+                size='middle'
+              >
                 投稿
               </Button>
             </div>

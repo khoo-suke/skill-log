@@ -1,0 +1,27 @@
+.modalOverlay {
+  background-color: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modalContent {
+  background: white;
+  padding: 3rem;
+  border-radius: 10px;
+  width: min(90%, 500px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  div {
+    text-align: end;
+  }
+  input {
+    border: 1px solid #ccc;
+    padding: 0.2em;
+    margin-right: 1em;
+  }
+}

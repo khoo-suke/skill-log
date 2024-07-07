@@ -1,12 +1,13 @@
 'use client';
 
 import React, { useState, useCallback } from 'react';
-import { createEditor, Descendant, BaseEditor, Editor, Element } from 'slate';
+import { createEditor, BaseEditor, Editor, Element } from 'slate';
+import { ReactEditor } from 'slate-react';
+import { HistoryEditor, withHistory } from 'slate-history';
 import { Slate, Editable, withReact, RenderLeafProps } from 'slate-react';
 import Leaf from '../Leaf';
 import Toolbar from '../Toolbar';
-import Wrapper from '@/app/_components/Wrapper';
-import styles from '@/app/mypage/posts/new/_styles/PostNew.module.scss';
+import styles from '@/app/mypage/posts/new/_components/TextEditor/index.module.scss';
 import { CustomText } from '../../_types/CustomText';
 
 // カスタムエレメント型の定義
@@ -25,12 +26,12 @@ const initialValue: CustomElement[] = [
 // カスタムエディター関数
 const CustomEditor = {
   // 太字
-  isBoldMarkActive(editor: BaseEditor) {
+  isBoldMarkActive(editor: BaseEditor & ReactEditor & HistoryEditor) {
     const marks = Editor.marks(editor);
     return marks ? marks.bold === true : false;
   },
 
-  toggleBoldMark(editor: BaseEditor) {
+  toggleBoldMark(editor: BaseEditor & ReactEditor & HistoryEditor) {
     const isActive = CustomEditor.isBoldMarkActive(editor);
     if (isActive) {
       Editor.removeMark(editor, 'bold');
@@ -40,12 +41,12 @@ const CustomEditor = {
   },
 
   //  イタリック
-  isItalicMarkActive(editor: BaseEditor) {
+  isItalicMarkActive(editor: BaseEditor & ReactEditor & HistoryEditor) {
     const marks = Editor.marks(editor);
     return marks ? marks.italic === true : false;
   },
 
-  toggleItalicMark(editor: BaseEditor) {
+  toggleItalicMark(editor: BaseEditor & ReactEditor & HistoryEditor) {
     const isActive = CustomEditor.isItalicMarkActive(editor);
     if (isActive) {
       Editor.removeMark(editor, 'italic');
@@ -53,18 +54,34 @@ const CustomEditor = {
       Editor.addMark(editor, 'italic', true);
     }
   },
+
+  // コードスタイルのチェック
+  isCodeMarkActive(editor: BaseEditor & ReactEditor & HistoryEditor) {
+    const marks = Editor.marks(editor);
+    return marks ? marks.code === true : false;
+  },
+  // コードスタイルのトグル
+  toggleCodeMark(editor: BaseEditor & ReactEditor & HistoryEditor) {
+    const isActive = CustomEditor.isCodeMarkActive(editor);
+    if (isActive) {
+      Editor.removeMark(editor, 'code');
+    } else {
+      Editor.addMark(editor, 'code', true);
+    }
+  },
 };
 
 // Slate.js でのカスタムタイプの定義
 declare module 'slate' {
   interface CustomTypes {
-    Editor: BaseEditor;
+    Editor: BaseEditor & ReactEditor & HistoryEditor;
     Text: CustomText;
   }
 }
 
 const TextEditor: React.FC = () => {
-  const [editor] = useState(() => withReact(createEditor()));
+  const [editor] = useState(() => withHistory(withReact(createEditor())));
+  const [content, setContent] = useState<CustomElement[]>(initialValue);
 
   const renderLeaf = useCallback((props: RenderLeafProps) => {
     return <Leaf {...props} />;
@@ -80,38 +97,45 @@ const TextEditor: React.FC = () => {
       case 'b': {
         event.preventDefault();
         CustomEditor.toggleBoldMark(editor);
-        break;
       }
       // ctrl + i でイタリック
       case 'i': {
         event.preventDefault();
         CustomEditor.toggleItalicMark(editor);
-        break;
       }
-      // ctrl + z でスタイルのキャンセル（デフォルト）
+      // ctrl + c でコード
+      case 'c': {
+        event.preventDefault();
+        CustomEditor.toggleCodeMark(editor);
+      }
+      // crrl + Z でデフォルトのスタイル
       case 'z': {
         event.preventDefault();
-        break;
       }
     }
   }, [editor]);
 
   return (
-    <Wrapper size={800}>
-      <div className={styles.editorArea}>
-        <div className={styles.inner}>
-          <Slate editor={editor} initialValue={initialValue}>
-            <Toolbar editor={editor} CustomEditor={CustomEditor} />
-            <div className={styles.text}>
-              <Editable
-                renderLeaf={renderLeaf}
-                onKeyDown={handleKeyDown}
-              />
-            </div>
-          </Slate>
-        </div>
+    <div className={styles.editorArea}>
+      <div className={styles.inner}>
+        <Slate
+          editor={editor}
+          initialValue={content}
+        >
+          <Toolbar
+            editor={editor}
+            CustomEditor={CustomEditor}
+          />
+          <div className={styles.text}>
+            <Editable
+              renderLeaf={renderLeaf}
+              onKeyDown={handleKeyDown}
+              className={styles.editable}
+            />
+          </div>
+        </Slate>
       </div>
-    </Wrapper>
+    </div>
   );
 };
 

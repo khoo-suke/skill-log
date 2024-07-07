@@ -33,32 +33,57 @@
         }
       }
     }
-    .category {
-      display: flex;
-      justify-content: start;
-      ul {
+    .selectArea {
+      margin-bottom: 3rem;
+      .category {
         display: flex;
         justify-content: start;
-        li {
-          margin-right: 1rem;
+        ul {
+          display: flex;
+          justify-content: start;
+          li {
+            margin-right: 1rem;
+            button {
+              background-color: #fff;
+              border: 1px solid #111;
+              border-radius: 3px;
+              color: #111;
+              padding: 0.2em 0.5em 0.3em;
+              &.selected {
+                background-color: #111;
+                border: 1px solid #111;
+                border-radius: 3px;
+                color: #fff;
+              }
+            }
+          }
         }
       }
-      a {
-        background-color: #707070;
-        border-radius: 3px;
-        color: #fff;
-        padding: 0 0.6em;
-      }
     }
-    .editorArea {
-      padding-top: clamp(4rem, 6vw, 8rem);
-      padding-bottom: clamp(6rem, 8vw, 10rem);
-      .inner {
-        background-color: #fff;
-        border: 1px solid #ccc;
-        border-radius: 10px;
-        .text {
-          padding: 1em;
+    .selectArea {
+      margin-bottom: 3rem;
+      .tag {
+        display: flex;
+        justify-content: start;
+        ul {
+          display: flex;
+          justify-content: start;
+          li {
+            margin-right: 1rem;
+            button {
+              background-color: #fff;
+              border: 1px solid #111;
+              border-radius: 3px;
+              color: #111;
+              padding: 0.2em 0.5em 0.3em;
+              &.selected {
+                background-color: #111;
+                border: 1px solid #111;
+                border-radius: 3px;
+                color: #fff;
+              }
+            }
+          }
         }
       }
     }

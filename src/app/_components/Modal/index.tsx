@@ -2,20 +2,23 @@
 
 import React from 'react';
 import Modal from 'react-modal';
+import styles from '@/app/_components/Modal/index.module.scss';
 
 interface ModalProps {
-  className: string,
-  children: string,
+  className?: string,
+  children?: React.ReactNode,
   isOpen: boolean,
-  onClose: () => void;
+  onRequestClose: () => void,
 }
 
-const CustomModal: React.FC<ModalProps> = ({ className, children, isOpen, onClose }) => {
+const CustomModal: React.FC<ModalProps> = ({ className, children, isOpen, onRequestClose }) => {
+
   return (
     <Modal
-      className={className}
+      className={`${styles.modalContent} ${className}`}
+      overlayClassName={styles.modalOverlay}
       isOpen={isOpen}
-      onRequestClose={onClose}
+      onRequestClose={onRequestClose}
     >
       {children}
     </Modal>

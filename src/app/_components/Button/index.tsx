@@ -5,15 +5,16 @@ import styles from '@/app/_components/Button/index.module.scss';
 import Link from 'next/link';
 
 interface ButtonProps {
-  type?: 'button' | 'submit' | 'reset';
-  color?: 'black' | 'white' | 'pink';
-  size?: 'large' | 'middle' | 'small';
-  children: React.ReactNode;
-  isLink?: boolean;
-  href?: string;
+  type?: 'button' | 'submit' | 'reset',
+  color?: 'black' | 'white' | 'pink',
+  size?: 'large' | 'middle' | 'small',
+  children: React.ReactNode,
+  isLink?: boolean,
+  href?: string,
+  onClick?: React.MouseEventHandler<HTMLButtonElement>,
 };
 
-const Button: React.FC<ButtonProps> = ({ type = 'button', color = 'black', size = 'middle', children, isLink, href }) => {
+const Button: React.FC<ButtonProps> = ({ type = 'button', color = 'black', size = 'middle', children, isLink, href, onClick }) => {
   const Color = () => {
     switch (color) {
       case 'black':
@@ -49,7 +50,7 @@ const Button: React.FC<ButtonProps> = ({ type = 'button', color = 'black', size 
   };
 
   return (
-    <button type={type} className={`${Color()} ${Size()}`}>
+    <button type={type} className={`${Color()} ${Size()}`} onClick={onClick}>
       {children}
     </button>
   );
