@@ -4,10 +4,10 @@ import styles from '@/app/resetpassword/sendmail/_styles/resetPassword.module.sc
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import Button from '@/app/_components/Button';
-import Wrapper from '@/app/_components/Wrapper';
-import Input from '@/app/_components/Input';
-import Label from '@/app/_components/Label';
+import { Button } from '@/app/_components/Button';
+import { Wrapper } from '@/app/_components/Wrapper';
+import { Input } from '@/app/_components/Input';
+import { Label } from '@/app/_components/Label';
 
 export default function Page() {
   const router = useRouter();

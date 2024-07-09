@@ -1,7 +1,7 @@
 'use client';
 import styles from '../_styles/Signup.module.scss';
 import Link from 'next/link';
-import Wrapper from '@/app/_components/Wrapper';
+import { Wrapper } from '@/app/_components/Wrapper';
 
 export default function Page() {
   return (

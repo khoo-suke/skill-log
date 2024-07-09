@@ -4,7 +4,7 @@ import { IncomingWebhook } from '@slack/webhook';
 const url = process.env.SLACK_WEBHOOK_URL;
 if (!url) {
   throw new Error('Slackのwebhook URLのエラー');
-}
+};
 
 const webhook = new IncomingWebhook(url);
 
@@ -18,5 +18,5 @@ export async function Slack (name: string, email: string, content: string) {
   } catch (error) {
     console.error('Slack通知エラー:', error);
     throw error;
-  }
+  };
 };

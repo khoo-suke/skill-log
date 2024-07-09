@@ -7,11 +7,14 @@ import Link from 'next/link';
 import { useSupabaseSession } from '@/app/_hooks/useSupabaseSession';
 import 'react-calendar/dist/Calendar.css';
 import Calendar from 'react-calendar';
-import Wrapper from '../_components/Wrapper';
+import { Wrapper } from '../_components/Wrapper';
+import { Tabs } from './_components/Tabs';
+
 
 const Mypage = () => {
   const [posts, setPosts] = useState<PostRequestBody[]>([]);
   const { token } = useSupabaseSession();
+  const [activeTab, setActiveTab] = useState('all'); 
 
   useEffect(() => {
     if (!token) return;
@@ -30,6 +33,21 @@ const Mypage = () => {
 
     fetcher();
   }, [token]);
+
+    // activeTab に基づいて投稿をフィルタリングする
+    const filteredPosts = posts.filter(post => {
+      if (activeTab === 'all') {
+        return true; // すべての投稿を表示
+      } else if (activeTab === 'カテゴリー') {
+        return post.postCategories.some(category => category.category.name === 'cate1'); // カテゴリー名に基づいてフィルタリング
+      } else if (activeTab === 'タグ') {
+        return post.postTags.some(tag => tag.tag.name === 'タグ名'); // タグ名に基づいてフィルタリング
+      } else if (activeTab === '期間で絞る') {
+        // 期間でのフィルタリングロジックを追加
+        return true;
+      }
+      return true;
+    });
 
   return (
     <>
@@ -64,11 +82,16 @@ const Mypage = () => {
             <h2>
               投稿一覧
             </h2>
+            <Tabs
+              tabs={['all', 'カテゴリー', 'タグ', '期間で絞る']}
+              setActiveTab={setActiveTab}
+            />
           </Wrapper>
         </div>
         <div className={styles.postArea}>
-        <Wrapper size={800}>
-          {posts.map((post) => (
+          <Wrapper size={800}>
+            {/* ここにタグを追加 */}
+          {filteredPosts.map((post) => (
             <div className={styles.home_container} key={post.id}>
               <ul>
                 <li>

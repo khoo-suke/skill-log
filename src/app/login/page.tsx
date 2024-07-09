@@ -5,10 +5,10 @@ import { useState } from 'react';
 import { useRouter } from "next/navigation";
 import { supabase } from '@/utils/supabase';
 import Link from 'next/link';
-import Button from '../_components/Button';
-import Wrapper from '../_components/Wrapper';
-import Input from '../_components/Input';
-import Label from '../_components/Label';
+import { Button } from '../_components/Button';
+import { Wrapper } from '../_components/Wrapper';
+import { Input } from '../_components/Input';
+import { Label } from '../_components/Label';
 
 export default function Page () {
   const [email, setEmail] = useState('');

@@ -6,15 +6,10 @@ import { ReactEditor } from 'slate-react';
 import { HistoryEditor, withHistory } from 'slate-history';
 import { Slate, Editable, withReact, RenderLeafProps } from 'slate-react';
 import Leaf from '../Leaf';
-import Toolbar from '../Toolbar';
+import { Toolbar } from '../Toolbar';
 import styles from '@/app/mypage/posts/new/_components/TextEditor/index.module.scss';
 import { CustomText } from '../../_types/CustomText';
-
-// カスタムエレメント型の定義
-interface CustomElement extends Element {
-  type: 'paragraph';
-  children: CustomText[];
-}
+import { CustomElement } from '../../_types/CustomElement';
 
 const initialValue: CustomElement[] = [
   {
@@ -75,11 +70,17 @@ const CustomEditor = {
 declare module 'slate' {
   interface CustomTypes {
     Editor: BaseEditor & ReactEditor & HistoryEditor;
+    Element: CustomElement;
     Text: CustomText;
   }
-}
+};
 
-const TextEditor: React.FC = () => {
+// 子コンポーネントのプロパティの定義
+interface TextEditorProps {
+  onContent: (content: CustomElement[]) => void;
+};
+
+export const TextEditor: React.FC<TextEditorProps> = ({ onContent }) => {
   const [editor] = useState(() => withHistory(withReact(createEditor())));
   const [content, setContent] = useState<CustomElement[]>(initialValue);
 
@@ -108,12 +109,18 @@ const TextEditor: React.FC = () => {
         event.preventDefault();
         CustomEditor.toggleCodeMark(editor);
       }
-      // crrl + Z でデフォルトのスタイル
+      // ctrl + Z でデフォルトのスタイル
       case 'z': {
         event.preventDefault();
       }
     }
   }, [editor]);
+
+    // コンテンツが変更された際に呼び出される関数
+    const handleContentChange = (newContent: CustomElement[]) => {
+      setContent(newContent);
+      onContent(newContent); // 親コンポーネントにコンテンツを渡す
+    };
 
   return (
     <div className={styles.editorArea}>
@@ -121,6 +128,7 @@ const TextEditor: React.FC = () => {
         <Slate
           editor={editor}
           initialValue={content}
+          onChange={newContent => handleContentChange(newContent as CustomElement[])}
         >
           <Toolbar
             editor={editor}
@@ -138,5 +146,3 @@ const TextEditor: React.FC = () => {
     </div>
   );
 };
-
-export default TextEditor;

@@ -4,8 +4,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import '@/app/globals.scss';
 import styles from '@/app/_styles/index.module.scss';
-import BtnAera from '@/app/_components/BtnArea';
-import Wrapper from '@/app/_components/Wrapper/index';
+import { BtnAera } from '@/app/_components/BtnArea';
+import { Wrapper } from '@/app/_components/Wrapper/index';
 
 export default function Home() {
   return (

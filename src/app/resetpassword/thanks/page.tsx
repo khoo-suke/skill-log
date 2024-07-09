@@ -1,7 +1,7 @@
 'use client';
 
 import styles from '@/app/resetpassword/thanks/_styles/resetThanks.module.scss';
-import Wrapper from '@/app/_components/Wrapper';
+import { Wrapper } from '@/app/_components/Wrapper';
 
 export default function Page() {
   return (

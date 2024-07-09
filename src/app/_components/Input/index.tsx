@@ -13,7 +13,7 @@ interface InputProps {
   placeholder?: string;
 };
 
-const Input: React.FC<InputProps> = ({ type = 'text', name, id, onChange, value, placeholder }) => {
+export const Input: React.FC<InputProps> = ({ type = 'text', name, id, onChange, value, placeholder, required }) => {
   
   return (
     <input
@@ -23,10 +23,8 @@ const Input: React.FC<InputProps> = ({ type = 'text', name, id, onChange, value,
           className={styles.Input}
           value={value}
           placeholder={placeholder}
-          required
+          required={required}
           onChange={(e) => onChange?.(e.target.value)}
     />
   )
 };
-
-export default Input;

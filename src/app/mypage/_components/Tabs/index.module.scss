@@ -1,0 +1,15 @@
+.tabs {
+  text-align: center;
+  button {
+    background-color: #268C7A;
+    border-radius: 4px 4px 0 0;
+    color: #fff;
+    padding: 0.4em 1.5em;
+    margin-right: 1.7em;
+    &.active {
+      background-color: #EEF6F6;
+      color: #111;
+      font-weight: bold;
+    }
+  }
+}

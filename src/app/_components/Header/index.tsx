@@ -4,7 +4,7 @@ import styles from '@/app/_components/Header/index.module.scss';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useSupabaseSession } from '@/app/_hooks/useSupabaseSession';
-import Button from '@/app/_components/Button';
+import { Button } from '@/app/_components/Button';
 import { usePathname } from 'next/navigation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
@@ -56,7 +56,7 @@ const HeaderThanks: React.FC = () => (
   </header>
 );
 
-const Header: React.FC = () => {
+export const Header: React.FC = () => {
   const currentUrl = usePathname();
 
   console.log(currentUrl);
@@ -67,5 +67,3 @@ const Header: React.FC = () => {
 
   return <HeaderDefault />;
 };
-
-export default Header;

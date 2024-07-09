@@ -14,7 +14,7 @@ interface ButtonProps {
   onClick?: React.MouseEventHandler<HTMLButtonElement>,
 };
 
-const Button: React.FC<ButtonProps> = ({ type = 'button', color = 'black', size = 'middle', children, isLink, href, onClick }) => {
+export const Button: React.FC<ButtonProps> = ({ type = 'button', color = 'black', size = 'middle', children, isLink, href, onClick }) => {
   const Color = () => {
     switch (color) {
       case 'black':
@@ -55,5 +55,3 @@ const Button: React.FC<ButtonProps> = ({ type = 'button', color = 'black', size 
     </button>
   );
 };
-
-export default Button;

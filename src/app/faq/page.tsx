@@ -1,10 +1,10 @@
 'use client';
 
 import styles from './_styles/faq.module.scss';
-import Wrapper from '../_components/Wrapper';
+import { Wrapper } from '../_components/Wrapper';
 import Image from 'next/image';
 import Link from 'next/link';
-import FaqArea from './_components/FaqArea';
+import { FaqArea } from './_components/FaqArea';
 
 export default function Page() {
 

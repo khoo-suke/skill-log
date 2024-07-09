@@ -5,12 +5,12 @@ import { useRouter } from 'next/navigation';
 import { useSupabaseSession } from '@/app/_hooks/useSupabaseSession';
 import styles from './_styles/Account.module.scss';
 import Image from 'next/image';
-import Wrapper from '@/app/_components/Wrapper';
+import { Wrapper } from '@/app/_components/Wrapper';
 import Link from 'next/link';
-import Button from '@/app/_components/Button';
-import Input from '@/app/_components/Input';
-import Textarea from '@/app/_components/Textarea';
-import Label from '@/app/_components/Label';
+import { Button } from '@/app/_components/Button';
+import { Input } from '@/app/_components/Input';
+import { Textarea } from './_compornent/Textarea';
+import { Label } from '@/app/_components/Label';
 
 export default function Account() {
   const [name, setName] = useState('');

@@ -1,0 +1,18 @@
+.date {
+  .inner {
+    display: flex;
+    justify-content: start;
+    .year,
+    .month,
+    .day {
+      input {
+        width: 42%;
+      }
+    }
+    .time {
+      input {
+        width: 17%;
+      }
+    }
+  }
+}

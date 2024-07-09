@@ -22,7 +22,7 @@ interface ToolbarProps {
   CustomEditor: CustomEditorType;
 };
 
-const Toolbar: React.FC<ToolbarProps> = ({ editor, CustomEditor }) => {
+export const Toolbar: React.FC<ToolbarProps> = ({ editor, CustomEditor }) => {
   return (
     <div className={styles.button}>
       {/* 太字 */}
@@ -58,5 +58,3 @@ const Toolbar: React.FC<ToolbarProps> = ({ editor, CustomEditor }) => {
     </div>
   );
 };
-
-export default Toolbar;

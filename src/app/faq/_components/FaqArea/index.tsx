@@ -4,7 +4,7 @@ import React,{ useState } from 'react';
 import styles from './index.module.scss';
 import { FaqAreaProps } from '../../_types/FaqAreaProps';
 
-export default function FaqArea({ boolean, question, answer }: FaqAreaProps) {
+export const FaqArea = ({ boolean, question, answer }: FaqAreaProps) => {
   const [isOpen, setIsOpen] = useState(boolean);
 
   const handleClick = () => {

@@ -2,90 +2,9 @@
   background-color: #EEF6F6;
   padding-top: clamp(4rem, 6vw, 8rem);
   padding-bottom: clamp(6rem, 8vw, 10rem);
-  .topLink {
-    margin-bottom: 2rem;
-    a {
-      border-bottom: 1px solid #111;
-      color: #111;
-      text-decoration: none;
-      padding-bottom: 0.1em;
-    }
-  }
   form {
     .errorMessage {
       color: rgb(204, 10, 10);
-    }
-    .date {
-      .inner {
-        display: flex;
-        justify-content: start;
-        .year,
-        .month,
-        .day {
-          input {
-            width: 42%;
-          }
-        }
-        .time {
-          input {
-            width: 17%;
-          }
-        }
-      }
-    }
-    .selectArea {
-      margin-bottom: 3rem;
-      .category {
-        display: flex;
-        justify-content: start;
-        ul {
-          display: flex;
-          justify-content: start;
-          li {
-            margin-right: 1rem;
-            button {
-              background-color: #fff;
-              border: 1px solid #111;
-              border-radius: 3px;
-              color: #111;
-              padding: 0.2em 0.5em 0.3em;
-              &.selected {
-                background-color: #111;
-                border: 1px solid #111;
-                border-radius: 3px;
-                color: #fff;
-              }
-            }
-          }
-        }
-      }
-    }
-    .selectArea {
-      margin-bottom: 3rem;
-      .tag {
-        display: flex;
-        justify-content: start;
-        ul {
-          display: flex;
-          justify-content: start;
-          li {
-            margin-right: 1rem;
-            button {
-              background-color: #fff;
-              border: 1px solid #111;
-              border-radius: 3px;
-              color: #111;
-              padding: 0.2em 0.5em 0.3em;
-              &.selected {
-                background-color: #111;
-                border: 1px solid #111;
-                border-radius: 3px;
-                color: #fff;
-              }
-            }
-          }
-        }
-      }
     }
     .btnArea {
       text-align: center;
