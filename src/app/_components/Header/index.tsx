@@ -25,7 +25,7 @@ const HeaderDefault: React.FC = () => {
               <FontAwesomeIcon icon={faCirclePlus} />
                 新規投稿
               </Button>
-              <Link href="mypage/account" className={styles.account}></Link>
+              <Link href="/mypage/account" className={styles.account}></Link>
             </div>
           </header>
         ) : (

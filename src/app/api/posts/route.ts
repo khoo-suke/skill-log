@@ -92,7 +92,6 @@ export const POST = async (request: NextRequest) => {
   };
 };
 
-
 //GET
 export const GET = async (request: NextRequest) => {
   const token = request.headers.get('Authorization') ?? '';

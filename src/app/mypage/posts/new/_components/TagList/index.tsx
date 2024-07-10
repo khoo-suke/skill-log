@@ -15,11 +15,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import { faSquarePlus } from '@fortawesome/free-solid-svg-icons';
 
+interface TagProps {
+  selectTags: Tag[];
+  setSelectTags: React.Dispatch<React.SetStateAction<Tag[]>>;
+}
 
-export const TagList = () => {
+export const TagList: React.FC<TagProps> = ({ selectTags, setSelectTags }) => {
   const { token } = useSupabaseSession();
   const [allTags, setAllTags] = useState<Tag[]>([]);
-  const [selectTags, setSelectTags] = useState<Tag[]>([]);
   const [newTag, setNewTag] = useState('');
   const [isTagModalOpen, setTagModalOpen] = useState(false);
 

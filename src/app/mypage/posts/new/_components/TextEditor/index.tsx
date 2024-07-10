@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useState, useCallback } from 'react';
-import { createEditor, BaseEditor, Editor, Element } from 'slate';
+import React, { useState, useCallback, Dispatch, SetStateAction } from 'react';
+import { createEditor, BaseEditor, Editor, Descendant } from 'slate';
 import { ReactEditor } from 'slate-react';
 import { HistoryEditor, withHistory } from 'slate-history';
 import { Slate, Editable, withReact, RenderLeafProps } from 'slate-react';
@@ -10,13 +10,6 @@ import { Toolbar } from '../Toolbar';
 import styles from '@/app/mypage/posts/new/_components/TextEditor/index.module.scss';
 import { CustomText } from '../../_types/CustomText';
 import { CustomElement } from '../../_types/CustomElement';
-
-const initialValue: CustomElement[] = [
-  {
-    type: 'paragraph',
-    children: [{ text: '初期設定のテキストテキスト' }],
-  },
-];
 
 // カスタムエディター関数
 const CustomEditor = {
@@ -75,14 +68,14 @@ declare module 'slate' {
   }
 };
 
-// 子コンポーネントのプロパティの定義
-interface TextEditorProps {
-  onContent: (content: CustomElement[]) => void;
-};
+// 型を定義
+interface ContentProps {
+  content: CustomElement[];
+  setContent: Dispatch<SetStateAction<CustomElement[]>>;
+}
 
-export const TextEditor: React.FC<TextEditorProps> = ({ onContent }) => {
+export const TextEditor = ({ content, setContent }: ContentProps) => {
   const [editor] = useState(() => withHistory(withReact(createEditor())));
-  const [content, setContent] = useState<CustomElement[]>(initialValue);
 
   const renderLeaf = useCallback((props: RenderLeafProps) => {
     return <Leaf {...props} />;
@@ -116,11 +109,10 @@ export const TextEditor: React.FC<TextEditorProps> = ({ onContent }) => {
     }
   }, [editor]);
 
-    // コンテンツが変更された際に呼び出される関数
-    const handleContentChange = (newContent: CustomElement[]) => {
-      setContent(newContent);
-      onContent(newContent); // 親コンポーネントにコンテンツを渡す
-    };
+  // コンテンツが変更された際に呼び出される関数
+  const handleContentChange = useCallback((newValue: Descendant[]) => {
+    setContent(newValue as CustomElement[]);  // Descendantが初期値のため型を変換
+  },[setContent]);
 
   return (
     <div className={styles.editorArea}>
@@ -128,7 +120,7 @@ export const TextEditor: React.FC<TextEditorProps> = ({ onContent }) => {
         <Slate
           editor={editor}
           initialValue={content}
-          onChange={newContent => handleContentChange(newContent as CustomElement[])}
+          onChange={handleContentChange}
         >
           <Toolbar
             editor={editor}

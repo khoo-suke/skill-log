@@ -16,6 +16,7 @@ const Mypage = () => {
   const { token } = useSupabaseSession();
   const [activeTab, setActiveTab] = useState('all'); 
 
+  // トークン
   useEffect(() => {
     if (!token) return;
     

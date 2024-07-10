@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import styles from '@/app/_components/Textarea/index.module.scss';
+import styles from './index.module.scss';
 
 interface TextareaProps {
   id: string;

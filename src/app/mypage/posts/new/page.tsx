@@ -4,6 +4,8 @@ import {
   FormEventHandler,
   useEffect,
   useState,
+  Dispatch,
+  SetStateAction,
 } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSupabaseSession } from '@/app/_hooks/useSupabaseSession';
@@ -22,12 +24,18 @@ import { TagList } from './_components/TagList';
 import { ReturnTop } from './_components/ReturnTop';
 import { CustomElement } from './_types/CustomElement';
 
+const initialValue: CustomElement[] = [
+  {
+    type: 'paragraph',
+    children: [{ text: '初期設定のテキストテキスト' }],
+  },
+];
+
 export default function Page() {
   const [title, setTitle] = useState('');
-  const [content, setContent] = useState<CustomElement[]>([]);
+  const [content, setContent] = useState<CustomElement[]>(initialValue);
   const [imageUrl, setImageUrl] = useState('');
   const [createdAt, setCreatedAt] = useState('');
-  const [profileId, setProfileId] = useState('');
   const { token } = useSupabaseSession();
   const router = useRouter();
   const [posts, setPosts] = useState<PostRequestBody[]>([]);
@@ -43,6 +51,7 @@ export default function Page() {
   // トークン
   useEffect(() => {
     if (!token) return;
+    
     const fetcher = async () => {
       const response = await fetch('/api/posts', {
         headers: {
@@ -50,8 +59,10 @@ export default function Page() {
           Authorization: token,
         },
       })
+
       const { posts } = await response.json();
       setPosts([...posts]);
+      
     };
 
     fetcher();
@@ -63,7 +74,7 @@ export default function Page() {
     e.preventDefault();
     if (!token) return;
     
-    await fetch('/api/posts', {
+    const response = await fetch('/api/posts', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -71,7 +82,7 @@ export default function Page() {
       },
       body: JSON.stringify({
         title,
-        content,
+        content: JSON.stringify(content),
         imageUrl,
         createdAt,
         postCategories: selectCategories,
@@ -79,48 +90,31 @@ export default function Page() {
       })
     });
 
+    if (!response.ok) {
+      throw new Error('記事作成エラー');
+    }
+
     router.replace('/mypage');
     alert('記事作成');
   };
 
-  // 子コンポーネントからタイトル
-  const handleTitleChange = (createTitle: string) => {
-    setTitle(createTitle);
-  };
+  // 現在の時間を取得
+  useEffect(() => {
+    const now = new Date();
+    const defaultDate = now.toISOString();
+    setCreatedAt(defaultDate);
+    setYear(String(now.getFullYear()));
+    setMonth(String(now.getMonth() + 1));
+    setDay(String(now.getDate()));
+    setHour(String(now.getHours()));
+    setMinutes(String(now.getMinutes()));
+  }, []);
 
-  // 子コンポーネントから日付 年
-  const handleYearChange = (createYear: string) => {
-    setYear(createYear);
-  };
-
-  // 子コンポーネントから日付 月
-  const handleMonthChange = (createMonth: string) => {
-    setMonth(createMonth);
-  };
-
-  // 子コンポーネントから日付 日
-  const handleDayChange = (createDay: string) => {
-    setDay(createDay);
-  };
-
-  // 子コンポーネントから日付 時間
-  const handleHourChange = (createHour: string) => {
-    setYear(createHour);
-  };
-
-  // 子コンポーネントから日付 分
-  const handleMinutesChange = (createMinutes: string) => {
-    setMinutes(createMinutes);
-  };
-
-  // 子コンポーネントからカテゴリー
-  const handleSelectCategory = () => {
-    setSelectCategories(selectCategories);
-  }
-
-  // 子コンポーネントからテキストエディタ
-  const handleContentChange = (createContent: CustomElement[]) => {
-    setContent(createContent);
+  // 型をJSONに変換
+  const handleContentChange: Dispatch<SetStateAction<CustomElement[]>> = (newContent) => {
+    setContent(newContent);
+    // const StringContent = JSON.stringify(newContent); 
+    // console.log(StringContent);
   };
   
   return (
@@ -130,23 +124,35 @@ export default function Page() {
           <ReturnTop/>
           <form onSubmit={handleSubmit}>
             <Title
-              onTitle={handleTitleChange}
+              title={title}
+              setTitle={setTitle}
             />
             <DateInput
-              onYear={handleYearChange}
-              onMonth={handleMonthChange}
-              onDay={handleDayChange}
-              onHour={handleHourChange}
-              onMinutes={handleMinutesChange}
+              year={year}
+              setYear={setYear}
+              month={month}
+              setMonth={setMonth}
+              day={day}
+              setDay={setDay}
+              hour={hour}
+              setHour={setHour}
+              minutes={minutes}
+              setMinutes={setMinutes}
             />
             <CategoryList
-              onCategory={handleSelectCategory}
+              selectCategories={selectCategories}
+              setSelectCategories={setSelectCategories}
             />
-            <TagList/>
+            <TagList
+              selectTags={selectTags}
+              setSelectTags={setSelectTags}
+            />
             <div>
               <Label value='内容' />
               <TextEditor
-                onContent={handleContentChange}/>
+                content={content}
+                setContent={handleContentChange}
+              />
             </div>
             <div className={styles.btnArea}>
               <Button

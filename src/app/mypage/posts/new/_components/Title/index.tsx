@@ -1,30 +1,28 @@
 'use-client';
 
-import React, { useState } from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import { Label } from '@/app/_components/Label';
-import { Input } from '@/app/_components/Input';
+import styles from './index.module.scss';
 
-// onTitleの型を定義
+// 型を定義
 interface TitleProps {
-  onTitle: (title: string) => void;
+  title: string;
+  setTitle: Dispatch<SetStateAction<string>>;
 }
 
-export const Title: React.FC<TitleProps> = ({ onTitle }) => {
-  const [title, setTitle] = useState('');
-
-  const handleTitleChange = (createTitle: string) => {
-    setTitle(createTitle);
-    onTitle(createTitle); // 親コンポーネントにタイトルを渡す
+export const Title = ({ title, setTitle }: TitleProps) => {
+  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(e.target.value);
   };
-
 
   return (
     <>
       <Label value='タイトル' />
-      <Input
-        type={'text'}
-        name={'title'}
-        id={'title'}
+      <input
+        type='text'
+        name='title'
+        id='title'
+        className={styles.Input}
         value={title}
         onChange={handleTitleChange}
       />

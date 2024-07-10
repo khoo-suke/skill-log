@@ -12,17 +12,16 @@ import { Button } from '@/app/_components/Button';
 import { Label } from '@/app/_components/Label';
 import CustomModal from '@/app/_components/Modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
-import { faSquarePlus } from '@fortawesome/free-solid-svg-icons';
+import { faCircleXmark, faSquarePlus } from '@fortawesome/free-solid-svg-icons';
 
 interface CategoryProps {
-  onCategory: (category: string[]) => void;
-}
+  selectCategories: Category[];
+  setSelectCategories: React.Dispatch<React.SetStateAction<Category[]>>;
+};
 
-export const CategoryList: React.FC<CategoryProps> = ({ onCategory }) => {
+export const CategoryList: React.FC<CategoryProps> = ({ selectCategories, setSelectCategories }) => {
   const { token } = useSupabaseSession();
   const [allCategories, setAllCategories] = useState<Category[]>([]);
-  const [selectCategories, setSelectCategories] = useState<Category[]>([]);
   const [newCategory, setNewCategory] = useState('');
   const [isCategoryModalOpen, setCategoryModalOpen] = useState(false);
 
@@ -80,26 +79,21 @@ export const CategoryList: React.FC<CategoryProps> = ({ onCategory }) => {
   
   // SELECT カテゴリー
   const handleSelectCategory = (categoryId: number) => {
-
-    const isSelected = !!selectCategories.find(
+    const isSelected = selectCategories.find(
       (category) => category.id === categoryId
     );
-  
+
     if (isSelected) {
-      setSelectCategories(
-        selectCategories.filter((category) => category.id !== categoryId)
+      selectCategories.filter(
+        (category) => category.id !== categoryId
       );
     } else {
-      const selectCategory = allCategories.find(
+      const selectedCategory = allCategories.find(
         (category) => category.id === categoryId
       );
-      setSelectCategories([...selectCategories, selectCategory!]);
-    };
+      setSelectCategories([...selectCategories, selectedCategory!]);
+    }
   };
-  
-  const handleCategoryChange = (createCategory: string[]) => {
-    onCategory(createCategory);
-  }
 
   return (
     <>
@@ -112,8 +106,10 @@ export const CategoryList: React.FC<CategoryProps> = ({ onCategory }) => {
                 <button
                   type="button"
                   onClick={() => handleSelectCategory(category.id)}
-                  className={selectCategories.find((e) => e.id === category.id) ? styles.selected : ''}
-                >{category.name}</button>
+                  className={selectCategories.some((e) => e.id === category.id) ? styles.selected : ''}
+                >
+                  {category.name}
+                </button>
               </li>
             ))}
           </ul>
