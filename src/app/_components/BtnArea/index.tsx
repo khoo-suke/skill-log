@@ -2,9 +2,9 @@
 
 import styles from '@/app/_components/BtnArea/index.module.scss';
 import React from 'react';
-import Button from '../Button';
+import { Button } from '../Button';
 
-const BtnAera = () => {
+export const BtnAera = () => {
   return (
     <>
       <div className={styles.btnAera}>
@@ -18,5 +18,3 @@ const BtnAera = () => {
     </>
   )
 }
-
-export default BtnAera;

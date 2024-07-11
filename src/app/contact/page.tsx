@@ -6,8 +6,8 @@ import { useRouter } from 'next/navigation';
 import styles from './_styles/Contact.module.scss';
 import Image from 'next/image';
 import { ContactForm } from '@/app/contact/_types/ContactForm';
-import Wrapper from '../_components/Wrapper';
-import Label from '../_components/Label';
+import { Wrapper } from '../_components/Wrapper';
+import { Label } from '../_components/Label';
 
 export default function Contact() {
   const [formData, setFormData] = useState<ContactForm>({

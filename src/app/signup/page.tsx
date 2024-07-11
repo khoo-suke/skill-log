@@ -4,9 +4,9 @@ import styles from './_styles/Signup.module.scss';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import Wrapper from '../_components/Wrapper';
-import Input from '../_components/Input';
-import Label from '../_components/Label';
+import { Wrapper } from '../_components/Wrapper';
+import { Input } from '../_components/Input';
+import { Label } from '../_components/Label';
 
 export default function Page() {
   const router = useRouter();

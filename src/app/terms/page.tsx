@@ -1,7 +1,7 @@
 'use client';
 
 import styles from './_styles/Terms.module.scss';
-import Wrapper from '../_components/Wrapper';
+import { Wrapper } from '../_components/Wrapper';
 
 export default function Page() {
 

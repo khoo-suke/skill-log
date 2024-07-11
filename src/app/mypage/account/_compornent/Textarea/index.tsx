@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import styles from '@/app/_components/Textarea/index.module.scss';
+import styles from './index.module.scss';
 
 interface TextareaProps {
   id: string;
@@ -12,7 +12,7 @@ interface TextareaProps {
   onChange?: (value: string) => void;
 };
 
-const Textarea: React.FC<TextareaProps> = ({ id, cols, rows, placeholder, value, onChange }) => {
+export const Textarea: React.FC<TextareaProps> = ({ id, cols, rows, placeholder, value, onChange }) => {
   
   return <textarea
           id={id}
@@ -25,5 +25,3 @@ const Textarea: React.FC<TextareaProps> = ({ id, cols, rows, placeholder, value,
           onChange={(e) => onChange?.(e.target.value)}
           />
 };
-
-export default Textarea;

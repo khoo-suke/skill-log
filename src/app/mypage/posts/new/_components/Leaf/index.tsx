@@ -13,20 +13,35 @@ type LeafProps = RenderLeafProps & {
 
 // Leaf コンポーネントを定義する
 const Leaf: React.FC<LeafProps> = ({ attributes, children, leaf }) => {
-  let style: React.CSSProperties = {};
+  const styles: React.CSSProperties = {
+    padding: '0.1em 0',
+    margin: '0 1px',
+    verticalAlign: 'baseline',
+    display: 'inline-block',
+    fontSize: '0.9em',
+  };
 
   // 太字
   if (leaf.bold) {
-    style.fontWeight = 'bold';
+    styles.fontWeight = 'bold';
   }
   // イタリック
   if (leaf.italic) {
-    style.fontStyle = 'italic';
+    styles.fontStyle = 'italic';
+  }
+  // コード
+  if (leaf.code) {
+    styles.backgroundColor = '#333';
+    styles.color = '#fff';
+    styles.display = 'block';
+    styles.padding = '4px 10px';
   }
 
-
   return (
-    <span {...attributes} style={style}>
+    <span
+      {...attributes}
+      style={styles}
+    >
       {children}
     </span>
   );

@@ -7,7 +7,7 @@ import Image from 'next/image';
 import { useSupabaseSession } from '@/app/_hooks/useSupabaseSession';
 import { supabase } from '@/utils/supabase';
 
-const Footer: React.FC = () => {
+export const Footer: React.FC = () => {
   const handleLogout = async () => {
     await supabase.auth.signOut();
     window.location.href = '/';
@@ -20,29 +20,29 @@ const Footer: React.FC = () => {
       {!isLoading && (
         <footer className={styles.footer}>
           <div className={styles.footerInner}>
-              {session ? (
-                <>
+            {session ? (
+              <>
                 <div className={styles.flexBox}>
                   <Link href="/">
-                    <Image src="/images/footer_logo.png" alt="skill-log" width={527} height={109}/>
+                    <Image src="/images/footer_logo.png" alt="skill-log" width={527} height={109} />
                   </Link>
                   <nav>
                     <ul>
                       <li><Link href='/mypage'>HOME</Link></li>
                       <li><Link href='/mypage/account'>アカウント設定</Link></li>
-                        <li><Link href='/' onClick={handleLogout}>ログアウト</Link></li>
+                      <li><Link href='/' onClick={handleLogout}>ログアウト</Link></li>
                     </ul>
                   </nav>
-              </div>
-              <div className={styles.copyLight}>
-                <small>copylight</small>
-              </div>
+                </div>
+                <div className={styles.copyLight}>
+                  <small>copylight</small>
+                </div>
               </>
-          ) : (
-                <>
+            ) : (
+              <>
                 <div className={styles.flexBox}>
                   <Link href="/">
-                    <Image src="/images/footer_logo.png" alt="skill-log" width={527} height={109}/>
+                    <Image src="/images/footer_logo.png" alt="skill-log" width={527} height={109} />
                   </Link>
                   <nav>
                     <ul>
@@ -58,13 +58,11 @@ const Footer: React.FC = () => {
                 <div className={styles.copyLight}>
                   <small>copylight</small>
                 </div>
-                </>
-              )}
+              </>
+            )}
           </div>
         </footer>
       )}
     </>
-  )
-}
-
-export default Footer;
+  );
+};

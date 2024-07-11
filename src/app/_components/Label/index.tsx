@@ -8,8 +8,6 @@ interface LabelProps {
   htmlfor?: string;
 }
 
-const Label: React.FC<LabelProps> = ({ value, htmlfor }) => {
+export const Label: React.FC<LabelProps> = ({ value, htmlfor }) => {
   return <label className={styles.label} htmlFor={htmlfor}>{value}</label>
 }
-
-export default Label;

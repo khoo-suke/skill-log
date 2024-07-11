@@ -1,5 +1,5 @@
-import Header from '@/app/_components/Header';
-import Footer from '@/app/_components/Footer';
+import { Header } from '@/app/_components/Header';
+import { Footer } from '@/app/_components/Footer';
 import { Noto_Sans_JP } from 'next/font/google';
 import './globals.scss';
 

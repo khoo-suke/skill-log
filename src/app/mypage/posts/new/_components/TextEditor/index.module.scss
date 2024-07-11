@@ -1,0 +1,17 @@
+.editorArea {
+  padding-bottom: clamp(3rem, 4vw, 6rem);
+  .inner {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    .text {
+      padding: 1em;
+      .editable {
+        height: 16em;
+        resize: none;
+        overflow-y: auto;
+        width: 100%;
+      }
+    }
+  }
+}

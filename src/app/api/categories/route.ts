@@ -49,6 +49,7 @@ export const POST = async (request: NextRequest) => {
   });
 
   if (!profile) {
+    console.log('プロフィールが見つかりません:', userId);
     return NextResponse.json({ status: 'プロフィールIDなし' }, { status: 404 });
   };
 
@@ -73,8 +74,9 @@ export const POST = async (request: NextRequest) => {
     return NextResponse.json({
       status: 'OK',
       message: '作成しました',
-      id: data.id,
+      name: data.name,
     })
+    
   } catch (error) {
     if (error instanceof Error) {
       return NextResponse.json({ status: error.message }, { status: 400 })

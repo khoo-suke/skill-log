@@ -4,8 +4,10 @@ import styles from '@/app/_components/Header/index.module.scss';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useSupabaseSession } from '@/app/_hooks/useSupabaseSession';
-import Button from '@/app/_components/Button';
+import { Button } from '@/app/_components/Button';
 import { usePathname } from 'next/navigation';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
 
 const HeaderDefault: React.FC = () => {
   const { session, isLoading } = useSupabaseSession();
@@ -20,9 +22,10 @@ const HeaderDefault: React.FC = () => {
             </Link>
             <div className={styles.btnArea}>
               <Button isLink={true} href={"/mypage/posts/new"} color={"pink"} size={"small"}>
+              <FontAwesomeIcon icon={faCirclePlus} />
                 新規投稿
               </Button>
-              <Link href="mypage/account" className={styles.account}></Link>
+              <Link href="/mypage/account" className={styles.account}></Link>
             </div>
           </header>
         ) : (
@@ -53,7 +56,7 @@ const HeaderThanks: React.FC = () => (
   </header>
 );
 
-const Header: React.FC = () => {
+export const Header: React.FC = () => {
   const currentUrl = usePathname();
 
   console.log(currentUrl);
@@ -64,5 +67,3 @@ const Header: React.FC = () => {
 
   return <HeaderDefault />;
 };
-
-export default Header;

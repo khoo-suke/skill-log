@@ -18,6 +18,7 @@ export const GET = async (request: NextRequest) => {
 
   // SupabaseのユーザーIDを取得
   const userId = data.user.id;
+  console.log(userId)
 
   // Profileテーブルからユーザー情報を取得
   try {
