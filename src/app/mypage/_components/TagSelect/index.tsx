@@ -1,9 +1,9 @@
 'use client';
 
 import {
-  FormEventHandler,
-  useEffect,
   useState,
+  useEffect,
+  FormEventHandler,
 } from 'react';
 import { useSupabaseSession } from '@/app/_hooks/useSupabaseSession';
 import { Tag } from '@/app/mypage/_types/Tag';
@@ -20,7 +20,7 @@ interface TagProps {
   setSelectTags: React.Dispatch<React.SetStateAction<Tag[]>>;
 }
 
-export const TagList: React.FC<TagProps> = ({ selectTags, setSelectTags }) => {
+export const TagSelect: React.FC<TagProps> = ({ selectTags, setSelectTags }) => {
   const { token } = useSupabaseSession();
   const [allTags, setAllTags] = useState<Tag[]>([]);
   const [newTag, setNewTag] = useState('');
@@ -69,16 +69,17 @@ export const TagList: React.FC<TagProps> = ({ selectTags, setSelectTags }) => {
       }),
     });
 
+    // 成功
     if (response.ok) {
       const data = await response.json();
       setAllTags((tags) => [...tags, data.name]);
       setNewTag('');
-      setTagModalOpen(false);
+      setTagModalOpen(false); // modalを閉じる
       fetchTags();
     };
   };
   
-  // SELECT タグ
+    // SELECT タグ
   const handleChangeTag = (tagId: number) => {
 
     // 選択解除
@@ -88,21 +89,23 @@ export const TagList: React.FC<TagProps> = ({ selectTags, setSelectTags }) => {
   
     if (isSelected) {
       setSelectTags(
-        selectTags.filter((tag) => tag.id !== tagId
+        selectTags.filter(
+          (tag) => tag.id !== tagId
         ),
       );
     } else {
       const selectTag = allTags.find(
         (tag) => tag.id === tagId
       );
-      setSelectTags([...selectTags, selectTag!]);
+      if (selectTag) {
+        setSelectTags([...selectTags, selectTag]);
+      };
     };
   };
   
   return (
     <>
     <div className={styles.selectArea}>
-      <Label value='タグ' />
       <div className={styles.tag}>
         <ul>
           {allTags && allTags

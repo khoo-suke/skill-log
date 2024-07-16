@@ -1,0 +1,46 @@
+.home_container {
+  background-color: #fff;
+  .post {
+    padding: 0;
+    margin: 0;
+    .postList {
+      border-radius: 3px;
+      padding: 1rem 3rem 4rem;
+      margin-bottom: 3rem;
+      .editButton {
+        text-align: end;
+        margin-bottom: 1rem;
+      }
+      .top {
+        display: flex;
+        justify-content: space-between;
+        h2 {
+          font-size: 120%;
+          font-weight: bold;
+        }
+        div {
+          display: flex;
+          justify-content: space-between;
+          .home_categories {
+            border: 1px solid #111;
+            border-radius: 3px;
+            text-align: center;
+            padding: 0 0.5em;
+            margin-right: 0.5em;
+          }
+          .home_tags {
+            background-color: #111;
+            border-radius: 3px;
+            color: #fff;
+            text-align: center;
+            padding: 0 0.5em;
+          }
+        }
+      }
+      a {
+        color: #111;
+        text-decoration: none;
+      }
+    }
+  }
+}

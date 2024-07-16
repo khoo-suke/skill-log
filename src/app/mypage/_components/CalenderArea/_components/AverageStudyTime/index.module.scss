@@ -1,0 +1,15 @@
+.studyTime {
+  width: 50%;
+  h2 {
+    font-size: clamp(1.8rem, 2vw, 2.5rem);
+    font-weight: 600;
+    text-align: start;
+  }
+  p {
+    strong {
+      font-size: 300%;
+      font-weight: 600;
+      margin-right: 0.2em;
+    }
+  }
+}

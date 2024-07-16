@@ -18,7 +18,7 @@ export const GET = async (request: NextRequest) => {
 
   // SupabaseのユーザーIDを取得
   const userId = data.user.id;
-  console.log(userId)
+  console.log(userId);
 
   // Profileテーブルからユーザー情報を取得
   try {
@@ -34,7 +34,8 @@ export const GET = async (request: NextRequest) => {
       },
     });
 
-    return NextResponse.json({ status: 'OK', profile: profile }, { status: 200 })
+    return NextResponse.json({ status: 'OK', profile: profile }, { status: 200 });
+    
   } catch (error) {
     if (error instanceof Error)
       return NextResponse.json({ status: 'アカウント情報取得失敗' }, { status: 400 });

@@ -9,10 +9,22 @@ export const GET = async (request: NextRequest) => {
   const token = request.headers.get('Authorization') ?? '';
 
   // supabaseに対してtoken
-  const { error } = await supabase.auth.getUser(token);
+  const { data, error } = await supabase.auth.getUser(token);
 
   if (error)
     return NextResponse.json({ status: 'トークン無効' }, { status: 400 });
+
+  // supabaseのユーザーID取得
+  const userId = data.user.id;
+
+  // Profileテーブルからユーザー情報を取得
+  const profile = await prisma.profile.findUnique({
+    where: { supabaseUserId: userId },
+  });
+  
+  if (!profile) {
+    return NextResponse.json({ status: 'プロフィールIDなし' }, { status: 404 });
+  }
 
   try {
     const categories = await prisma.category.findMany({

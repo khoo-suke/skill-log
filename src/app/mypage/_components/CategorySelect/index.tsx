@@ -19,7 +19,7 @@ interface CategoryProps {
   setSelectCategories: React.Dispatch<React.SetStateAction<Category[]>>;
 };
 
-export const CategoryList: React.FC<CategoryProps> = ({ selectCategories, setSelectCategories }) => {
+export const CategorySelect: React.FC<CategoryProps> = ({ selectCategories, setSelectCategories }) => {
   const { token } = useSupabaseSession();
   const [allCategories, setAllCategories] = useState<Category[]>([]);
   const [newCategory, setNewCategory] = useState('');
@@ -55,7 +55,7 @@ export const CategoryList: React.FC<CategoryProps> = ({ selectCategories, setSel
       if (!newCategory) {
         alert('カテゴリー名を入力してください');
         return;
-      }
+      };
   
       const response = await fetch(`/api/categories`, {
         method: 'POST',
@@ -68,13 +68,14 @@ export const CategoryList: React.FC<CategoryProps> = ({ selectCategories, setSel
         }),
       });
   
+      // 成功
       if (response.ok) {
         const data = await response.json();
         setAllCategories((categories) => [...categories, data.name]);
         setNewCategory('');
-        setCategoryModalOpen(false);
+        setCategoryModalOpen(false); // modalを閉じる
         fetchCategories();
-      }
+      };
   };
   
   // SELECT カテゴリー
@@ -95,14 +96,16 @@ export const CategoryList: React.FC<CategoryProps> = ({ selectCategories, setSel
       const selectedCategory = allCategories.find(
         (category) => category.id === categoryId
       );
-      setSelectCategories([...selectCategories, selectedCategory!]);
-    }
+
+      if (selectedCategory) {
+        setSelectCategories([...selectCategories, selectedCategory]);
+      };
+    };
   };
 
   return (
     <>
       <div className={styles.selectArea}>
-        <Label value='カテゴリー' />
         <div className={styles.category}>
           <ul>
             {allCategories && allCategories.map(category => (
@@ -120,8 +123,7 @@ export const CategoryList: React.FC<CategoryProps> = ({ selectCategories, setSel
           <div>
             <button
               type="button"
-              onClick={() => setCategoryModalOpen(true)}
-            >
+              onClick={() => setCategoryModalOpen(true)}>
               <FontAwesomeIcon icon={faSquarePlus} />
             </button>
           </div>

@@ -1,0 +1,40 @@
+.calendarArea {
+  padding-top: clamp(4rem, 6vw, 8rem);
+  padding-bottom: clamp(6rem, 8vw, 10rem);
+  .flexBox {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    .calendar {
+      width: 45%;
+      .guide {
+        display: flex;
+        justify-content: space-between;
+        margin-right: auto;
+        margin-left: auto;
+        width: 65%;
+        button {
+          border-radius: 5px;
+          height: 30px;
+          max-width: 100%;
+          width: 30px;
+        }
+      }
+      .zero {
+        background-color: #f0f0f0;
+      }
+      .low {
+        background-color: #FFDCD8;
+      }
+      .medium {
+        background-color: #FFB3A9;
+      }
+      .high {
+        background-color: #F88A7B;
+      }
+      .veryHigh {
+        background-color: #E56452;
+      }
+    }
+  }
+}
