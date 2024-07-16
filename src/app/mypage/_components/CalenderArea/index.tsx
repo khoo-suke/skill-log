@@ -4,7 +4,6 @@ import React, { useState, useEffect } from 'react';
 import { useSupabaseSession } from '@/app/_hooks/useSupabaseSession';
 import { Wrapper } from '@/app/_components/Wrapper';
 import styles from '@/app/mypage/_components/CalenderArea/index.module.scss';
-import { startOfMonth, endOfMonth, isWithinInterval } from 'date-fns';
 import { CustomCalendar } from './_components/CustomCalender';
 import { AverageStudyTime } from './_components/AverageStudyTime';
 import { StudyCustomModal } from './_components/StudyCustomModal';
@@ -24,7 +23,7 @@ export const CalendarArea = () => {
   const [getStudyTimes, setGetStudyTimes] = useState<StudyTimeEntry[]>([]);
 
   // GET 勉強時間取得
-  const fetchStudyTimeData = async (): Promise<StudyTimeEntry[]> => {
+  const fetchStudyTimeData = async () => {
     try {
       if (!token) return [];
       const response = await fetch(`/api/studyTime`, {
@@ -40,17 +39,26 @@ export const CalendarArea = () => {
       };
 
       const data = await response.json();
-      return data.studyTimes || [];
+
+      console.log(data.studyTimes);
+      console.log(data.averageStudyTime);
+
+      // 平均勉強時間をセット
+      setAverageStudyTime(data.averageStudyTime);
+
+      // 勉強時間をセット
+      setGetStudyTimes(data.studyTimes);
+
     } catch (error) {
       console.error(error);
-      return [];
     };
   };
 
-  // 平均勉強時間を呼び出し
+  // 初回ロード・token変更時に取得
   useEffect(() => {
-    averageStudyTimeData();
+    fetchStudyTimeData();
   }, [token]);
+  
 
   // 既に値がある場合はモーダル内の勉強時間入力欄の値を設定
   useEffect(() => {
@@ -66,40 +74,7 @@ export const CalendarArea = () => {
     };
   }, [selectedDate, getStudyTimes]);
 
-  // 平均勉強時間を計算
-  const averageStudyTimeData = async () => {
-    const data = await fetchStudyTimeData();
-
-    // 現在の日にち
-    const now = new Date();
-
-    // 月初と月末の日にち
-    const startMonthDate = startOfMonth(now);
-    const endMonthDate = endOfMonth(now);
-
-    // 1か月のデータをフィルタリング
-    const oneMonthData = data.filter((entry: StudyTimeEntry) => {
-      const entryDate = new Date(entry.date);
-      return isWithinInterval(entryDate, { start: startMonthDate, end: endMonthDate });
-    });
-
-    // 過去1か月の勉強時間を合計
-    const totalStudyTime = oneMonthData.reduce((total: number, entry: StudyTimeEntry) => total + entry.studyTime, 0);
-    console.log(totalStudyTime);
-
-    // 今月の日数で割って平均値を出す
-    const currentDayOfMonth = now.getDate();
-    const averageTime = totalStudyTime / currentDayOfMonth;
-    console.log(averageTime);
-
-    // 数値を文字列に変換 小数点第1位まで表示
-    const averageStudyTimeString = averageTime.toFixed(1);
-    setAverageStudyTime(averageStudyTimeString);
-
-    // クラス名付与の関数を渡す
-    setGetStudyTimes(data);
-  };
-
+  
   // POST or PUT 勉強時間登録・更新
   const handleStudyTime = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -109,7 +84,7 @@ export const CalendarArea = () => {
     if (!isStudyTime) {
       alert('勉強時間が未入力です');
       return;
-    }
+    };
 
     // studyTimeの型をnumberに変換 10進数に
     const studyTimeNumber = parseInt(isStudyTime, 10);
@@ -156,14 +131,14 @@ export const CalendarArea = () => {
       setIsStudyTime('');
       setModalOpen(false); // modalを閉じる
 
-      // 平均勉強時間を計算
-      averageStudyTimeData();
+      // 勉強時間データを再取得
+      fetchStudyTimeData();
 
       } catch (error) {
         console.error(error);
       };
-    };
-
+  };
+  
     // カレンダー日付クリック時
     const handleCalendarClick = (date: Date) => {
       setSelectedDate(date);
@@ -178,6 +153,7 @@ export const CalendarArea = () => {
             <CustomCalendar
               getStudyTimes={getStudyTimes}
               onCalendarClick={handleCalendarClick}
+
             />
             <div className={styles.guide}>
               <span>少</span>
@@ -197,7 +173,9 @@ export const CalendarArea = () => {
               onSubmit={handleStudyTime}
             />
           </div>
-          <AverageStudyTime averageStudyTime={averageStudyTime} />
+          <AverageStudyTime
+            averageStudyTime={averageStudyTime}
+          />
         </div>
       </Wrapper>
     </div>

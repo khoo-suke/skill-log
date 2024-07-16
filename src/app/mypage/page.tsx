@@ -9,10 +9,9 @@ import { CalendarArea } from './_components/CalenderArea';
 import { Wrapper } from '../_components/Wrapper';
 import { Tabs } from './_components/Tabs';
 import { Category } from '@/app/mypage/_types/Category';
-import { CategorySelect } from './_components/CategorySelect';
 import { Tag } from '@/app/mypage/_types/Tag';
-import { TagSelect } from './_components/TagSelect';
 import { Item } from './_components/Item';
+import { TagState } from './_components/TagState';
 
 const Mypage = () => {
   const [posts, setPosts] = useState<PostRequestBody[]>([]);
@@ -40,34 +39,6 @@ const Mypage = () => {
     fetcher();
   }, [token]);
 
-  // activeTab に基づいて条件でフィルタリング
-  const tagState = () => {
-    switch (activeTab) {
-      case 'カテゴリー':
-        return (
-          <CategorySelect
-            selectCategories={selectCategories}
-            setSelectCategories={setSelectCategories}
-          />
-        );
-      case 'タグ':
-        return (
-          <TagSelect
-            selectTags={selectTags}
-            setSelectTags={setSelectTags}
-          />
-        );
-      case '期間で絞る':
-        return (
-          <div>
-            <p>期間に基づくコンテンツを表示</p>
-          </div>
-        );
-      default:
-        return null;
-    };
-  };
-
   return (
     <>
       <CalendarArea/>
@@ -85,7 +56,13 @@ const Mypage = () => {
         </div>
         <div className={styles.postArea}>
           <Wrapper size={800}>
-            {tagState()}
+            <TagState
+              activeTab={activeTab}
+              selectCategories={selectCategories}
+              setSelectCategories={setSelectCategories}
+              selectTags={selectTags}
+              setSelectTags={setSelectTags}
+            />
             <Item
               activeTab={activeTab}
               posts={posts}

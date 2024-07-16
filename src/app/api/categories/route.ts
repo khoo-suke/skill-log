@@ -17,17 +17,13 @@ export const GET = async (request: NextRequest) => {
   // supabaseのユーザーID取得
   const userId = data.user.id;
 
-  // Profileテーブルからユーザー情報を取得
-  const profile = await prisma.profile.findUnique({
-    where: { supabaseUserId: userId },
-  });
-  
-  if (!profile) {
-    return NextResponse.json({ status: 'プロフィールIDなし' }, { status: 404 });
-  }
-
   try {
     const categories = await prisma.category.findMany({
+      where: {
+        profile: {
+          supabaseUserId: userId,
+        },
+      },
       orderBy: {
         createdAt: 'desc',
       },

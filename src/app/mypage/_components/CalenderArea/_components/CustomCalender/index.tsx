@@ -23,9 +23,9 @@ export const CustomCalendar: React.FC<CalendarComponentProps> = ({ getStudyTimes
   const getClassByStudyTime = (studyTime: number) => {
     if (studyTime === 0) return 'zero';
     if (studyTime > 0 && studyTime <= 1) return 'low';
-    if (studyTime > 1 && studyTime <= 2.5) return 'medium';
-    if (studyTime > 2.5 && studyTime <= 4) return 'high';
-    if (studyTime > 4) return 'very-high';
+    if (studyTime > 1 && studyTime <= 3) return 'medium';
+    if (studyTime > 3 && studyTime <= 5) return 'high';
+    if (studyTime > 5) return 'very-high';
     return '';
   };
 
@@ -44,6 +44,7 @@ export const CustomCalendar: React.FC<CalendarComponentProps> = ({ getStudyTimes
       locale="ja-JP"
       onClickDay={onCalendarClick}
       tileClassName={tileClassName}
+      
     />
   );
 };
