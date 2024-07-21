@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Modal from 'react-modal';
-import styles from '@/app/_components/Modal/index.module.scss';
+import styles from '@/app/_components/CustomModal/index.module.scss';
 
 interface ModalProps {
   className?: string,
@@ -11,7 +11,7 @@ interface ModalProps {
   onRequestClose: () => void,
 }
 
-const CustomModal: React.FC<ModalProps> = ({ className, children, isOpen, onRequestClose }) => {
+export const CustomModal: React.FC<ModalProps> = ({ className, children, isOpen, onRequestClose }) => {
 
   return (
     <Modal
@@ -24,5 +24,3 @@ const CustomModal: React.FC<ModalProps> = ({ className, children, isOpen, onRequ
     </Modal>
   );
 };
-
-export default CustomModal;

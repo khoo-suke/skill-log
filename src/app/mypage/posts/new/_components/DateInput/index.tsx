@@ -2,7 +2,6 @@
 
 import React, { Dispatch, SetStateAction }  from 'react';
 import { Label } from '@/app/_components/Label';
-import { Input } from '@/app/_components/Input';
 import styles from '@/app/mypage/posts/new/_components/DateInput/index.module.scss';
 
 // 日付の型を定義

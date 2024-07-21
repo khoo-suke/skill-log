@@ -8,13 +8,22 @@ const prisma = new PrismaClient();
 export const GET = async (request: NextRequest) => {
   const token = request.headers.get('Authorization') ?? '';
 
-  const { error } = await supabase.auth.getUser(token);
+  // supabaseに対してtoken
+  const { data, error } = await supabase.auth.getUser(token);
 
   if (error)
-    return NextResponse.json({ status: error.message }, { status: 400 });
+    return NextResponse.json({ status: "トークン無効" }, { status: 400 });
+
+  // SupabaseのユーザーIDを取得
+  const userId = data.user.id;
 
   try {
     const tags = await prisma.tag.findMany({
+      where: {
+        profile: {
+          supabaseUserId: userId,
+        },
+      },
       orderBy: {
         createdAt: 'desc',
       },
@@ -42,17 +51,6 @@ export const POST = async (request: NextRequest) => {
 
   // SupabaseのユーザーIDを取得
   const userId = data.user.id;
-
-  // Profileテーブルからユーザー情報を取得
-  const profile = await prisma.profile.findUnique({
-    where: { supabaseUserId: userId },
-  });
-
-  if (!profile) {
-    return NextResponse.json({ status: 'プロフィールIDなし' }, { status: 404 });
-  };
-
-  const profileId = profile.id;
   
   try {
     const body = await request.json();
@@ -62,7 +60,11 @@ export const POST = async (request: NextRequest) => {
     const data = await prisma.tag.create({
       data: {
         name,
-        profileId,
+        profile: {
+          connect: {
+            supabaseUserId: userId,
+          },
+        },
       },
       include: {
         postTags: true,

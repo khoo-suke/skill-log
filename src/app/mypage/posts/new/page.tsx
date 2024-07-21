@@ -47,7 +47,6 @@ export default function Page() {
   const [hour, setHour] = useState(String(new Date(createdAt).getHours()));
   const [minutes, setMinutes] = useState(String(new Date(createdAt).getMinutes()));
   
-  
   // トークン
   useEffect(() => {
     if (!token) return;
@@ -113,8 +112,6 @@ export default function Page() {
   // 型をJSONに変換
   const handleContentChange: Dispatch<SetStateAction<CustomElement[]>> = (newContent) => {
     setContent(newContent);
-    // const StringContent = JSON.stringify(newContent); 
-    // console.log(StringContent);
   };
   
   return (

@@ -14,8 +14,10 @@ export default function RootLayout({
     <>
     <html lang="ja">
       <body className={notoSansJP.className}>
-        <Header />
-          {children}
+          <Header />
+          <main>
+            {children}
+          </main>
         <Footer />
       </body>
     </html>

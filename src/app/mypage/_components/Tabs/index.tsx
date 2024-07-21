@@ -4,26 +4,25 @@ import { useState } from 'react';
 import styles from './index.module.scss';
 
 type TabProps = {
-  tabs: string[],
-  setActiveTab?: (tab: string) => void,
+  activeTab: string,
+  setActiveTab: (tab: string) => void,
 };
 
-export const Tabs = ({ tabs }: TabProps) => {
-  const [activeTab, setActiveTab] = useState(tabs[0]);
+export const Tabs = ({ activeTab, setActiveTab }: TabProps) => {
 
-  // 選択されたタブを親コンポーネントに渡す
+  const tabs = ['all', 'カテゴリー', 'タグ', '期間で絞る'];
+
   const handleTabClick = (tab: string) => {
     setActiveTab(tab);
   };
 
   return (
     <div className={styles.tabs}>
-      <div>今の選択されているタブ:{activeTab}</div>
       {tabs.map((tab) => (
         <button
           key={tab}
-          onClick={() => handleTabClick(tab)}
           className={activeTab === tab ? styles.active : ''}
+          onClick={() => handleTabClick(tab)}
         >
           {tab}
         </button>
