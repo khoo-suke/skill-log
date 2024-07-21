@@ -91,7 +91,7 @@ export default function Page() {
 
     if (!response.ok) {
       throw new Error('記事作成エラー');
-    }
+    };
 
     router.replace('/mypage');
     alert('記事作成');

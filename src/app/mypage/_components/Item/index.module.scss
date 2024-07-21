@@ -5,12 +5,9 @@
     margin: 0;
     .postList {
       border-radius: 3px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
       padding: 1rem 3rem 4rem;
-      margin-bottom: 3rem;
-      .editButton {
-        text-align: end;
-        margin-bottom: 1rem;
-      }
+      margin-bottom: 5rem;
       .top {
         display: flex;
         justify-content: space-between;

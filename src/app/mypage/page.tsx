@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import styles from '@/app/mypage/_styles/Mypage.module.scss';
 import { PostRequestBody } from '@/app/mypage/_types/PostRequestBody';
 import { useSupabaseSession } from '@/app/_hooks/useSupabaseSession';
@@ -12,16 +12,21 @@ import { Category } from '@/app/mypage/_types/Category';
 import { Tag } from '@/app/mypage/_types/Tag';
 import { Item } from './_components/Item';
 import { TagState } from './_components/TagState';
+import { createEditor, Descendant } from 'slate';
+import { withReact } from 'slate-react';
+import { withHistory } from 'slate-history';
 
 const Mypage = () => {
   const [posts, setPosts] = useState<PostRequestBody[]>([]);
   const { token } = useSupabaseSession();
-  const [activeTab, setActiveTab] = useState('all'); 
+  const [activeTab, setActiveTab] = useState('all');
   const [selectCategories, setSelectCategories] = useState<Category[]>([]);
   const [selectTags, setSelectTags] = useState<Tag[]>([]);
+  const [editor] = useState(() => withHistory(withReact(createEditor())));
+  const [content, setContent] = useState<Descendant[]>([]);
 
-  // トークン
-  useEffect(() => {
+  // GET 記事用
+  const fetchPosts = useCallback(async () => {
     if (!token) return;
 
     const fetcher = async () => {
@@ -34,14 +39,24 @@ const Mypage = () => {
 
       const { posts } = await response.json();
       setPosts([...posts]);
+
+      // データをエディターの形式に変換して設定
+      if (posts.length > 0 && posts[0].content) {
+        setContent(JSON.parse(posts[0].content)); // ここでJSON形式に変換
+      };
     };
 
     fetcher();
   }, [token]);
 
+  // ステートが変更されるたびに更新する
+  useEffect(() => {
+    fetchPosts();
+  }, [fetchPosts]);
+
   return (
     <>
-      <CalendarArea/>
+      <CalendarArea />
       <div className={styles.posts}>
         <div className={styles.cap}>
           <Wrapper size={1000}>
@@ -66,6 +81,8 @@ const Mypage = () => {
             <Item
               activeTab={activeTab}
               posts={posts}
+              editor={editor}
+              fetchPosts={fetchPosts}
             />
           </Wrapper>
         </div>

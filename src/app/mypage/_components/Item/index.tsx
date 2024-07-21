@@ -1,44 +1,93 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import styles from '@/app/mypage/_components/Item/index.module.scss';
 import { PostRequestBody } from '@/app/mypage/_types/PostRequestBody';
 import Link from 'next/link';
 import 'react-calendar/dist/Calendar.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
+import { BaseEditor } from 'slate';
+import { Slate, Editable, ReactEditor } from 'slate-react';
+import { HistoryEditor } from 'slate-history';
+import { RenderLeaf } from '@/app/mypage/_components/RenderLeaf';
+import { ItemMenu } from '@/app/mypage/_components/Item/_components/ItemMenu';
+import { useSupabaseSession } from '@/app/_hooks/useSupabaseSession';
 
+// 親からステートを受け取る
 interface ItemProps {
   activeTab: string,
   posts: PostRequestBody[]; 
+  editor: BaseEditor & ReactEditor & HistoryEditor;
+  fetchPosts: () => Promise<void>;
 };
 
-export const Item  = ({ activeTab, posts }: ItemProps) => {
+export const Item = ({ posts, editor, fetchPosts }: ItemProps) => {
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  const { token } = useSupabaseSession();
+  const [postId, setPostId] = useState<string | null>(null);
 
-  // activeTab に基づいて投稿をフィルタリングする
-  const filterPosts = posts.filter(post => {
-    switch (activeTab) {
-      case 'カテゴリー':
-        return post.postCategories.map(cate => cate.category.name === 'cate1');
-      case 'タグ':
-        return post.postTags.map(tag => tag.tag.name === 'tag1');
-      case '期間で絞る':
-        return true;
-      case 'all':
-      default:
-        return true; // すべての投稿を表示
+  // メニューを開く
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(e.currentTarget);
+  };
+
+  // メニューを閉じる
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  // DELETE 記事を削除
+  const handleDelete = async () => {
+    if (!token || !postId) return;
+
+    const confirmed = confirm('削除した記事は復元できませんが、削除してよろしいですか。');
+    if (!confirmed) {
+      // メニューを閉じる
+      handleClose();
+      return;
     };
-  });
-  
+
+    console.log('削除');
+
+    try {
+      const response = await fetch(`api/posts/${postId}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: token,
+        },
+      });
+
+      if (!response.ok) {
+        console.error('記事削除失敗');
+      };
+
+      // ステートの更新
+      fetchPosts();
+      // メニューを閉じる
+      handleClose();
+
+    } catch (error) {
+      console.error('記事削除中に失敗', error);
+    };
+  };
+
   return (
     <>
-      {filterPosts.map((post) => (
+      {posts.map((post) => (
         <div className={styles.home_container} key={post.id}>
           <ul className={styles.post}>
             <li className={styles.postList}>
-              <div className={styles.editButton}>
-                <FontAwesomeIcon icon={faEllipsis} />
-              </div>
+              <ItemMenu
+                anchorEl={anchorEl}
+                open={open}
+                handleClick={(e) => {
+                  handleClick(e);
+                  setPostId(post.id.toString());
+                }}
+                handleClose={handleClose}
+                handleDelete={handleDelete}
+              />
               <Link href={`/mypage/posts/${post.id}`}>
                 <div className={styles.top}>
                   <h2>{post.title}</h2>
@@ -58,7 +107,17 @@ export const Item  = ({ activeTab, posts }: ItemProps) => {
                 <div>
                   <span>{new Date(post.createdAt).toLocaleDateString()}</span>
                 </div>
-                <p>{post.content}</p>
+                <Slate
+                  editor={editor}
+                  initialValue={JSON.parse(post.content)}
+                  onChange={() => { }}
+                >
+                  <Editable
+                    readOnly
+                    className={styles.readOnly}
+                    renderLeaf={RenderLeaf}
+                  />
+                </Slate>
               </Link>
             </li>
           </ul>

@@ -9,7 +9,7 @@ interface ModalProps {
   children?: React.ReactNode,
   isOpen: boolean,
   onRequestClose: () => void,
-}
+};
 
 export const CustomModal: React.FC<ModalProps> = ({ className, children, isOpen, onRequestClose }) => {
 

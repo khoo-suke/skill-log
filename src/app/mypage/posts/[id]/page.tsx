@@ -1,53 +1,60 @@
 'use client';
 
-import {
-  ChangeEventHandler,
-  FormEventHandler,
-  useEffect,
-  useState,
-} from 'react';
+import React,{ useEffect, useState } from 'react';
+import styles from './_styles/PostId.module.scss';
+import { PostRequestBody } from '@/app/mypage/_types/PostRequestBody';
 import { useParams } from 'next/navigation'
 import { Category } from "@/app/mypage/_types/Category";
 import { Tag } from '@/app/mypage/_types/Tag';
 import { useSupabaseSession } from "@/app/_hooks/useSupabaseSession";
-import { supabase } from "@/utils/supabase";
-import { useRouter } from "next/navigation"
-import { PostRequestBody } from '@/app/mypage/_types/PostRequestBody';
-import styles from './_styles/PostId.module.scss';
-import Wrapper from '@/app/_components/Wrapper';
+import { Wrapper } from '@/app/_components/Wrapper';
+import {  createEditor, Descendant } from 'slate';
+import { Slate, Editable } from 'slate-react';
+import { RenderLeaf } from '@/app/mypage/_components/RenderLeaf';
+import { withHistory } from 'slate-history';
+import { withReact } from 'slate-react';
 
 export default function Page() {
   const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
-  const [allCategories, setAllCategories] = useState<Category[]>([]);
-  const [selectCategories, setSelectCategories] = useState<Category[]>([]);
   const { id } = useParams();
   const { token } = useSupabaseSession();
-  const [thumbnailImageKey, setThumbnailImageKey] = useState(``);
-  const router = useRouter();
+  const [selectCategories, setSelectCategories] = useState<Category[]>([]);
+  const [selectTags, setSelectTags] = useState<Tag[]>([]);
+  const [editor] = useState(() => withHistory(withReact(createEditor())));
+  const [content, setContent] = useState<Descendant[]>([]);
 
   //GET 記事用
   useEffect(() => {
     if (!token) return
     
     const fetcher = async () => {
-      const res = await fetch(`/api/posts/${id}`, {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: token,
-        },
-      });
+      try {
+        const res = await fetch(`/api/posts/${id}`, {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: token,
+          },
+        });
 
-      const data = await res.json();
-      const { post } = data;
-      setTitle(post.title);
-      setContent(post.content);
-      setThumbnailImageKey(post.thumbnailImageKey);
-      setSelectCategories(post.postCategories.map((cate: any) => cate.category));
-    }
+        const data = await res.json();
+
+        const { post } = data;
+        setTitle(post.title);
+        setContent(JSON.parse(post.content));
+        setSelectCategories(post.postCategories.map((cate: any) => cate.category));
+        setSelectTags(post.postTags.map((tag: any) => tag.tag));
+      }
+      catch (error) {
+        console.error(error);
+      };
+    };
 
     fetcher();
-  }, [token]);
+  }, [token, id]);
+
+  useEffect(() => {
+    console.log('Content:', content);
+  }, [content]);
 
   return (
     <>
@@ -56,12 +63,32 @@ export default function Page() {
           <div className={styles.inner}>
             <div className={styles.topArea}>
               <h2>{title}</h2>
+              <div className={styles.markArea}>
+                {selectCategories.length > 0 && (
+                  <ul className={styles.home_categories}>
+                    {selectCategories.map((category) => (
+                      <li key={category.id}>{category.name}</li>
+                    ))}
+                  </ul>
+                )}
+                {selectTags.length > 0 && (
+                  <ul className={styles.home_tags}>
+                    {selectTags.map((tag) => (
+                      <li key={tag.id}>{tag.name}</li>))}
+                  </ul>
+                )}
+              </div>
             </div>
             <div>
-              <h2>{title}</h2>
-            </div>
-            <div>
-              <p>{content}</p>
+              <Slate
+                editor={editor}
+                initialValue={content}
+              >
+                <Editable
+                  readOnly
+                  renderLeaf={RenderLeaf}
+                />
+              </Slate>
             </div>
           </div>
         </Wrapper>
