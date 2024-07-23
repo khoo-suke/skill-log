@@ -18,7 +18,6 @@ const HeaderDefault: React.FC = () => {
 
   // メニューのステート
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
 
   // メニューを開く
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -28,12 +27,6 @@ const HeaderDefault: React.FC = () => {
   // メニューを閉じる
   const handleClose = () => {
     setAnchorEl(null);
-  };
-
-  // ログアウト
-  const handleLogout = async () => {
-    await supabase.auth.signOut();
-    window.location.href = '/';
   };
 
   return (
@@ -51,10 +44,8 @@ const HeaderDefault: React.FC = () => {
               </Button>
               <HeaderMenu
                 anchorEl={anchorEl}
-                open={open}
                 handleClick={handleClick}
                 handleClose={handleClose}
-                handleLogout={handleLogout}
               />
             </div>
           </header>

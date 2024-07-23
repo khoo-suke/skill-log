@@ -9,17 +9,26 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Logout from '@mui/icons-material/Logout';
 import Link from 'next/link';
+import { supabase } from '@/utils/supabase';
 
 // 親からステートを受け取る
 interface HeaderMenuProps {
   anchorEl: HTMLElement | null;
-  open: boolean;
   handleClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
   handleClose: () => void;
-  handleLogout: () => void;
 };
 
-export const HeaderMenu: React.FC<HeaderMenuProps> = ({ anchorEl, open, handleClick, handleClose, handleLogout }) => {
+export const HeaderMenu: React.FC<HeaderMenuProps> = ({
+  anchorEl,
+  handleClick,
+  handleClose,
+}) => {
+  const open = !!anchorEl
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut()
+    window.location.href = '/'
+  }
 
   return (
     <>
