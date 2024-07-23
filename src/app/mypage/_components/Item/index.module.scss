@@ -1,13 +1,20 @@
-.home_container {
-  background-color: #fff;
-  .post {
-    padding: 0;
-    margin: 0;
-    .postList {
-      border-radius: 3px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
-      padding: 1rem 3rem 4rem;
-      margin-bottom: 5rem;
+.post {
+  padding: 0;
+  margin: 0;
+  .postList {
+    background-color: #fff;
+    border-radius: 3px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
+    height: calc(12em + 7rem);
+    padding: 1rem 4rem 6rem;
+    margin-bottom: 5rem;
+    &Inner {
+      display: -webkit-box;
+      line-height: 2;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      -webkit-line-clamp: 5;
+      -webkit-box-orient: vertical;
       .top {
         display: flex;
         justify-content: space-between;

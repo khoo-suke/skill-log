@@ -75,53 +75,54 @@ export const Item = ({ posts, editor, fetchPosts }: ItemProps) => {
   return (
     <>
       {posts.map((post) => (
-        <div className={styles.home_container} key={post.id}>
-          <ul className={styles.post}>
-            <li className={styles.postList}>
-              <ItemMenu
-                anchorEl={anchorEl}
-                open={open}
-                handleClick={(e) => {
-                  handleClick(e);
-                  setPostId(post.id.toString());
-                }}
-                handleClose={handleClose}
-                handleDelete={handleDelete}
-              />
-              <Link href={`/mypage/posts/${post.id}`}>
-                <div className={styles.top}>
-                  <h2>{post.title}</h2>
-                  <div>
-                    {post.postCategories.map(category => (
-                    <ul className={styles.home_categories} key={category.category.id}>
-                      <li>{category.category.name}</li>
-                    </ul>
-                    ))}
-                    {post.postTags.map(tag => (
-                    <ul className={styles.home_tags} key={tag.tag.id}>
-                      <li>{tag.tag.name}</li>
-                    </ul>
-                    ))}
-                  </div>
-                </div>
+        <ul className={styles.post} key={post.id}>
+          <li className={styles.postList}>
+            <div className={styles.postListInner}>
+            <ItemMenu
+              anchorEl={anchorEl}
+              open={open}
+              handleClick={(e) => {
+                handleClick(e);
+                setPostId(post.id.toString());
+              }}
+              handleClose={handleClose}
+              handleDelete={handleDelete}
+            />
+            <Link href={`/mypage/posts/${post.id}`}>
+              <div className={styles.top}>
+                <h2>{post.title}</h2>
                 <div>
-                  <span>{new Date(post.createdAt).toLocaleDateString()}</span>
+                  {post.postCategories.map(category => (
+                  <ul className={styles.home_categories} key={category.category.id}>
+                    <li>{category.category.name}</li>
+                  </ul>
+                  ))}
+                  {post.postTags.map(tag => (
+                  <ul className={styles.home_tags} key={tag.tag.id}>
+                    <li>{tag.tag.name}</li>
+                  </ul>
+                  ))}
                 </div>
-                <Slate
-                  editor={editor}
-                  initialValue={JSON.parse(post.content)}
-                  onChange={() => { }}
-                >
-                  <Editable
-                    readOnly
-                    className={styles.readOnly}
-                    renderLeaf={RenderLeaf}
-                  />
-                </Slate>
+              </div>
+              <div>
+                <span>{new Date(post.createdAt).toLocaleDateString()}</span>
+              </div>
+              <Slate
+                editor={editor}
+                initialValue={JSON.parse(post.content)}
+                key={JSON.stringify(post.content)}
+                onChange={() => { }}
+              >
+                <Editable
+                  readOnly
+                  className={styles.readOnly}
+                  renderLeaf={RenderLeaf}
+                />
+              </Slate>
               </Link>
-            </li>
-          </ul>
-        </div>
+            </div>
+          </li>
+        </ul>
       ))}
     </>
   );

@@ -2,7 +2,6 @@
 
 import React,{ useEffect, useState } from 'react';
 import styles from './_styles/PostId.module.scss';
-import { PostRequestBody } from '@/app/mypage/_types/PostRequestBody';
 import { useParams } from 'next/navigation'
 import { Category } from "@/app/mypage/_types/Category";
 import { Tag } from '@/app/mypage/_types/Tag';
@@ -83,6 +82,7 @@ export default function Page() {
               <Slate
                 editor={editor}
                 initialValue={content}
+                key={JSON.stringify(content)}
               >
                 <Editable
                   readOnly

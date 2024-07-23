@@ -29,14 +29,14 @@ const Mypage = () => {
   const fetchPosts = useCallback(async () => {
     if (!token) return;
 
-    const fetcher = async () => {
-      const response = await fetch('/api/posts', {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: token,
-        },
-      });
-
+    const response = await fetch('/api/posts', {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: token,
+      },
+    });
+    
+    if (response.ok) {
       const { posts } = await response.json();
       setPosts([...posts]);
 
@@ -45,13 +45,12 @@ const Mypage = () => {
         setContent(JSON.parse(posts[0].content)); // ここでJSON形式に変換
       };
     };
-
-    fetcher();
   }, [token]);
 
   // ステートが変更されるたびに更新する
   useEffect(() => {
     fetchPosts();
+    console.log(posts);
   }, [fetchPosts]);
 
   return (

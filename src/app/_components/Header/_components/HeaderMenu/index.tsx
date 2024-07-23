@@ -1,6 +1,6 @@
 'use-client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -9,17 +9,29 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Logout from '@mui/icons-material/Logout';
 import Link from 'next/link';
+import { supabase } from '@/utils/supabase';
 
-// 親からステートを受け取る
-interface HeaderMenuProps {
-  anchorEl: HTMLElement | null;
-  open: boolean;
-  handleClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
-  handleClose: () => void;
-  handleLogout: () => void;
-};
+export const HeaderMenu: React.FC = () => {
 
-export const HeaderMenu: React.FC<HeaderMenuProps> = ({ anchorEl, open, handleClick, handleClose, handleLogout }) => {
+  // メニューのステート
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const open = !!anchorEl;
+
+  // メニューを開く
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  // メニューを閉じる
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  // ログアウト
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    window.location.href = '/';
+  };
 
   return (
     <>

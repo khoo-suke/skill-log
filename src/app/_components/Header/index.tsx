@@ -5,7 +5,6 @@ import styles from '@/app/_components/Header/index.module.scss';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useSupabaseSession } from '@/app/_hooks/useSupabaseSession';
-import { supabase } from '@/utils/supabase';
 import { Button } from '@/app/_components/Button';
 import { usePathname } from 'next/navigation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -15,26 +14,6 @@ import { HeaderMenu } from './_components/HeaderMenu';
 const HeaderDefault: React.FC = () => {
   // ログイン状態取得
   const { session, isLoading } = useSupabaseSession();
-
-  // メニューのステート
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
-
-  // メニューを開く
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  // メニューを閉じる
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  // ログアウト
-  const handleLogout = async () => {
-    await supabase.auth.signOut();
-    window.location.href = '/';
-  };
 
   return (
     <>
@@ -49,13 +28,7 @@ const HeaderDefault: React.FC = () => {
               <FontAwesomeIcon icon={faCirclePlus} />
                 新規投稿
               </Button>
-              <HeaderMenu
-                anchorEl={anchorEl}
-                open={open}
-                handleClick={handleClick}
-                handleClose={handleClose}
-                handleLogout={handleLogout}
-              />
+              <HeaderMenu/>
             </div>
           </header>
         ) : (
