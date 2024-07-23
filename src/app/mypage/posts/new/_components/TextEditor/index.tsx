@@ -84,29 +84,33 @@ export const TextEditor = ({ content, setContent }: ContentProps) => {
   const handleKeyDown = useCallback((event: React.KeyboardEvent) => {
     if (!event.ctrlKey) {
       return;
-    }
+    };
 
     switch (event.key) {
       // ctrl + b で太字
       case 'b': {
         event.preventDefault();
         CustomEditor.toggleBoldMark(editor);
-      }
+        return;
+      };
       // ctrl + i でイタリック
       case 'i': {
         event.preventDefault();
         CustomEditor.toggleItalicMark(editor);
-      }
+        return;
+      };
       // ctrl + c でコード
       case 'c': {
         event.preventDefault();
         CustomEditor.toggleCodeMark(editor);
-      }
+        return;
+      };
       // ctrl + Z でデフォルトのスタイル
       case 'z': {
         event.preventDefault();
-      }
-    }
+        return;
+      };
+    };
   }, [editor]);
 
   // コンテンツが変更された際に呼び出される関数

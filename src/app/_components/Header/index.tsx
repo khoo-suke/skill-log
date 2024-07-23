@@ -1,5 +1,6 @@
 'use client';
 
+import React, { useState } from 'react';
 import styles from '@/app/_components/Header/index.module.scss';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -8,8 +9,10 @@ import { Button } from '@/app/_components/Button';
 import { usePathname } from 'next/navigation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
+import { HeaderMenu } from './_components/HeaderMenu';
 
 const HeaderDefault: React.FC = () => {
+  // ログイン状態取得
   const { session, isLoading } = useSupabaseSession();
 
   return (
@@ -25,7 +28,7 @@ const HeaderDefault: React.FC = () => {
               <FontAwesomeIcon icon={faCirclePlus} />
                 新規投稿
               </Button>
-              <Link href="/mypage/account" className={styles.account}></Link>
+              <HeaderMenu/>
             </div>
           </header>
         ) : (

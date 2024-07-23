@@ -29,53 +29,53 @@ export const CategorySelect: React.FC<CategoryProps> = ({ selectCategories, setS
     
     // GET カテゴリー用
     if (!token) return;
-      const response = await fetch(`/api/categories`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: token,
-        },
-      });
-      const data = await response.json();
-      setAllCategories(data.categories);
+    const response = await fetch(`/api/categories`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: token,
+      },
+    });
+    const data = await response.json();
+    setAllCategories(data.categories);
+  };
+
+  // 初回レンダリング時にカテゴリーを取得
+  useEffect(() => {
+    fetchCategories();
+  }, [token]);
+
+  //POST カテゴリー作成用
+  const handleAddCategory: MouseEventHandler<HTMLButtonElement> = async (e) => {
+    e.preventDefault();
+  
+    if (!token) return;
+  
+    // カテゴリーがnullの場合
+    if (!newCategory) {
+      alert('カテゴリー名を入力してください');
+      return;
     };
-
-    // 初回レンダリング時にカテゴリーを取得
-    useEffect(() => {
+  
+    const response = await fetch(`/api/categories`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: token,
+      },
+      body: JSON.stringify({
+        name: newCategory,
+      }),
+    });
+  
+    // 成功
+    if (response.ok) {
+      const data = await response.json();
+      setAllCategories((categories) => [...categories, data.name]);
+      setNewCategory('');
+      setCategoryModalOpen(false); // modalを閉じる
       fetchCategories();
-    }, [token]);
-
-    //POST カテゴリー作成用
-    const handleAddCategory: MouseEventHandler<HTMLButtonElement> = async (e) => {
-      e.preventDefault();
-  
-      if (!token) return;
-  
-      // カテゴリーがnullの場合
-      if (!newCategory) {
-        alert('カテゴリー名を入力してください');
-        return;
-      };
-  
-      const response = await fetch(`/api/categories`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: token,
-        },
-        body: JSON.stringify({
-          name: newCategory,
-        }),
-      });
-  
-      // 成功
-      if (response.ok) {
-        const data = await response.json();
-        setAllCategories((categories) => [...categories, data.name]);
-        setNewCategory('');
-        setCategoryModalOpen(false); // modalを閉じる
-        fetchCategories();
-      };
+    };
   };
   
   // SELECT カテゴリー
@@ -137,10 +137,10 @@ export const CategorySelect: React.FC<CategoryProps> = ({ selectCategories, setS
                 className={styles.close}
                 onClick={() => setCategoryModalOpen(false)}
               >
-              <FontAwesomeIcon icon={faCircleXmark} />
+                <FontAwesomeIcon icon={faCircleXmark} />
               </button>
             </div>
-            <Label value='新規カテゴリー名'/>
+            <Label value='新規カテゴリー名' />
             <input
               type="text"
               value={newCategory}
@@ -158,5 +158,5 @@ export const CategorySelect: React.FC<CategoryProps> = ({ selectCategories, setS
         </div>
       </div>
     </>
-  )
-}
+  );
+};

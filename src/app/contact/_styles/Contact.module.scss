@@ -110,20 +110,3 @@
     }
   }
 }
-
-.thanks {
-  h2 {
-    font-size: 200%;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: clamp(3rem, 5vw, 7rem);;
-  }
-  p {
-    margin-bottom: 4rem;
-  }
-  a {
-    border-bottom: 1px solid #4a76af;
-    color: #4a76af;
-    padding-bottom: 0.1em;
-  }
-}

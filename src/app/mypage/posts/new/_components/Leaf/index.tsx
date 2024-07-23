@@ -4,8 +4,6 @@ import React from 'react';
 import { RenderLeafProps } from 'slate-react';
 import { CustomText } from '../../_types/CustomText';
 
-
-
 // RenderLeafProps にカスタムプロパティ leaf を追加するための Intersection Types
 type LeafProps = RenderLeafProps & {
   leaf: CustomText;
