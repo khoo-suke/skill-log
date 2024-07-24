@@ -22,9 +22,9 @@ interface ItemProps {
 
 export const Item = ({ posts, editor, fetchPosts }: ItemProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
+  const open = !!anchorEl;
   const { token } = useSupabaseSession();
-  const [postId, setPostId] = useState<string | null>(null);
+  const [postId, setPostId] = useState<number>();
 
   // メニューを開く
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -78,16 +78,14 @@ export const Item = ({ posts, editor, fetchPosts }: ItemProps) => {
         <ul className={styles.post} key={post.id}>
           <li className={styles.postList}>
             <div className={styles.postListInner}>
-            <ItemMenu
-              anchorEl={anchorEl}
-              open={open}
-              handleClick={(e) => {
-                handleClick(e);
-                setPostId(post.id.toString());
-              }}
-              handleClose={handleClose}
-              handleDelete={handleDelete}
-            />
+              <ItemMenu
+                anchorEl={anchorEl}
+                open={open}
+                handleClick={handleClick}
+                handleClose={handleClose}
+                handleDelete={handleDelete}
+                postId={post.id}
+              />
             <Link href={`/mypage/posts/${post.id}`}>
               <div className={styles.top}>
                 <h2>{post.title}</h2>

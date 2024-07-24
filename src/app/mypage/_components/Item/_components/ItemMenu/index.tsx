@@ -7,6 +7,7 @@ import MenuItem from '@mui/material/MenuItem';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import styles from './index.module.scss';
+import Link from 'next/link';
 
 // 親からステートを受け取る
 interface ItemMenuProps {
@@ -15,10 +16,13 @@ interface ItemMenuProps {
   handleClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
   handleClose: () => void;
   handleDelete: () => void;
+  postId: number;
 };
 
-export const ItemMenu: React.FC<ItemMenuProps> = ({ anchorEl, open, handleClick, handleClose, handleDelete }) => {
+export const ItemMenu: React.FC<ItemMenuProps> = ({ anchorEl, open, handleClick, handleClose, handleDelete, postId }) => {
 
+  console.log(postId);
+  
   return (
     <div className={styles.editButton}>
       <Button
@@ -57,7 +61,11 @@ export const ItemMenu: React.FC<ItemMenuProps> = ({ anchorEl, open, handleClick,
           },
         }}
       >
-        <MenuItem onClick={handleClose}>編集</MenuItem>
+        <MenuItem onClick={handleClose}>
+          <Link href={`/mypage/posts/edit/${postId}`}>
+            編集
+          </Link>
+        </MenuItem>
         <MenuItem onClick={handleDelete}>削除</MenuItem>
       </Menu>
     </div>
