@@ -21,71 +21,13 @@ interface ItemProps {
 };
 
 export const Item = ({ posts, editor, fetchPosts }: ItemProps) => {
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const open = !!anchorEl;
-  const { token } = useSupabaseSession();
-  const [postId, setPostId] = useState<number>();
-
-  // メニューを開く
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(e.currentTarget);
-  };
-
-  // メニューを閉じる
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  // DELETE 記事を削除
-  const handleDelete = async () => {
-    if (!token || !postId) return;
-
-    const confirmed = confirm('削除した記事は復元できませんが、削除してよろしいですか。');
-    if (!confirmed) {
-      // メニューを閉じる
-      handleClose();
-      return;
-    };
-
-    console.log('削除');
-
-    try {
-      const response = await fetch(`api/posts/${postId}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: token,
-        },
-      });
-
-      if (!response.ok) {
-        console.error('記事削除失敗');
-      };
-
-      // ステートの更新
-      fetchPosts();
-      // メニューを閉じる
-      handleClose();
-
-    } catch (error) {
-      console.error('記事削除中に失敗', error);
-    };
-  };
-
   return (
     <>
       {posts.map((post) => (
         <ul className={styles.post} key={post.id}>
           <li className={styles.postList}>
             <div className={styles.postListInner}>
-              <ItemMenu
-                anchorEl={anchorEl}
-                open={open}
-                handleClick={handleClick}
-                handleClose={handleClose}
-                handleDelete={handleDelete}
-                postId={post.id}
-              />
+              <ItemMenu fetchPosts={fetchPosts} postId={post.id} />
             <Link href={`/mypage/posts/${post.id}`}>
               <div className={styles.top}>
                 <h2>{post.title}</h2>
