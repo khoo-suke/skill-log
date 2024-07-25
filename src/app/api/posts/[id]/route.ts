@@ -70,7 +70,7 @@ export const DELETE = async (
   }
 };
 
-//PUT
+// PUT
 export const PUT = async (
   request: NextRequest,
   { params }: { params: { id: string } }

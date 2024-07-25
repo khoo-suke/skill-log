@@ -10,7 +10,7 @@ import { Slate, Editable, ReactEditor } from 'slate-react';
 import { HistoryEditor } from 'slate-history';
 import { RenderLeaf } from '@/app/mypage/_components/RenderLeaf';
 import { ItemMenu } from '@/app/mypage/_components/Item/_components/ItemMenu';
-import { useSupabaseSession } from '@/app/_hooks/useSupabaseSession';
+
 
 // 親からステートを受け取る
 interface ItemProps {
@@ -21,56 +21,6 @@ interface ItemProps {
 };
 
 export const Item = ({ posts, editor, fetchPosts }: ItemProps) => {
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const open = !!anchorEl;
-  const { token } = useSupabaseSession();
-  const [postId, setPostId] = useState<number>();
-
-  // メニューを開く
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(e.currentTarget);
-  };
-
-  // メニューを閉じる
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  // DELETE 記事を削除
-  const handleDelete = async () => {
-    if (!token || !postId) return;
-
-    const confirmed = confirm('削除した記事は復元できませんが、削除してよろしいですか。');
-    if (!confirmed) {
-      // メニューを閉じる
-      handleClose();
-      return;
-    };
-
-    console.log('削除');
-
-    try {
-      const response = await fetch(`api/posts/${postId}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: token,
-        },
-      });
-
-      if (!response.ok) {
-        console.error('記事削除失敗');
-      };
-
-      // ステートの更新
-      fetchPosts();
-      // メニューを閉じる
-      handleClose();
-
-    } catch (error) {
-      console.error('記事削除中に失敗', error);
-    };
-  };
 
   return (
     <>
@@ -79,12 +29,8 @@ export const Item = ({ posts, editor, fetchPosts }: ItemProps) => {
           <li className={styles.postList}>
             <div className={styles.postListInner}>
               <ItemMenu
-                anchorEl={anchorEl}
-                open={open}
-                handleClick={handleClick}
-                handleClose={handleClose}
-                handleDelete={handleDelete}
                 postId={post.id}
+                fetchPosts={fetchPosts}
               />
             <Link href={`/mypage/posts/${post.id}`}>
               <div className={styles.top}>

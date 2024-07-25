@@ -80,7 +80,10 @@ export default function Page() {
               title={title}
               setTitle={setTitle}
             />
-            {/* <DateInput/> */}
+            <DateInput
+              createdAt={createdAt}
+              setCreatedAt={setCreatedAt}
+            />
             <CategoryList
               selectCategories={selectCategories}
               setSelectCategories={setSelectCategories}
