@@ -50,7 +50,6 @@ const Mypage = () => {
   // ステートが変更されるたびに更新する
   useEffect(() => {
     fetchPosts();
-    console.log(posts);
   }, [fetchPosts]);
 
   return (

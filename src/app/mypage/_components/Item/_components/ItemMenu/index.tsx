@@ -1,24 +1,76 @@
 'use-client';
 
-import React from 'react';
+import React, {useState} from 'react';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import styles from './index.module.scss';
+import Link from 'next/link';
+import { useSupabaseSession } from '@/app/_hooks/useSupabaseSession';
+
 
 // 親からステートを受け取る
 interface ItemMenuProps {
-  anchorEl: HTMLElement | null;
-  open: boolean;
-  handleClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
-  handleClose: () => void;
-  handleDelete: () => void;
+  postId: number,
+  fetchPosts: () => Promise<void>;
 };
 
-export const ItemMenu: React.FC<ItemMenuProps> = ({ anchorEl, open, handleClick, handleClose, handleDelete }) => {
+export const ItemMenu: React.FC<ItemMenuProps> = ({ postId, fetchPosts }) => {
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const open = !!anchorEl;
+  const { token } = useSupabaseSession();
 
+  // メニューを開く
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(e.currentTarget);
+  };
+
+  // メニューを閉じる
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  // DELETE 記事を削除
+  const handleDelete = async () => {
+    if (!token || !postId) return;
+
+    const confirmed = confirm('削除した記事は復元できませんが、削除してよろしいですか。');
+    if (!confirmed) {
+      // メニューを閉じる
+      handleClose();
+      return;
+    };
+
+    console.log('削除');
+
+    try {
+      const response = await fetch(`api/posts/${postId}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: token,
+        },
+      });
+
+      if (!response.ok) {
+        console.error('記事削除失敗');
+      };
+
+      // ステートの更新
+      fetchPosts();
+      // メニューを閉じる
+      handleClose();
+
+    } catch (error) {
+      console.error('記事削除中に失敗', error);
+    };
+  };
+
+
+  console.log(postId);
+  
   return (
     <div className={styles.editButton}>
       <Button
@@ -57,7 +109,11 @@ export const ItemMenu: React.FC<ItemMenuProps> = ({ anchorEl, open, handleClick,
           },
         }}
       >
-        <MenuItem onClick={handleClose}>編集</MenuItem>
+        <MenuItem onClick={handleClose}>
+          <Link href={`/mypage/posts/edit/${postId}`}>
+            編集
+          </Link>
+        </MenuItem>
         <MenuItem onClick={handleDelete}>削除</MenuItem>
       </Menu>
     </div>

@@ -40,9 +40,6 @@ export const CalendarArea = () => {
 
       const data = await response.json();
 
-      console.log(data.studyTimes);
-      console.log(data.averageStudyTime);
-
       // 平均勉強時間をセット
       setAverageStudyTime(data.averageStudyTime);
 
