@@ -7,7 +7,7 @@ import React, {
 } from 'react';
 import { useSupabaseSession } from '@/app/_hooks/useSupabaseSession';
 import { Category } from '@/app/mypage/_types/Category';
-import styles from '@/app/mypage/posts/new/_components/CategoryList/index.module.scss';
+import styles from '@/app/mypage/_components/TagState/_components/CategorySelect/index.module.scss';
 import { Button } from '@/app/_components/Button';
 import { Label } from '@/app/_components/Label';
 import { CustomModal } from '@/app/_components/CustomModal';
@@ -17,9 +17,10 @@ import { faCircleXmark, faSquarePlus } from '@fortawesome/free-solid-svg-icons';
 interface CategoryProps {
   selectCategories: Category[];
   setSelectCategories: React.Dispatch<React.SetStateAction<Category[]>>;
+  fetchPosts: () => Promise<void>;
 };
 
-export const CategorySelect: React.FC<CategoryProps> = ({ selectCategories, setSelectCategories }) => {
+export const CategorySelect: React.FC<CategoryProps> = ({ selectCategories, setSelectCategories, fetchPosts }) => {
   const { token } = useSupabaseSession();
   const [allCategories, setAllCategories] = useState<Category[]>([]);
   const [newCategory, setNewCategory] = useState('');
@@ -38,6 +39,7 @@ export const CategorySelect: React.FC<CategoryProps> = ({ selectCategories, setS
     });
     const data = await response.json();
     setAllCategories(data.categories);
+    fetchPosts();
   };
 
   // 初回レンダリング時にカテゴリーを取得
@@ -75,6 +77,7 @@ export const CategorySelect: React.FC<CategoryProps> = ({ selectCategories, setS
       setNewCategory('');
       setCategoryModalOpen(false); // modalを閉じる
       fetchCategories();
+      fetchPosts();
     };
   };
   
@@ -101,6 +104,7 @@ export const CategorySelect: React.FC<CategoryProps> = ({ selectCategories, setS
         setSelectCategories([...selectCategories, selectedCategory]);
       };
     };
+    fetchPosts();
   };
 
   return (

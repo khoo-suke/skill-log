@@ -5,7 +5,7 @@
   .inner {
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
-    padding: clamp(2rem, 4vw, 5rem);
+    padding: 2rem clamp(2rem, 4vw, 5rem) clamp(3rem, 6vw, 7rem);
     .topArea {
         display: flex;
         justify-content: space-between;

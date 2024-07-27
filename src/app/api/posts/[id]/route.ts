@@ -117,6 +117,7 @@ export const PUT = async (
 
     return NextResponse.json({ status: "OK", post: post }, { status: 200 });
   } catch (error) {
+    console.error('Error updating post:', error);  // エラーメッセージをログに出力
     if (error instanceof Error)
       return NextResponse.json({ status: error.message }, { status: 400 });
   }

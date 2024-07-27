@@ -7,7 +7,7 @@ import {
 } from 'react';
 import { useSupabaseSession } from '@/app/_hooks/useSupabaseSession';
 import { Tag } from '@/app/mypage/_types/Tag';
-import styles from '@/app/mypage/posts/new/_components/TagList/index.module.scss';
+import styles from '@/app/mypage/_components/TagState/_components/TagSelect/index.module.scss';
 import { Label } from '@/app/_components/Label';
 import { CustomModal } from '@/app/_components/CustomModal';
 import { Button } from '@/app/_components/Button';
@@ -18,9 +18,10 @@ import { faSquarePlus } from '@fortawesome/free-solid-svg-icons';
 interface TagProps {
   selectTags: Tag[];
   setSelectTags: React.Dispatch<React.SetStateAction<Tag[]>>;
+  fetchPosts: () => Promise<void>;
 }
 
-export const TagSelect: React.FC<TagProps> = ({ selectTags, setSelectTags }) => {
+export const TagSelect: React.FC<TagProps> = ({ selectTags, setSelectTags, fetchPosts }) => {
   const { token } = useSupabaseSession();
   const [allTags, setAllTags] = useState<Tag[]>([]);
   const [newTag, setNewTag] = useState('');
@@ -44,6 +45,7 @@ export const TagSelect: React.FC<TagProps> = ({ selectTags, setSelectTags }) => 
   // 初回レンダリング時にタグを取得
   useEffect(() => {
     fetchTags();
+    fetchPosts();
   }, [token]);
 
   // POST タグ作成用
@@ -76,6 +78,7 @@ export const TagSelect: React.FC<TagProps> = ({ selectTags, setSelectTags }) => 
       setNewTag('');
       setTagModalOpen(false); // modalを閉じる
       fetchTags();
+      fetchPosts();
     };
   };
   
@@ -101,6 +104,7 @@ export const TagSelect: React.FC<TagProps> = ({ selectTags, setSelectTags }) => 
         setSelectTags([...selectTags, selectTag]);
       };
     };
+    fetchPosts();
   };
   
   return (

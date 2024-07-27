@@ -15,6 +15,7 @@ import { TagState } from './_components/TagState';
 import { createEditor, Descendant } from 'slate';
 import { withReact } from 'slate-react';
 import { withHistory } from 'slate-history';
+import { PaginationArea } from './_components/PaginationArea';
 
 const Mypage = () => {
   const [posts, setPosts] = useState<PostRequestBody[]>([]);
@@ -24,12 +25,15 @@ const Mypage = () => {
   const [selectTags, setSelectTags] = useState<Tag[]>([]);
   const [editor] = useState(() => withHistory(withReact(createEditor())));
   const [content, setContent] = useState<Descendant[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5; // 1ページあたりのアイテム数
 
   // GET 記事用
   const fetchPosts = useCallback(async () => {
     if (!token) return;
 
     const response = await fetch('/api/posts', {
+      method: 'GET',
       headers: {
         'Content-Type': 'application/json',
         Authorization: token,
@@ -64,6 +68,7 @@ const Mypage = () => {
             <Tabs
               activeTab={activeTab}
               setActiveTab={setActiveTab}
+              fetchPosts={fetchPosts}
             />
           </Wrapper>
         </div>
@@ -75,12 +80,23 @@ const Mypage = () => {
               setSelectCategories={setSelectCategories}
               selectTags={selectTags}
               setSelectTags={setSelectTags}
+              fetchPosts={fetchPosts}
             />
             <Item
               activeTab={activeTab}
               posts={posts}
               editor={editor}
               fetchPosts={fetchPosts}
+              selectCategories={selectCategories}
+              selectTags={selectTags}
+              currentPage={currentPage}
+              itemsPerPage={itemsPerPage}
+            />
+            <PaginationArea
+              page={currentPage}
+              totalPosts={posts.length}
+              itemsPerPage={itemsPerPage}
+              onPageChange={setCurrentPage}
             />
           </Wrapper>
         </div>

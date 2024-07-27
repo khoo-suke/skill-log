@@ -1,0 +1,15 @@
+.paginationArea {
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 5rem 2rem;
+  margin: 0 auto;
+  width: min(70%, 500px);
+  ul {
+    justify-content: center;
+    li {
+      button {
+        font-size: clamp(1.1rem, 1.2vw, 1.3rem);
+      }
+    }
+  }
+}

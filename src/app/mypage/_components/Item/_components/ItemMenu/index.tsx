@@ -60,6 +60,7 @@ export const ItemMenu: React.FC<ItemMenuProps> = ({ postId, fetchPosts }) => {
 
       // ステートの更新
       fetchPosts();
+      console.log(fetchPosts);
       // メニューを閉じる
       handleClose();
 
