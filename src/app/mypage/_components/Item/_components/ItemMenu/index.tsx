@@ -1,6 +1,6 @@
 'use-client';
 
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -9,7 +9,6 @@ import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import styles from './index.module.scss';
 import Link from 'next/link';
 import { useSupabaseSession } from '@/app/_hooks/useSupabaseSession';
-
 
 // 親からステートを受け取る
 interface ItemMenuProps {
@@ -68,9 +67,6 @@ export const ItemMenu: React.FC<ItemMenuProps> = ({ postId, fetchPosts }) => {
       console.error('記事削除中に失敗', error);
     };
   };
-
-
-  console.log(postId);
   
   return (
     <div className={styles.editButton}>

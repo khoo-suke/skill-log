@@ -89,8 +89,7 @@ const filteredPosts = posts.filter(post => {
                   <span>{new Date(post.createdAt).toLocaleDateString()}</span>
                 </div>
                 <SlateEditor
-                  posts={posts}
-                  postId={post.id}
+                  post={post}
                 />
               </Link>
             </div>
