@@ -5,27 +5,23 @@ import styles from '@/app/mypage/_components/Item/index.module.scss';
 import { PostRequestBody } from '@/app/mypage/_types/PostRequestBody';
 import Link from 'next/link';
 import 'react-calendar/dist/Calendar.css';
-import { BaseEditor } from 'slate';
-import { Slate, Editable, ReactEditor } from 'slate-react';
-import { HistoryEditor } from 'slate-history';
-import { RenderLeaf } from '@/app/mypage/_components/RenderLeaf';
 import { ItemMenu } from '@/app/mypage/_components/Item/_components/ItemMenu';
 import { Category } from '@/app/mypage/_types/Category';
 import { Tag } from '@/app/mypage/_types/Tag';
+import { SlateEditor } from '@/app/mypage/_components/Item/_components/SlateEditor';
 
 // 親からステートを受け取る
 interface ItemProps {
   activeTab: string,
   posts: PostRequestBody[]; 
-  editor: BaseEditor & ReactEditor & HistoryEditor;
-  fetchPosts: () => Promise<void>;
-  selectCategories: Category[];
-  selectTags: Tag[];
-  currentPage: number;
-  itemsPerPage: number;
+  fetchPosts: () => Promise<void>,
+  selectCategories: Category[],
+  selectTags: Tag[],
+  currentPage: number,
+  itemsPerPage: number,
 };
 
-export const Item = ({ activeTab, posts, editor, fetchPosts, selectCategories, selectTags, currentPage, itemsPerPage }: ItemProps) => {
+export const Item = ({ activeTab, posts, fetchPosts, selectCategories, selectTags, currentPage, itemsPerPage }: ItemProps) => {
   
 // activeTabによってフィルタリングを変える
 const filteredPosts = posts.filter(post => {
@@ -53,7 +49,7 @@ const filteredPosts = posts.filter(post => {
 
     default:
       return true; // デフォルトですべての投稿を表示
-  }
+  };
 });
   
   // 現在のページに基づいて表示するポストのインデックスを計算
@@ -92,18 +88,10 @@ const filteredPosts = posts.filter(post => {
                 <div>
                   <span>{new Date(post.createdAt).toLocaleDateString()}</span>
                 </div>
-                <Slate
-                  editor={editor}
-                  initialValue={JSON.parse(post.content)}
-                  key={JSON.stringify(post.content)}
-                  onChange={() => { }}
-                >
-                  <Editable
-                    readOnly
-                    className={styles.readOnly}
-                    renderLeaf={RenderLeaf}
-                  />
-                </Slate>
+                <SlateEditor
+                  posts={posts}
+                  postId={post.id}
+                />
               </Link>
             </div>
           </li>

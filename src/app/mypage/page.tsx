@@ -12,9 +12,7 @@ import { Category } from '@/app/mypage/_types/Category';
 import { Tag } from '@/app/mypage/_types/Tag';
 import { Item } from './_components/Item';
 import { TagState } from './_components/TagState';
-import { createEditor, Descendant } from 'slate';
-import { withReact } from 'slate-react';
-import { withHistory } from 'slate-history';
+import { Descendant } from 'slate';
 import { PaginationArea } from './_components/PaginationArea';
 
 const Mypage = () => {
@@ -23,7 +21,6 @@ const Mypage = () => {
   const [activeTab, setActiveTab] = useState('all');
   const [selectCategories, setSelectCategories] = useState<Category[]>([]);
   const [selectTags, setSelectTags] = useState<Tag[]>([]);
-  const [editor] = useState(() => withHistory(withReact(createEditor())));
   const [content, setContent] = useState<Descendant[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5; // 1ページあたりのアイテム数
@@ -85,7 +82,6 @@ const Mypage = () => {
             <Item
               activeTab={activeTab}
               posts={posts}
-              editor={editor}
               fetchPosts={fetchPosts}
               selectCategories={selectCategories}
               selectTags={selectTags}
