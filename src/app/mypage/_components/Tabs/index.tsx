@@ -1,19 +1,20 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import styles from './index.module.scss';
+import { Tab } from '@/app/mypage/_types/Tab';
 
-type TabProps = {
-  activeTab: string,
-  setActiveTab: (tab: string) => void,
+interface TabProps {
+  activeTab: Tab,
+  setActiveTab: (tab: Tab) => void,
   fetchPosts: () => Promise<void>;
 };
 
 export const Tabs = ({ activeTab, setActiveTab, fetchPosts }: TabProps) => {
 
-  const tabs = ['all', 'カテゴリー', 'タグ', '期間で絞る'];
+  const tabs: Tab[] = ['all', 'カテゴリー', 'タグ', '期間で絞る'];
 
-  const handleTabClick = (tab: string) => {
+  const handleTabClick = (tab: Tab) => {
     setActiveTab(tab);
     fetchPosts();
   };

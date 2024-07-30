@@ -12,16 +12,15 @@ import { Category } from '@/app/mypage/_types/Category';
 import { Tag } from '@/app/mypage/_types/Tag';
 import { Item } from './_components/Item';
 import { TagState } from './_components/TagState';
-import { Descendant } from 'slate';
 import { PaginationArea } from './_components/PaginationArea';
+import { Tab } from './_types/Tab';
 
 const Mypage = () => {
   const [posts, setPosts] = useState<PostRequestBody[]>([]);
   const { token } = useSupabaseSession();
-  const [activeTab, setActiveTab] = useState('all');
+  const [activeTab, setActiveTab] = useState<Tab>('all');
   const [selectCategories, setSelectCategories] = useState<Category[]>([]);
   const [selectTags, setSelectTags] = useState<Tag[]>([]);
-  const [content, setContent] = useState<Descendant[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5; // 1ページあたりのアイテム数
 
@@ -41,10 +40,6 @@ const Mypage = () => {
       const { posts } = await response.json();
       setPosts([...posts]);
 
-      // データをエディターの形式に変換して設定
-      if (posts.length > 0 && posts[0].content) {
-        setContent(JSON.parse(posts[0].content)); // ここでJSON形式に変換
-      };
     };
   }, [token]);
 
@@ -90,8 +85,6 @@ const Mypage = () => {
             />
             <PaginationArea
               page={currentPage}
-              totalPosts={posts.length}
-              itemsPerPage={itemsPerPage}
               onPageChange={setCurrentPage}
             />
           </Wrapper>

@@ -24,6 +24,7 @@ export const Input: React.FC<InputProps> = ({ type = 'text', name, id, onChange,
           value={value}
           placeholder={placeholder}
           required={required}
+          readOnly={!onChange}
           onChange={onChange ? (e) => onChange(e.target.value) : undefined}
     />
   )

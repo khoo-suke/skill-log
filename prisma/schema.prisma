@@ -25,7 +25,7 @@ model Profile {
   name  String?
   email String  @unique
   goal  String?
-  profileImageUrl String?
+  profileImageKey String?
   post  Post[]
   studyTime StudyTime[]
   category  Category[]
