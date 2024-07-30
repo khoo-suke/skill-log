@@ -21,6 +21,8 @@ export const CalendarArea = () => {
   const [isStudyTime, setIsStudyTime] = useState<string>('');
   const [averageStudyTime, setAverageStudyTime] = useState<string>('');
   const [getStudyTimes, setGetStudyTimes] = useState<StudyTimeEntry[]>([]);
+  const [currentYear, setCurrentYear] = useState<number>(new Date().getFullYear());
+  const [currentMonth, setCurrentMonth] = useState<number>(new Date().getMonth() + 1);
 
   // GET 勉強時間取得
   const fetchStudyTimeData = async () => {
@@ -54,9 +56,14 @@ export const CalendarArea = () => {
   // 初回ロード・token変更時に取得
   useEffect(() => {
     fetchStudyTimeData();
-  }, [token]);
-  
+  }, [token, currentYear, currentMonth]);
 
+  // 月が変更されたとき
+  const handleMonthChange = (year: number, month: number) => {
+    setCurrentYear(year);
+    setCurrentMonth(month);
+  };
+  
   // 既に値がある場合はモーダル内の勉強時間入力欄の値を設定
   useEffect(() => {
     if (selectedDate) {
@@ -150,7 +157,7 @@ export const CalendarArea = () => {
             <CustomCalendar
               getStudyTimes={getStudyTimes}
               onCalendarClick={handleCalendarClick}
-
+              onMonthChange={handleMonthChange}
             />
             <div className={styles.guide}>
               <span>少</span>

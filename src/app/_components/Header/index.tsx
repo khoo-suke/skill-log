@@ -21,20 +21,20 @@ const HeaderDefault: React.FC = () => {
         session ? (
           <header className={styles.headerLogin}>
             <Link href="/mypage" className={styles.headerLogo}>
-              <Image src="/images/header_logo_black.png" alt="skill-log" width={132} height={27}/>
+              <Image src="/images/header_logo_black.png" alt="skill-log" width={132} height={27} />
             </Link>
             <div className={styles.btnArea}>
               <Button isLink={true} href={"/mypage/posts/new"} color={"pink"} size={"small"}>
-              <FontAwesomeIcon icon={faCirclePlus} />
+                <FontAwesomeIcon icon={faCirclePlus} />
                 新規投稿
               </Button>
-              <HeaderMenu/>
+              <HeaderMenu />
             </div>
           </header>
         ) : (
           <header className={styles.header}>
             <Link href="/" className={styles.headerLogo}>
-              <Image src="/images/header_logo_white.png" alt="skill-log" width={132} height={27}/>
+              <Image src="/images/header_logo_white.png" alt="skill-log" width={132} height={27} />
             </Link>
             <div className={styles.btnArea}>
               <Button isLink={true} href={"/login"} color={"black"} size={"small"}>
@@ -43,13 +43,13 @@ const HeaderDefault: React.FC = () => {
               <Button isLink={true} href={"/signup"} color={"white"} size={"small"}>
                 新規登録
               </Button>
-           </div>
+            </div>
           </header>
         )
       )}
     </>
   );
-}
+};
 
 const HeaderThanks: React.FC = () => (
   <header className={styles.header}>
@@ -66,7 +66,7 @@ export const Header: React.FC = () => {
 
   if (currentUrl === '/signup/thanks') {
     return <HeaderThanks />;
-  }
+  };
 
   return <HeaderDefault />;
 };

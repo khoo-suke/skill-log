@@ -10,8 +10,11 @@ import IconButton from '@mui/material/IconButton';
 import Logout from '@mui/icons-material/Logout';
 import Link from 'next/link';
 import { supabase } from '@/utils/supabase';
+import { useProfileIcon } from '@/app/_hooks/useProfileIcon';
 
-export const HeaderMenu: React.FC = () => {
+export const HeaderMenu = () => {
+  // プロフィール画像URL取得
+  const { profileImageUrl } = useProfileIcon();
 
   // メニューのステート
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -38,17 +41,21 @@ export const HeaderMenu: React.FC = () => {
       <IconButton
         onClick={handleClick}
         size="small"
-        sx={{ ml: 2 }}
+        sx={{
+          border: '1px solid #bbb',
+          ml: 2,
+        }}
         aria-controls={open ? 'account-menu' : undefined}
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
       >
-        <Avatar sx={{
-          width: 40,
-          height: 40,
-          padding: 0,
+        <Avatar
+          src={profileImageUrl || undefined }
+          sx={{
+            padding: 0,
+            height: 40,
+            width: 40,
         }}>
-          K
         </Avatar>
       </IconButton>
       <Menu
@@ -74,7 +81,14 @@ export const HeaderMenu: React.FC = () => {
       >
         <Link href="/mypage/account" passHref>
           <MenuItem>
-          <Avatar /> アカウント設定
+            <Avatar
+            src={profileImageUrl || undefined }
+            sx={{
+              padding: 0,
+              height: 40,
+              width: 40,
+              }}
+            /> アカウント設定
           </MenuItem>
         </Link>
         <Divider />

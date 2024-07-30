@@ -35,7 +35,8 @@
     "sass": "^1.77.5",
     "slate": "^0.103.0",
     "slate-history": "^0.100.0",
-    "slate-react": "^0.106.0"
+    "slate-react": "^0.106.0",
+    "uuid": "^10.0.0"
   },
   "devDependencies": {
     "@slack/webhook": "^7.0.2",
@@ -45,6 +46,7 @@
     "@types/react-dom": "^18",
     "@types/slate": "^0.47.15",
     "@types/slate-react": "^0.50.1",
+    "@types/uuid": "^10.0.0",
     "eslint": "^8",
     "eslint-config-next": "14.2.3",
     "postcss": "^8",

@@ -1,6 +1,6 @@
 "use-client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import "@/app/mypage/_components/CalenderArea/_components/CustomCalender/customCalender.scss";
@@ -15,9 +15,11 @@ interface StudyTimeEntry {
 interface CalendarComponentProps {
   getStudyTimes: StudyTimeEntry[];
   onCalendarClick: (date: Date) => void;
+  onMonthChange: (year: number, month: number) => void;
 };
 
-export const CustomCalendar: React.FC<CalendarComponentProps> = ({ getStudyTimes, onCalendarClick }) => {
+export const CustomCalendar: React.FC<CalendarComponentProps> = ({ getStudyTimes, onCalendarClick, onMonthChange }) => {
+  const [date, setDate] = useState(new Date());
 
   // クラス名を生成
   const getClassByStudyTime = (studyTime: number) => {
@@ -39,12 +41,26 @@ export const CustomCalendar: React.FC<CalendarComponentProps> = ({ getStudyTimes
     return '';
   };
 
+  // 月変更時に呼ばれる
+  const handleMonthChange = (value: Date ) => {
+    if (value instanceof Date) { 
+      setDate(value);
+      const year = value.getFullYear();
+      const month = value.getMonth() + 1; // 月は0から始まるため+1
+      onMonthChange(year, month);
+      console.log(year, month);
+    };
+  };
+
+  useEffect(() => {
+    handleMonthChange(date);
+  }, [date]);
+
   return (
     <Calendar
       locale="ja-JP"
       onClickDay={onCalendarClick}
       tileClassName={tileClassName}
-      
     />
   );
 };

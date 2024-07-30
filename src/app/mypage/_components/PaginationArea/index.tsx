@@ -6,13 +6,11 @@ import Stack from '@mui/material/Stack';
 import Styles from './index.module.scss';
 
 interface PaginationAreaProps {
-  page: number;
-  totalPosts: number;
-  itemsPerPage: number;
-  onPageChange: (page: number) => void;
-}
+  page: number,
+  onPageChange: (page: number) => void,
+};
 
-export const PaginationArea: React.FC<PaginationAreaProps> = ({ page, totalPosts, itemsPerPage, onPageChange }) => {
+export const PaginationArea: React.FC<PaginationAreaProps> = ({ page, onPageChange }) => {
   
   return (
     <Stack

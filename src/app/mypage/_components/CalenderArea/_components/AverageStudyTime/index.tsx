@@ -12,9 +12,6 @@ export const AverageStudyTime: React.FC<AverageStudyTimeProps> = ({ averageStudy
   return (
     <div className={styles.studyTime}>
       <h2>平均勉強時間</h2>
-      {/* <div>
-        <span>期間設定:</span>
-      </div> */}
       <div>
         <p><strong>{averageStudyTime !== null ? `${averageStudyTime}h` : 'データなし'}</strong>(月平均)</p>
       </div>

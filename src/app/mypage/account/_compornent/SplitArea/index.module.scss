@@ -1,0 +1,68 @@
+.SplitArea {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  .InputArea {
+    width: 60%;
+    .Label {
+      margin-bottom: 3rem;
+      label {
+        display: block;
+        margin-bottom: 0.3em;
+        margin-left: 0.3em;
+      }
+      p {
+        font-size: 80%;
+        line-height: 1.7;
+        padding-left: 1em;
+        text-indent: -1em;
+        a {
+          border-bottom: 1px solid #4a76af;
+          color: #4a76af;
+          font-weight: 500;
+          padding-bottom: 0.1em;
+        }
+      }
+    }
+  }
+  .ImageArea {
+    position: relative;
+    width: 35%;
+    .imageBox {
+      position: absolute;
+      top: 5%;
+      right: 5%;
+      z-index: 1;
+      button {
+        background-color: #46A997;
+        color: #fff;
+        font-weight: bold;
+        opacity: 0.9;
+      }
+    }
+    .cameraIcon {
+      background-color: #e4e4e4;
+      color: #444;
+      position: relative;
+      height: min(100%, 240px);
+      width: min(100%, 240px);
+      svg {
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        height: 60%;
+        width: 60%;
+      }
+    }
+    .profileImage {
+      background-color: #f7feff;
+      clip-path: circle(50% at 50% 50%);
+      object-fit: contain;
+      position: relative;
+      height: min(100%, 240px);
+      width: min(100%, 240px);
+    }
+  }
+}
