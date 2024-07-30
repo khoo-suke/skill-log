@@ -1,5 +1,6 @@
 'use client';
 
+import React, { useEffect } from 'react';
 import { Category } from '@/app/mypage/_types/Category';
 import { CategorySelect } from './_components/CategorySelect';
 import { Tag } from '@/app/mypage/_types/Tag';
@@ -12,10 +13,11 @@ interface TagStateProps {
   setSelectCategories: React.Dispatch<React.SetStateAction<Category[]>>;
   selectTags: Tag[];
   setSelectTags: React.Dispatch<React.SetStateAction<Tag[]>>;
+  fetchPosts: () => Promise<void>;
 };
 
-export const TagState: React.FC<TagStateProps> = ({ activeTab, selectCategories, setSelectCategories, selectTags, setSelectTags }) => {
-
+export const TagState: React.FC<TagStateProps> = ({ activeTab, selectCategories, setSelectCategories, selectTags, setSelectTags, fetchPosts }) => {
+  
   // activeTab に基づいて条件でフィルタリング
   switch (activeTab) {
     case 'カテゴリー':
@@ -23,6 +25,7 @@ export const TagState: React.FC<TagStateProps> = ({ activeTab, selectCategories,
         <CategorySelect
           selectCategories={selectCategories}
           setSelectCategories={setSelectCategories}
+          fetchPosts={fetchPosts}
         />
       );
     case 'タグ':
@@ -30,6 +33,7 @@ export const TagState: React.FC<TagStateProps> = ({ activeTab, selectCategories,
         <TagSelect
           selectTags={selectTags}
           setSelectTags={setSelectTags}
+          fetchPosts={fetchPosts}
         />
       );
     case '期間で絞る':

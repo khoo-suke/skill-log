@@ -1,14 +1,7 @@
 'use client';
 
-import {
-  FormEventHandler,
-  useEffect,
-  useState,
-  Dispatch,
-  SetStateAction,
-} from 'react';
+import React, { FormEventHandler, useEffect, useState } from 'react';
 import { useSupabaseSession } from '@/app/_hooks/useSupabaseSession';
-import { PostRequestBody } from '@/app/mypage/_types/PostRequestBody';
 import { Category } from '@/app/mypage/_types/Category';
 import { Tag } from '@/app/mypage/_types/Tag';
 import styles from '@/app/mypage/posts/new/_styles/PostNew.module.scss';
@@ -20,14 +13,14 @@ import { Title } from '../../new/_components/Title';
 import { DateInput } from '../../new/_components/DateInput';
 import { CategoryList } from '../../new/_components/CategoryList';
 import { TagList } from '../../new/_components/TagList';
-import { ReturnTop } from '../../new/_components/ReturnTop';
+import { Breadcrumb } from './_components/Breadcrumb';
 import { CustomElement } from '../../new/_types/CustomElement';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 
 const initialValue: CustomElement[] = [
   {
     type: 'paragraph',
-    children: [{ text: '初期設定のテキストテキスト' }],
+    children: [{ text: '初期設定のテキスト' }],
   },
 ];
 
@@ -39,6 +32,13 @@ export default function Page() {
   const [createdAt, setCreatedAt] = useState('');
   const [selectCategories, setSelectCategories] = useState<Category[]>([]);
   const [selectTags, setSelectTags] = useState<Tag[]>([]);
+  const [year, setYear] = useState('');
+  const [month, setMonth] = useState('');
+  const [day, setDay] = useState('');
+  const [hour, setHour] = useState('');
+  const [minutes, setMinutes] = useState('');
+  const [isContentLoaded, setIsContentLoaded] = useState(false);
+  const router = useRouter();
 
   //GET 記事用
   useEffect(() => {
@@ -46,21 +46,33 @@ export default function Page() {
     
     const fetcher = async () => {
       try {
-        const res = await fetch(`/api/posts/${id}`, {
+        const response = await fetch(`/api/posts/${id}`, {
+          method: 'GET',
           headers: {
             'Content-Type': 'application/json',
             Authorization: token,
           },
         });
 
-        const data = await res.json();
+        const data = await response.json();
 
         const { post } = data;
         setTitle(post.title);
         setCreatedAt(post.createdAt);
+
+        const date = new Date(post.createdAt);
+        setYear(String(date.getFullYear()));
+        setMonth(String(date.getMonth() + 1));
+        setDay(String(date.getDate()));
+        setHour(String(date.getHours()));
+        setMinutes(String(date.getMinutes()));
+
         setSelectCategories(post.postCategories.map((cate: any) => cate.category));
         setSelectTags(post.postTags.map((tag: any) => tag.tag));
-        setContent(JSON.parse(post.content));
+
+        const postContent: CustomElement[] = JSON.parse(post.content);
+        setContent(postContent);
+        setIsContentLoaded(true);
       }
       catch (error) {
         console.error(error);
@@ -69,20 +81,56 @@ export default function Page() {
 
     fetcher();
   }, [token, id]);
-  
+
+  // 記事更新
+  const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
+    e.preventDefault();
+    if (!token) return;
+
+    try {
+      await fetch(`/api/posts/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: token,
+        },
+        body: JSON.stringify({
+          title,
+          content: JSON.stringify(content), 
+          createdAt,
+          selectCategories,
+          selectTags,
+        }),
+      });
+
+      alert('更新完了');
+      router.replace(`/mypage/posts/${id}`);
+    } catch (error) {
+      console.error(error);
+    };
+  };
+    
   return (
     <>
       <div className={styles.newPost}>
         <Wrapper size={800}>
-          <ReturnTop/>
-          <form>
+          <Breadcrumb/>
+          <form onSubmit={handleSubmit}>
             <Title
               title={title}
               setTitle={setTitle}
             />
             <DateInput
-              createdAt={createdAt}
-              setCreatedAt={setCreatedAt}
+              year={year}
+              setYear={setYear}
+              month={month}
+              setMonth={setMonth}
+              day={day}
+              setDay={setDay}
+              hour={hour}
+              setHour={setHour}
+              minutes={minutes}
+              setMinutes={setMinutes}
             />
             <CategoryList
               selectCategories={selectCategories}
@@ -94,10 +142,12 @@ export default function Page() {
             />
             <div>
               <Label value='内容' />
+              {isContentLoaded && (
               <TextEditor
                 content={content}
                 setContent={setContent}
-              />
+                />
+               )}
             </div>
             <div className={styles.btnArea}>
               <Button
@@ -105,7 +155,7 @@ export default function Page() {
                 color='pink'
                 size='middle'
               >
-                投稿
+                編集
               </Button>
             </div>
           </form>
