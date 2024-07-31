@@ -1,3 +1,5 @@
+@use '@/app/_styles/mixin.module.scss' as *;
+
 .header {
   background-color: #46A997;
   color: #fff;
@@ -11,16 +13,36 @@
   left: 0;
   right: 0;
   z-index: 100;
+  @include mq(md) {
+    padding: 1.5rem 1rem;
+  }
   .headerLogo {
-    width: 15%;
+    width: min(30%, 132px);
     img {
       width: min(100%, 132px);
     }
   }
   .btnArea {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    width: 250px;
+    @include mq(md) {
+      width: min(65%, 250px);
+    }
     a {
+      display: block;
+      font-size: 85%;
+      text-align: center;
+      width: min(48%, 100px);
+      @include mq(md) {
+        font-size: 75%;
+      }
       &:first-child {
         margin-right: 2rem;
+        @include mq(md) {
+          margin-right: 1rem;
+        }
       }
     }
   }
@@ -33,7 +55,7 @@
   justify-content: space-between;
   font-weight: bold;
   opacity: 0.9;
-  padding: 2rem;
+  padding: 1.5rem 2rem;
   position: fixed;
   top: 0;
   left: 0;
@@ -51,10 +73,17 @@
   .btnArea {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-end;
+    width: 250px;
+    @include mq(md) {
+      width: min(65%, 250px);
+    }
     a {
       &:first-child {
         margin-right: 2.5rem;
+        @include mq(md) {
+          margin-right: 0;
+        }
       }
       &.account {
         background-color: #46A997;

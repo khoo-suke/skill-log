@@ -19,7 +19,6 @@ export const SplitArea = () => {
   const { profileImageUrl, handleFabClick } = useProfileIcon();
 
   return (
-    <>
       <div className={styles.SplitArea}>
         <div className={styles.InputArea}>
           <div className={styles.Label}>
@@ -28,7 +27,7 @@ export const SplitArea = () => {
               name={'name'}
               id={'name'}
               type={'text'}
-              value={name}
+              value={name ?? ""}
               onChange={setName}
               />
           </div>
@@ -72,6 +71,5 @@ export const SplitArea = () => {
           </div>
         </div>
     </div>
-    </>
   );
 };

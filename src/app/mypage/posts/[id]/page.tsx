@@ -6,7 +6,6 @@ import { useParams } from 'next/navigation'
 import { Category } from "@/app/mypage/_types/Category";
 import { Tag } from '@/app/mypage/_types/Tag';
 import { useSupabaseSession } from "@/app/_hooks/useSupabaseSession";
-import { Wrapper } from '@/app/_components/Wrapper';
 import { createEditor, Descendant } from 'slate';
 import { Slate, Editable } from 'slate-react';
 import { RenderLeaf } from '@/app/mypage/_components/RenderLeaf';
@@ -15,6 +14,7 @@ import { withReact } from 'slate-react';
 import { ItemMenu } from '@/app/mypage/_components/Item/_components/ItemMenu';
 import { PostRequestBody } from '@/app/mypage/_types/PostRequestBody';
 import { ReturnTop } from '../new/_components/ReturnTop';
+import { Sidebar } from '@/app/mypage/_components/Sidebar';
 
 export default function Page() {
   const [post, setPost] = useState<PostRequestBody | null>(null);
@@ -60,7 +60,7 @@ export default function Page() {
   return (
     <>
       <div className={styles.postId}>
-        <Wrapper size={800}>
+        <div className={styles.main}>
           <ReturnTop/>
           <div className={styles.inner}>
             {post && (
@@ -100,7 +100,8 @@ export default function Page() {
               </Slate>
             </div>
           </div>
-        </Wrapper>
+        </div>
+        <Sidebar/>
       </div>
     </>
   );

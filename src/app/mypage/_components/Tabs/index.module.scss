@@ -1,3 +1,5 @@
+@use '@/app/_styles/mixin.module.scss' as *;
+
 .tabs {
   text-align: center;
   button {
@@ -6,6 +8,9 @@
     color: #fff;
     padding: 0.4em 1.5em;
     margin-right: 1.7em;
+    &:last-child {
+      margin-right: 0;
+    }
     &.active {
       background-color: #EEF6F6;
       color: #111;

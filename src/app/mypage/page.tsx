@@ -50,7 +50,9 @@ const Mypage = () => {
 
   return (
     <>
-      <CalendarArea />
+      <div className={styles.calendarTop}>
+        <CalendarArea />
+      </div>
       <div className={styles.posts}>
         <div className={styles.cap}>
           <Wrapper size={1000}>

@@ -1,10 +1,18 @@
+@use '@/app/_styles/mixin.module.scss' as *;
+
 .capArea {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  padding: 8rem 0 0;
+  padding: clamp(6rem, 7vw, 8rem) 0 0;
+  @include mq(md) {
+    justify-content: center;
+  }
   .cap {
     width: 57%;
+    @include mq(md) {
+      width: 100%;
+    }
     span {
       color: #E56452;
       font-weight: bold;
@@ -18,6 +26,9 @@
       margin-bottom: 2rem;
     }
     p {
+      @include mq(md) {
+        margin-bottom: 3rem;
+      }
       a {
         border-bottom: 1px solid #4a76af;
         color: #4a76af;
@@ -28,6 +39,9 @@
   img {
     margin-right: 0;
     width: min(40%, 257px);
+    @include mq(md) {
+      margin-right: auto;
+    }
   }
 }
 

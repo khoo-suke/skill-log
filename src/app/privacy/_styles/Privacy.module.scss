@@ -1,3 +1,5 @@
+@use '@/app/_styles/mixin.module.scss' as *;
+
 .privacy {
   padding-top: clamp(4rem, 6vw, 8rem);
   padding-bottom: clamp(6rem, 8vw, 10rem);
@@ -5,7 +7,10 @@
     font-size: 200%;
     font-weight: bold;
     text-align: center;
-    margin-bottom: 5rem;
+    margin-bottom: clamp(3rem, 4vw, 5rem);
+    @include mq(md) {
+      font-size: 150%;
+    }
   }
   .mb60 {
     margin-bottom: 6rem;
@@ -14,6 +19,9 @@
     font-size: 150%;
     font-weight: bold;
     margin-bottom: 1rem;
+    @include mq(md) {
+      font-size: 130%;
+    }
   }
   ul {
     padding-left: 1em;

@@ -8,7 +8,7 @@ interface TextareaProps {
   cols?: number;
   rows?: number;
   placeholder?: string;
-  value?: string;
+  value?: string | null;
   onChange?: (value: string) => void;
 };
 
@@ -19,9 +19,8 @@ export const Textarea: React.FC<TextareaProps> = ({ id, cols, rows, placeholder,
           cols={cols}
           rows={rows}
           className={styles.Textarea}
-          value={value}
+          value={value ?? ""}
           placeholder={placeholder}
-          required
           onChange={(e) => onChange?.(e.target.value)}
           />
 };

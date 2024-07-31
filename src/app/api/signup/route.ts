@@ -9,7 +9,6 @@ const prisma = new PrismaClient();
 export const POST = async (request: NextRequest) => {
   try {
     const { email, password } = await request.json();
-
     // 環境変数からベースURLを取得
     const baseUrl = process.env.BASE_URL;
 
@@ -24,7 +23,9 @@ export const POST = async (request: NextRequest) => {
 
     if (error) {
       return NextResponse.json({ status: error.message }, { status: 400 });
-    } else if(!data.user) {
+    }
+    
+    else if (!data.user) {
         return NextResponse.json({ status: "error", message: "ユーザー作成失敗" }, { status: 400 });
     }
 

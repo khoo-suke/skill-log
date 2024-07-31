@@ -1,31 +1,48 @@
+@use '@/app/_styles/mixin.module.scss' as *;
+
 .fv {
-  padding: 8rem 0 12rem;
+  padding: clamp(6rem, 7vw, 8rem) 0;
   .fvInner {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    margin-right: auto;
-    margin-left: auto;
-    width: min(92%, 1000px);
+    @include mq(md) {
+      justify-content: center;
+    }
     .fvText {
       width: 55%;
+      @include mq(md) {
+        width: 85%;
+      }
       img {
         width: min(100%, 516px);
+        @include mq(md) {
+          margin-bottom: 1rem;
+        }
       }
       strong {
         font-size: 150%;
         display: block;
         padding: 0 2rem;
         margin-bottom: 1rem;
+        @include mq(md) {
+          padding: 0;
+        }
       }
       p {
         font-size: 85%;
         padding: 0 5rem 0 2rem;
         margin-bottom: 2rem;
+        @include mq(md) {
+          padding: 0 1em;
+        }
       }
     }
     .fvImg {
       width: 41%;
+      @include mq(md) {
+        display: none;
+      }
       img {
         width: min(100%, 401px);
       }
@@ -35,18 +52,22 @@
       flex-wrap: wrap;
       justify-content: center;
       text-align: center;
-      a {
+      a, button {
         padding: 1.1rem 2.5rem;
         margin-right: 5rem;
         margin-bottom: 2.5rem;
         width: 33%;
+        @include mq(md) {
+          margin-right: 0;
+          margin-bottom: 1rem;
+          width: min(75%, 400px);
+        }
         &.login {
           background-color: #1E1E1E;
           color: #FFF;
           border: 1px solid #FFF;
           border-radius: 5px;
           font-weight: bold;
-
         }
         &.new {
           background-color: #FFF;
@@ -57,6 +78,10 @@
           padding: 1.1rem 2.5rem;
           margin-right: 2rem;
           margin-bottom: 2.5rem;
+          @include mq(md) {
+            margin-right: 0;
+            margin-bottom: 1rem;
+          }
         }
         &.test {
           background-color: #E56452;
@@ -66,6 +91,12 @@
           font-weight: bold;
           padding: 1.1rem 2.5rem;
           margin-right: 2rem;
+          width: 50%;
+          @include mq(md) {
+            margin-right: 0;
+            margin-right: 0;
+            width: min(75%, 400px);
+          }
         }
       }
     }
@@ -87,11 +118,21 @@
     flex-wrap: wrap;
     justify-content: space-between;
     margin-bottom: clamp(3rem, 4vw, 6rem);
+    @include mq(md) {
+      justify-content: center;
+    }
     .img {
       width: 48%;
+      @include mq(md) {
+        margin-bottom: 2rem;
+        width: 80%;
+      }
     }
     .text {
       width: 46%;
+      @include mq(md) {
+        width: 100%;
+      }
       p {
         margin-bottom: 2rem;
       }
@@ -119,18 +160,30 @@
     flex-wrap: wrap;
     justify-content: space-between;
     margin-bottom: clamp(5rem, 6vw, 8rem);
+    @include mq(md) {
+      justify-content: center;
+    }
     .box {
       width: 30%;
+      @include mq(md) {
+        margin-bottom: 7rem;
+        width: min(100%, 500px);
+      }
+      &:last-child {
+        @include mq(md) {
+          margin-bottom: 0;
+        }
+      }
       img {
         margin-bottom: 3rem;
         &.point1 {
-          width: min(90%, 244px);
+          width: min(60%, 244px);
         }
         &.point2 {
-          width: min(90%, 258px);
+          width: min(60%, 258px);
         }
         &.point3 {
-          width: min(90%, 256px);
+          width: min(60%, 256px);
         }
       }
       h3 {
@@ -153,4 +206,14 @@
   line-height: 1.5;
   text-align: center;
   margin-bottom: clamp(4rem, 5vw, 8rem);
+  @include mq(md) {
+    font-size: 150%;
+  }
+}
+
+.displaySpNone {
+  display: block;
+  @include mq(md) {
+    display: none;
+  }
 }

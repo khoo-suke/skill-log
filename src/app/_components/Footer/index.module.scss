@@ -1,41 +1,47 @@
+@use '@/app/_styles/mixin.module.scss' as *;
+
 .footer {
   background-color: #46A997;
   color: #FFF;
   font-weight: bold;
-  padding: 10rem 0 6rem;
-  .footerInner {
-    margin-right: auto;
-    margin-left: auto;
-    width: min(90%, 1100px);
-    .flexBox {
-      border-bottom: 1px solid #FFF;
-      display: flex;
-      justify-content: space-between;
-      padding-bottom: 2rem;
-      margin-bottom: 1rem;
-      a {
-        width: 55%;
-        img {
-          width: min(100%, 527px);
-        }
+  padding:clamp(6rem, 8vw, 10rem) 0 clamp(4rem, 5vw, 6rem);
+  .flexBox {
+    border-bottom: 1px solid #FFF;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding-bottom: 2rem;
+    margin-bottom: 1rem;
+    a {
+      width: 55%;
+      @include mq(md) {
+        margin-bottom: 3rem;
+        width: 60%;
       }
-      nav {
-        width: 40%;
-        ul {
-          li {
-            a {
-              font-size: 1.4rem;
-            }
+      img {
+        width: min(100%, 527px);
+      }
+    }
+    nav {
+      width: 40%;
+      @include mq(md) {
+        padding-left: 1.5em;
+        width: 100%;
+      }
+      ul {
+        li {
+          a {
+            font-size: 1.4rem;
           }
         }
       }
     }
-    .copyLight {
-      text-align: end;
-      small {
-        font-weight: lighter;
-        padding-right: 1rem;
-      }
+  }
+  .copyLight {
+    text-align: end;
+    small {
+      font-weight: lighter;
+      padding-right: 1rem;
     }
   }
 }

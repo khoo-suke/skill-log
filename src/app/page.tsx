@@ -2,44 +2,50 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import '@/app/globals.scss';
 import styles from '@/app/_styles/index.module.scss';
 import { BtnAera } from '@/app/_components/BtnArea';
 import { Wrapper } from '@/app/_components/Wrapper/index';
+import { useUserLogin } from '@/app/_hooks/useUserLogin';
 
 export default function Home() {
+
+  // テストユーザー用のログインフック
+  const { loginTestUser } = useUserLogin();
+
   return (
     <>
       <div className={styles.fv}>
-        <div className={styles.fvInner}>
-          <div className={styles.fvText}>
-            <Image src="/images/fv_logo.png" alt="" width={516} height={107}/>
-            <strong>勉強時間とナレッジを一元管理</strong>
-            <p>
-            エンジニアの勉強時間とナレッジの記録に特化したアプリ勉強時間やコードの記録を記録して、勉強のモチベーションをナレッジを記録して、知識をメモしよう。
-            </p>
-            <div className={styles.btnArea}>
-              <Link href="/login" className={styles.login}>
-                ログイン
-              </Link>
-              <Link href="/signup" className={styles.new}>
-                新規登録
-              </Link>
-              <Link href="/" className={styles.test}>
-                テストユーザー
-              </Link>
-            </div>
+        <Wrapper size={1000}>
+          <div className={styles.fvInner}>
+            <div className={styles.fvText}>
+              <Image src="/images/fv_logo.png" alt="" width={516} height={107}/>
+              <strong>勉強時間とナレッジを一元管理</strong>
+              <p>
+              エンジニアの勉強時間とナレッジの記録に特化したアプリ勉強時間やコードの記録を記録して、勉強のモチベーションをナレッジを記録して、知識をメモしよう。
+              </p>
+              <div className={styles.btnArea}>
+                <Link href="/login" className={styles.login}>
+                  ログイン
+                </Link>
+                <Link href="/signup" className={styles.new}>
+                  新規登録
+                </Link>
+                <button onClick={loginTestUser} className={styles.test}>
+                  テストユーザーでログイン
+                </button>
+              </div>
+              </div>
+              <div className={styles.fvImg}>
+                <Image src="/images/fv_img.png" alt="" width={401} height={431} />
+              </div>
           </div>
-          <div className={styles.fvImg}>
-            <Image src="/images/fv_img.png" alt="" width={401} height={431} />
-          </div>
-        </div>
+        </Wrapper>
       </div>
 
       <section className={styles.oneLank}>
         <Wrapper size={800}>
           <h2 className={styles.cap}>
-            日々のナレッジを蓄積して、<br/>ワンランク上のエンジニアに。
+            日々のナレッジを蓄積して、<br className={styles.displaySpNone} />ワンランク上のエンジニアに。
           </h2>
           <div className={styles.flexBox}>
               <div className={styles.img}>

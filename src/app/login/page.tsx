@@ -1,34 +1,16 @@
 'use client';
 
 import styles from '@/app/login/_styles/Login.module.scss';
-import { useState } from 'react';
-import { useRouter } from "next/navigation";
-import { supabase } from '@/utils/supabase';
 import Link from 'next/link';
 import { Button } from '../_components/Button';
 import { Wrapper } from '../_components/Wrapper';
 import { Input } from '../_components/Input';
 import { Label } from '../_components/Label';
+import { useUserLogin } from '../_hooks/useUserLogin';
 
-export default function Page () {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const router = useRouter();
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-
-    if (error) {
-      alert(`ログイン失敗: ${error.message}`)
-    } else {
-      router.replace('/mypage')
-    };
-  };
+export default function Page() {
+  // ログインフォームのデータを管理
+  const { setEmail, setPassword, handleSubmit } = useUserLogin();
 
   return (
     <>

@@ -1,11 +1,18 @@
+@use '@/app/_styles/mixin.module.scss' as *;
+
 .studyTime {
-  width: 50%;
   h2 {
     font-size: clamp(1.8rem, 2vw, 2.5rem);
     font-weight: 600;
     text-align: start;
+    @include mq(md) {
+      text-align: center;
+    }
   }
   p {
+    @include mq(md) {
+      text-align: center;
+    }
     strong {
       font-size: 300%;
       font-weight: 600;
