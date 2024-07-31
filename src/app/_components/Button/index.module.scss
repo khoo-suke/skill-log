@@ -1,10 +1,15 @@
+@use '@/app/_styles/mixin.module.scss' as *;
+
 .black {
   background-color: #1E1E1E;
-  color: #FFF;
   border: 1px solid #FFF;
   border-radius: 5px;
+  color: #FFF;
+  display: block;
   font-weight: bold;
   text-align: center;
+  margin-right: auto;
+  margin-left: auto;
   svg {
     margin-right: 0.4em;
   }
@@ -12,10 +17,13 @@
 
 .white {
   background-color: #FFF;
-  color: #1E1E1E;
   border: 1px solid #1E1E1E;
   border-radius: 5px;
+  color: #1E1E1E;
+  display: block;
   font-weight: bold;
+  margin-right: auto;
+  margin-left: auto;
   svg {
     margin-right: 0.4em;
   }
@@ -23,10 +31,13 @@
 
 .pink {
   background-color: #E56452;
-  color: #FFF;
   border: 1px solid #1E1E1E;
   border-radius: 5px;
+  color: #FFF;
+  display: block;
   font-weight: bold;
+  margin-right: auto;
+  margin-left: auto;
   svg {
     margin-right: 0.4em;
   }
@@ -35,10 +46,16 @@
 .large {
   padding: 1.8rem 3rem;
   font-size: 110%;
+  @include mq(md) {
+    padding: 1.3rem 3rem;
+  }
 }
 
 .middle {
   padding: 1.5rem 2.5rem;
+  @include mq(md) {
+    padding: 1.3rem 3rem;
+  }
 }
 
 .small {

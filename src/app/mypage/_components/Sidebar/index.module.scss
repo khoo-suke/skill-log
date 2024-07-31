@@ -1,20 +1,28 @@
 @use '@/app/_styles/mixin.module.scss' as *;
 
 .calendarArea {
-  .flexBox {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    @include mq(md) {
-      flex-direction: column-reverse;
-      justify-content: center;
+  padding: 3rem 3rem 10rem;
+  width: min(100%, 380px);
+  @include mq(md) {
+    width: 100%;
+  }
+  .sticky {
+    position: sticky;
+    top: 100px;
+  .averageStudyTime {
+    text-align: center;
+    margin-bottom: 2rem;
+    h2 {
+      font-size: 110%;
+      text-align: center;
     }
-    .calendar {
-      width: 45%;
-      @include mq(md) {
-        flex-grow: 2;
-        width: 100%;
+    p {
+      strong {
+        font-size: 200%;
       }
+    }
+  }
+    .calendar {
       .guide {
         display: flex;
         justify-content: space-between;
@@ -42,14 +50,6 @@
       }
       .veryHigh {
         background-color: #E56452;
-      }
-    }
-    .averageStudyTime {
-      width: 50%;
-      @include mq(md) {
-        margin-top: 4rem;
-        margin-bottom: 2rem;
-        width: 100%;
       }
     }
   }

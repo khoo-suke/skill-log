@@ -63,24 +63,3 @@
     }
   }
 }
-
-.thanks {
-  padding-top: clamp(4rem, 6vw, 8rem);
-  padding-bottom: clamp(6rem, 8vw, 10rem);
-  .cap {
-    text-align: center;
-    h2 {
-      font-size: 200%;
-      font-weight: bold;
-      margin-bottom: clamp(3rem, 4vw, 5rem);
-    }
-  }
-  p {
-    margin-bottom: clamp(3rem, 4vw, 5rem);;
-  }
-  a {
-    border-bottom: 1px solid #4a76af;
-    color: #4a76af;
-    padding-bottom: 0.1em;
-  }
-}

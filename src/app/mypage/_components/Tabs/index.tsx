@@ -12,7 +12,10 @@ interface TabProps {
 
 export const Tabs = ({ activeTab, setActiveTab, fetchPosts }: TabProps) => {
 
-  const tabs: Tab[] = ['all', 'カテゴリー', 'タグ', '期間で絞る'];
+  // 追加機能用コメントアウト
+  // const tabs: Tab[] = ['all', 'カテゴリー', 'タグ', '期間で絞る'];
+
+  const tabs: Tab[] = ['all', 'カテゴリー', 'タグ'];
 
   const handleTabClick = (tab: Tab) => {
     setActiveTab(tab);

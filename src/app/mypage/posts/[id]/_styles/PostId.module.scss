@@ -1,11 +1,20 @@
+@use '@/app/_styles/mixin.module.scss' as *;
+
 .postId {
-  background-color: #EEF6F6;
-  padding-top: clamp(4rem, 6vw, 8rem);
-  padding-bottom: clamp(6rem, 8vw, 10rem);
-  .inner {
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
-    padding: 2rem clamp(2rem, 4vw, 5rem) clamp(3rem, 6vw, 7rem);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  .main {
+    background-color: #EEF6F6;
+    padding: clamp(4rem, 6vw, 8rem) clamp(4rem, 6vw, 8rem) clamp(6rem, 8vw, 10rem);
+    width: calc(100% - 380px);
+    @include mq(md) {
+      width: 100%;
+    }
+    .inner {
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
+      padding: 2rem clamp(2rem, 4vw, 5rem) clamp(3rem, 6vw, 7rem);
     .topArea {
         display: flex;
         justify-content: space-between;
@@ -39,4 +48,5 @@
       }
     }
   }
+}
 }

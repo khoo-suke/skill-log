@@ -1,12 +1,30 @@
+@use '@/app/_styles/mixin.module.scss' as *;
+
 .btnAera {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   text-align: center;
   padding-top: 5rem;
   padding-bottom: 5rem;
   margin-right: auto;
   margin-left: auto;
+  max-width: 650px;
+  @include mq(md) {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
   a {
+    width: min(45%, 270px);
+    @include mq(md) {
+      width:  min(80%, 400px);
+    }
     &:first-child {
       margin-right: 5rem;
+      @include mq(md) {
+        margin-right: auto;
+        margin-bottom: 2rem;
+      }
     }
   }
 }

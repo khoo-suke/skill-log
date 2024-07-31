@@ -6,6 +6,7 @@ import React from 'react';
 import Image from 'next/image';
 import { useSupabaseSession } from '@/app/_hooks/useSupabaseSession';
 import { supabase } from '@/utils/supabase';
+import { Wrapper } from '@/app/_components/Wrapper';
 
 export const Footer: React.FC = () => {
   const handleLogout = async () => {
@@ -19,8 +20,8 @@ export const Footer: React.FC = () => {
     <>
       {!isLoading && (
         <footer className={styles.footer}>
-          <div className={styles.footerInner}>
-            {session ? (
+          <Wrapper size={1100}>
+              {session ? (
               <>
                 <div className={styles.flexBox}>
                   <Link href="/">
@@ -60,7 +61,7 @@ export const Footer: React.FC = () => {
                 </div>
               </>
             )}
-          </div>
+          </Wrapper>
         </footer>
       )}
     </>

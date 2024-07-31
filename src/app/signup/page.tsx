@@ -33,7 +33,7 @@ export default function Page() {
       router.push('/signup/thanks');
     } catch (error) {
       console.error('登録エラー:', error);
-      alert('登録失敗');
+      alert(`登録失敗: ${error}`);
     };
   };
 

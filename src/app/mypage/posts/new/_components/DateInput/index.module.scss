@@ -12,17 +12,25 @@
       max-width: 100%;
       width: 100%;
     }
-    .year,
+    .year {
+      input {
+        width: 50%;
+      }
+    }
     .month,
     .day {
       input {
-        width: 42%;
+        width: 35%;
       }
     }
     .time {
       input {
         width: 17%;
       }
+    }
+    span {
+      margin-right: 0.3em;
+      margin-left: 0.3em;
     }
   }
 }

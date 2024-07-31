@@ -1,22 +1,26 @@
 'use client';
-import styles from '../_styles/Signup.module.scss';
-import Link from 'next/link';
+import styles from './_styles/SignupThanks.module.scss';
 import { Wrapper } from '@/app/_components/Wrapper';
+import Image from 'next/image';
 
 export default function Page() {
   return (
     <section className={styles.thanks}>
-      <Wrapper size={700}>
+      <Wrapper size={600}>
         <div className={styles.cap}>
-          <h2>ユーザー登録完了</h2>
+          <h2>メールを送信しました</h2>
         </div>
+        <Image
+          src="/images/thanks_mail.png"
+          alt="ユーザー認証メール送信"
+          width={313} height={218}
+        />
         <div className={styles.text}>
           <p>
-            ユーザー登録ありがとうございます。<br />
-            ご登録いただいたメールアドレスに、ユーザー登録完了メールを送信しました。
+            登録いただいたメールアドレスに、認証メールを送信しました。<br/>
+            メールのURLリンクをクリックして、メール認証を完了させてください。
           </p>
         </div>
-        <Link href='/login'>ログインページへ</Link>
       </Wrapper>
     </section>
   );

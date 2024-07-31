@@ -9,7 +9,6 @@ import {
 } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSupabaseSession } from '@/app/_hooks/useSupabaseSession';
-import { PostRequestBody } from '@/app/mypage/_types/PostRequestBody';
 import { Category } from '@/app/mypage/_types/Category';
 import { Tag } from '@/app/mypage/_types/Tag';
 import styles from '@/app/mypage/posts/new/_styles/PostNew.module.scss';
@@ -34,11 +33,9 @@ const initialValue: CustomElement[] = [
 export default function Page() {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState<CustomElement[]>(initialValue);
-  const [imageUrl, setImageUrl] = useState('');
   const [createdAt, setCreatedAt] = useState('');
   const { token } = useSupabaseSession();
   const router = useRouter();
-  const [posts, setPosts] = useState<PostRequestBody[]>([]);
   const [selectCategories, setSelectCategories] = useState<Category[]>([]);
   const [selectTags, setSelectTags] = useState<Tag[]>([]);
   const [year, setYear] = useState(String(new Date(createdAt).getFullYear()));
@@ -52,20 +49,15 @@ export default function Page() {
     if (!token) return;
     
     const fetcher = async () => {
-      const response = await fetch('/api/posts', {
+      await fetch('/api/posts', {
         headers: {
           'Content-Type': 'application/json',
           Authorization: token,
         },
       })
-
-      const { posts } = await response.json();
-      setPosts([...posts]);
-      
     };
 
     fetcher();
-
   }, [token]);
 
   // POST 新規記事作成
@@ -82,7 +74,6 @@ export default function Page() {
       body: JSON.stringify({
         title,
         content: JSON.stringify(content),
-        imageUrl,
         createdAt,
         postCategories: selectCategories,
         postTags: selectTags,

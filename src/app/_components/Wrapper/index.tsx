@@ -4,7 +4,7 @@ import React from 'react';
 import styles from '@/app/_components/Wrapper/index.module.scss';
 
 interface WrapperProps {
-  size: 600 | 700 | 800 | 900 | 1000;
+  size: 600 | 700 | 800 | 900 | 1000 | 1100;
   children: React.ReactNode;
 }
 

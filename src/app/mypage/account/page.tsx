@@ -21,7 +21,7 @@ export default function Account() {
             アカウント設定
           </h2>
         </Wrapper>
-    </div>
+      </div>
       <Wrapper size={700}>
         <form onSubmit={handleSubmit} className={styles.Account}>
           <SplitArea/>
@@ -41,7 +41,7 @@ export default function Account() {
               id={'goal'}
               cols={30}
               rows={4}
-              value={goal}
+              value={goal ?? ""}
               onChange={setGoal}
             />
           </div>
@@ -49,7 +49,7 @@ export default function Account() {
             <Button type='submit' color='black' size='middle'>更新</Button>
           </div>
         </form>
-    </Wrapper>
+      </Wrapper>
     </>
   );
 };
