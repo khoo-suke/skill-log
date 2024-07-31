@@ -6,7 +6,6 @@ import { useParams } from 'next/navigation'
 import { Category } from "@/app/mypage/_types/Category";
 import { Tag } from '@/app/mypage/_types/Tag';
 import { useSupabaseSession } from "@/app/_hooks/useSupabaseSession";
-import { Wrapper } from '@/app/_components/Wrapper';
 import { createEditor, Descendant } from 'slate';
 import { Slate, Editable } from 'slate-react';
 import { RenderLeaf } from '@/app/mypage/_components/RenderLeaf';
