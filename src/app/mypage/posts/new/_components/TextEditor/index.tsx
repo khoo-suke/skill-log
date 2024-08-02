@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useCallback, Dispatch, SetStateAction } from 'react';
-import { createEditor, BaseEditor, Editor, Descendant } from 'slate';
+import { Transforms, createEditor, BaseEditor, Editor, Descendant } from 'slate';
 import { ReactEditor } from 'slate-react';
 import { HistoryEditor, withHistory } from 'slate-history';
 import { Slate, Editable, withReact, RenderLeafProps } from 'slate-react';
@@ -13,6 +13,7 @@ import { CustomElement } from '../../_types/CustomElement';
 
 // カスタムエディター関数
 const CustomEditor = {
+
   // 太字
   isBoldMarkActive(editor: BaseEditor & ReactEditor & HistoryEditor) {
     const marks = Editor.marks(editor);
@@ -48,7 +49,7 @@ const CustomEditor = {
     const marks = Editor.marks(editor);
     return marks ? marks.code === true : false;
   },
-  // コードスタイルのトグル
+
   toggleCodeMark(editor: BaseEditor & ReactEditor & HistoryEditor) {
     const isActive = CustomEditor.isCodeMarkActive(editor);
     if (isActive) {
@@ -57,7 +58,7 @@ const CustomEditor = {
       Editor.addMark(editor, 'code', true);
     }
   },
-};
+}
 
 // Slate.js でのカスタムタイプの定義
 declare module 'slate' {
@@ -99,10 +100,13 @@ export const TextEditor = ({ content, setContent }: ContentProps) => {
         CustomEditor.toggleItalicMark(editor);
         return;
       };
-      // ctrl + c でコード
+      // ctrl + shift + c でコード
       case 'c': {
-        event.preventDefault();
-        CustomEditor.toggleCodeMark(editor);
+        if (event.shiftKey) {
+          event.preventDefault();
+          CustomEditor.toggleCodeMark(editor);
+          return;
+        };
         return;
       };
       // ctrl + Z でデフォルトのスタイル

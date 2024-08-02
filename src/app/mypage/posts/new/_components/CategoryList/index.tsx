@@ -7,12 +7,13 @@ import React, {
 } from 'react';
 import { useSupabaseSession } from '@/app/_hooks/useSupabaseSession';
 import { Category } from '@/app/mypage/_types/Category';
-import styles from '@/app/mypage/posts/new/_components/CategoryList/index.module.scss';
+import styles from './index.module.scss';
 import { Button } from '@/app/_components/Button';
 import { Label } from '@/app/_components/Label';
 import { CustomModal } from '@/app/_components/CustomModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleXmark, faSquarePlus } from '@fortawesome/free-solid-svg-icons';
+import { ColorPicker } from '@/app/mypage/_components/ColorPicker';
 
 interface CategoryProps {
   selectCategories: Category[];
@@ -138,12 +139,15 @@ export const CategoryList: React.FC<CategoryProps> = ({ selectCategories, setSel
               <FontAwesomeIcon icon={faCircleXmark} />
               </button>
             </div>
-            <Label value='新規カテゴリー名'/>
-            <input
-              type="text"
-              value={newCategory}
-              onChange={(e) => setNewCategory(e.target.value)}
-            />
+            <Label value='新規カテゴリー名' />
+            <div className={styles.newAdd}>
+              <input
+                type="text"
+                value={newCategory}
+                onChange={(e) => setNewCategory(e.target.value)}
+              />
+              {/* <ColorPicker/> */}
+            </div>
             <Button
               type='button'
               color='black'

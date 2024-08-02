@@ -1,12 +1,12 @@
-'use-client';
+"use-client";
 
-import React, { useState, useEffect } from 'react';
-import { useSupabaseSession } from '@/app/_hooks/useSupabaseSession';
+import React, { useState, useEffect } from "react";
+import { useSupabaseSession } from "@/app/_hooks/useSupabaseSession";
 
 // 型を定義
 interface StudyTimeEntry {
-  date: string,
-  studyTime: number,
+  date: string;
+  studyTime: number;
 }
 
 export const useCalender = () => {
@@ -27,13 +27,16 @@ export const useCalender = () => {
   const fetchStudyTimeData = async () => {
     try {
       if (!token) return [];
-      const response = await fetch(`/api/studyTime`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: token,
-        },
-      });
+      const response = await fetch(
+        `/api/studyTime?year=${currentYear}&month=${currentMonth}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        }
+      );
 
       if (!response.ok) {
         throw new Error("勉強時間の取得エラー");
@@ -60,6 +63,7 @@ export const useCalender = () => {
   const handleMonthChange = (year: number, month: number) => {
     setCurrentYear(year);
     setCurrentMonth(month);
+    fetchStudyTimeData(); // 月が変更されたときにデータを再取得
   };
 
   // 既に値がある場合はモーダル内の勉強時間入力欄の値を設定
@@ -71,10 +75,8 @@ export const useCalender = () => {
       );
       if (existingEntry) {
         setIsStudyTime(existingEntry.studyTime.toString());
-      } else {
-        setIsStudyTime(""); // 存在しない場合は空
-      }
-    }
+      };
+    };
   }, [selectedDate, getStudyTimes]);
 
   // POST or PUT 勉強時間登録・更新
@@ -86,14 +88,14 @@ export const useCalender = () => {
     if (!isStudyTime) {
       alert("勉強時間が未入力です");
       return;
-    }
+    };
 
     // studyTimeの型をnumberに変換 10進数に
     const studyTimeNumber = parseInt(isStudyTime, 10);
     if (isNaN(studyTimeNumber)) {
       alert("勉強時間は半角数字で入力してください");
       return;
-    }
+    };
 
     // すでに登録されているデータの抽出
     const existingEntry = getStudyTimes.find(
@@ -106,9 +108,9 @@ export const useCalender = () => {
       const userConfirmed = window.confirm("この日の勉強時間を更新しますか？");
 
       if (!userConfirmed) {
-        return; // キャンセル
-      }
-    }
+        return;
+      };
+    };
 
     // PUTリクエストとPOSTリクエストの条件分岐
     const method = existingEntry ? "PUT" : "POST";
@@ -122,7 +124,7 @@ export const useCalender = () => {
         },
         body: JSON.stringify({
           studyTime: studyTimeNumber,
-          date: selectedDate,
+          date: selectedDate?.toISOString(),
         }),
       });
 

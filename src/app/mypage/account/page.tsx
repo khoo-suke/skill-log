@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import styles from './_styles/Account.module.scss';
 import { Wrapper } from '@/app/_components/Wrapper';
 import Link from 'next/link';

@@ -1,0 +1,30 @@
+.container {
+  .containerLeft {
+    .bar {
+      .barLeft {
+        margin-right: 1rem;
+      }
+    }
+  }
+}
+
+.pikkerArea {
+  position: relative;
+  .pikker {
+    position: absolute;
+    top: 4rem;
+    left: 0;
+    z-index: 2;
+    .pikkerBack {
+      position: fixed;
+      top: 0px;
+      right: 0px;
+      bottom: 0px;
+      left: 0px;
+    }
+  }
+  .testText {
+    border-radius: 3px;
+    padding: 0.2em 0.5em 0.3em;
+  }
+}

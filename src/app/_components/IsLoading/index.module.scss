@@ -1,0 +1,39 @@
+.container {
+  height: 100vh;
+  position: relative;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spinner {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  margin-right: 1rem;
+  animation: pulse 1.5s infinite;
+}
+
+.dot {
+  height: 0.625rem;
+  width: 0.625rem;
+  background-color: #6b7280;
+  border-radius: 50%;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
