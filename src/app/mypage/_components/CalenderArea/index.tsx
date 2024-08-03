@@ -13,6 +13,7 @@ export const CalendarArea = () => {
     modalOpen,
     averageStudyTime,
     getStudyTimes,
+    selectedDate,
     handleMonthChange,
     handleCalendarClick,
     setModalOpen,
@@ -37,10 +38,13 @@ export const CalendarArea = () => {
               <button className={styles.veryHigh}></button>
               <span>多</span>
             </div>
-            <StudyCustomModal
-              isOpen={modalOpen}
-              onRequestClose={() => setModalOpen(false)}
-            />
+            {selectedDate &&
+              <StudyCustomModal
+                isOpen={modalOpen}
+                onRequestClose={() => setModalOpen(false)}
+                selectedDate={selectedDate}
+              />
+            }
           </div>
           <div className={styles.averageStudyTime}>
             <AverageStudyTime

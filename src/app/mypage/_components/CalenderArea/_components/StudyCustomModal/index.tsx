@@ -14,15 +14,16 @@ import { useCalender } from '@/app/_hooks/useCalender';
 interface CustomModalProps {
   isOpen: boolean;
   onRequestClose: () => void;
+  selectedDate: Date;
 }
 
 export const StudyCustomModal: React.FC<CustomModalProps> = ({
   isOpen,
   onRequestClose,
+  selectedDate,
 }) => {
 
   const {
-    selectedDate,
     modalOpen,
     isStudyTime,
     handleStudyTime,

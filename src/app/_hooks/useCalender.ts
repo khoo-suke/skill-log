@@ -75,8 +75,8 @@ export const useCalender = () => {
       );
       if (existingEntry) {
         setIsStudyTime(existingEntry.studyTime.toString());
-      };
-    };
+      }
+    }
   }, [selectedDate, getStudyTimes]);
 
   // POST or PUT 勉強時間登録・更新
@@ -88,14 +88,19 @@ export const useCalender = () => {
     if (!isStudyTime) {
       alert("勉強時間が未入力です");
       return;
-    };
+    }
 
     // studyTimeの型をnumberに変換 10進数に
     const studyTimeNumber = parseInt(isStudyTime, 10);
     if (isNaN(studyTimeNumber)) {
       alert("勉強時間は半角数字で入力してください");
       return;
-    };
+    }
+
+    if (!selectedDate) {
+      alert("日付が選択されていません");
+      return;
+    }
 
     // すでに登録されているデータの抽出
     const existingEntry = getStudyTimes.find(
@@ -109,11 +114,15 @@ export const useCalender = () => {
 
       if (!userConfirmed) {
         return;
-      };
-    };
+      }
+    }
 
     // PUTリクエストとPOSTリクエストの条件分岐
     const method = existingEntry ? "PUT" : "POST";
+
+    // デバッグログを追加
+    console.log("selectedDate:", selectedDate);
+    console.log("date to be sent:", selectedDate?.toISOString());
 
     try {
       const response = await fetch(`/api/studyTime`, {
@@ -147,6 +156,7 @@ export const useCalender = () => {
   const handleCalendarClick = (date: Date) => {
     setSelectedDate(date);
     setModalOpen(true);
+    console.log("選択された日付:", date); // デバッグログ追加
   };
 
   return {

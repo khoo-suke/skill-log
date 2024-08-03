@@ -68,6 +68,9 @@ export const CustomCalendar: React.FC<CalendarComponentProps> = ({ getStudyTimes
       tileClassName={tileClassName}
       prev2Label={null} //前年のボタン非表示
       next2Label={null} //翌年のボタン非表示
+      minDetail="month"
+      maxDetail="month"
+      showNeighboringMonth={false}
       onActiveStartDateChange={({ activeStartDate }) => {
         if (activeStartDate instanceof Date) {
           handleMonthChange(activeStartDate);

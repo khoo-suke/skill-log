@@ -97,8 +97,21 @@ export const POST = async (request: NextRequest) => {
 
   try {
     const body = await request.json();
+    console.log("リクエストボディ:", body);
 
     const { date, studyTime } = body;
+
+    // 日付のバリデーション
+    if (!date || isNaN(new Date(date).getTime())) {
+      console.log("無効な日付:", date);
+      return NextResponse.json({ status: "無効な日付" }, { status: 400 });
+    }
+
+    // studyTimeのバリデーション
+    if (typeof studyTime !== "number" || studyTime <= 0) {
+      console.log("無効な勉強時間:", studyTime);
+      return NextResponse.json({ status: "無効な勉強時間" }, { status: 400 });
+    }
 
     // ISO-8601形式に変換
     const isDate = new Date(date).toISOString();
