@@ -10,16 +10,13 @@ import { useCalender } from '@/app/_hooks/useCalender';
 
 export const CalendarArea = () => {
   const {
-    selectedDate,
     modalOpen,
-    isStudyTime,
     averageStudyTime,
     getStudyTimes,
+    selectedDate,
     handleMonthChange,
-    handleStudyTime,
     handleCalendarClick,
     setModalOpen,
-    setIsStudyTime,
   } = useCalender();
 
   return (
@@ -29,8 +26,8 @@ export const CalendarArea = () => {
           <div className={styles.calendar}>
             <CustomCalendar
               getStudyTimes={getStudyTimes}
-            onCalendarClick={handleCalendarClick}
-            onMonthChange={handleMonthChange}
+              onCalendarClick={handleCalendarClick}
+              onMonthChange={handleMonthChange}
             />
             <div className={styles.guide}>
               <span>少</span>
@@ -41,14 +38,13 @@ export const CalendarArea = () => {
               <button className={styles.veryHigh}></button>
               <span>多</span>
             </div>
-            <StudyCustomModal
-              isOpen={modalOpen}
-              onRequestClose={() => setModalOpen(false)}
-              selectedDate={selectedDate}
-              studyTime={isStudyTime}
-              onStudyTimeChange={(e) => setIsStudyTime(e.target.value)}
-              onSubmit={handleStudyTime}
-            />
+            {selectedDate &&
+              <StudyCustomModal
+                isOpen={modalOpen}
+                onRequestClose={() => setModalOpen(false)}
+                selectedDate={selectedDate}
+              />
+            }
           </div>
           <div className={styles.averageStudyTime}>
             <AverageStudyTime

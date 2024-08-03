@@ -1,4 +1,4 @@
-"use-client";
+'use-client';
 
 import React, { useState, useEffect } from "react";
 import Calendar from "react-calendar";
@@ -9,14 +9,14 @@ import "@/app/mypage/_components/CalenderArea/_components/CustomCalender/customC
 interface StudyTimeEntry {
   date: string;
   studyTime: number;
-};
+}
 
 // 親からステートを受け取る
 interface CalendarComponentProps {
   getStudyTimes: StudyTimeEntry[];
   onCalendarClick: (date: Date) => void;
   onMonthChange: (year: number, month: number) => void;
-};
+}
 
 export const CustomCalendar: React.FC<CalendarComponentProps> = ({ getStudyTimes, onCalendarClick, onMonthChange }) => {
   const [date, setDate] = useState(new Date());
@@ -33,23 +33,28 @@ export const CustomCalendar: React.FC<CalendarComponentProps> = ({ getStudyTimes
 
   // 日付にクラスを付与
   const tileClassName = ({ date }: { date: Date }) => {
-    const studyTimeEntry = getStudyTimes.find(entry => new Date(entry.date).toDateString() === date.toDateString());
-    if (studyTimeEntry) {
-      const className = getClassByStudyTime(studyTimeEntry.studyTime);
-      return className;
-    };
+    const dateYear = date.getFullYear();
+    const dateMonth = date.getMonth();
+    
+    // 現在の月の場合のみクラスを付与
+    if (dateYear === date.getFullYear() && dateMonth === date.getMonth()) {
+      const studyTimeEntry = getStudyTimes.find(entry => new Date(entry.date).toDateString() === date.toDateString());
+      if (studyTimeEntry) {
+        const className = getClassByStudyTime(studyTimeEntry.studyTime);
+        return className;
+      }
+    }
     return '';
   };
 
   // 月変更時に呼ばれる
-  const handleMonthChange = (value: Date ) => {
+  const handleMonthChange = (value: Date) => {
     if (value instanceof Date) { 
       setDate(value);
       const year = value.getFullYear();
-      const month = value.getMonth() + 1; // 月は0から始まるため+1
+      const month = value.getMonth() + 1; // 月は1から始まる
       onMonthChange(year, month);
-      console.log(year, month);
-    };
+    }
   };
 
   useEffect(() => {
@@ -61,6 +66,16 @@ export const CustomCalendar: React.FC<CalendarComponentProps> = ({ getStudyTimes
       locale="ja-JP"
       onClickDay={onCalendarClick}
       tileClassName={tileClassName}
+      prev2Label={null} //前年のボタン非表示
+      next2Label={null} //翌年のボタン非表示
+      minDetail="month"
+      maxDetail="month"
+      showNeighboringMonth={false}
+      onActiveStartDateChange={({ activeStartDate }) => {
+        if (activeStartDate instanceof Date) {
+          handleMonthChange(activeStartDate);
+        }
+      }}
     />
   );
 };

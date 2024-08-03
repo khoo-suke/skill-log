@@ -3,6 +3,12 @@
   border-radius: 10px 10px 0 0;
   padding: 1em 2em;
   button {
-    margin-right: 2.5rem;
+    border: 2px solid #eee;
+    padding: 0.2em 0.5em;
+    margin-right: 2rem;
+    &:hover {
+      border: 2px solid #3f59ad;
+      border-radius: 3px;
+    }
   }
 }
