@@ -56,6 +56,11 @@
     }
   }
   &__navigation {
+    button {
+      &:disabled {
+        background-color: #fff;
+      }
+    }
     &__label {
       &__labelText {
         color: #333;

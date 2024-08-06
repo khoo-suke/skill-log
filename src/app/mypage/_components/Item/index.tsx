@@ -73,16 +73,16 @@ const filteredPosts = posts.filter(post => {
                 <div className={styles.top}>
                   <h2>{post.title}</h2>
                   <div>
+                    <ul className={styles.home_categories}>
                     {post.postCategories.map(cate => (
-                    <ul className={styles.home_categories} key={cate.category.id}>
-                      <li>{cate.category.name}</li>
-                    </ul>
+                      <li key={cate.category.id}>{cate.category.name}</li>
                     ))}
+                    </ul>
+                    <ul className={styles.home_tags}>
                     {post.postTags.map(tag => (
-                    <ul className={styles.home_tags} key={tag.tag.id}>
-                      <li>{tag.tag.name}</li>
-                    </ul>
+                      <li key={tag.tag.id}>{tag.tag.name}</li>
                     ))}
+                    </ul>
                   </div>
                 </div>
                 <div>

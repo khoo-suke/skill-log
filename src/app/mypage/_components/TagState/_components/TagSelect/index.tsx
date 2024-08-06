@@ -146,12 +146,14 @@ export const TagSelect: React.FC<TagProps> = ({ selectTags, setSelectTags, fetch
         <FontAwesomeIcon icon={faCircleXmark} />
         </button>
       </div>
-      <Label value='新規タグ名'/>
-      <input
-        type="text"
-        value={newTag}
-        onChange={(e) => setNewTag(e.target.value)}
-      />
+      <Label value='新規タグ名' />
+      <div className={styles.newAdd}>
+        <input
+          type="text"
+          value={newTag}
+          onChange={(e) => setNewTag(e.target.value)}
+            />
+      </div>
       <Button
         type='button'
         color='black'

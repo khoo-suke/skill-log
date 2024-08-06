@@ -117,19 +117,23 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    margin-bottom: clamp(3rem, 4vw, 6rem);
+    margin-bottom: clamp(3rem, 3vw, 5vw);
     @include mq(md) {
       justify-content: center;
     }
     .img {
-      width: 48%;
+      width: 33%;
+      img {
+        max-width: 306px;
+        width: 100%;
+      }
       @include mq(md) {
         margin-bottom: 2rem;
-        width: 80%;
+        width: 50%;
       }
     }
     .text {
-      width: 46%;
+      width: 60%;
       @include mq(md) {
         width: 100%;
       }

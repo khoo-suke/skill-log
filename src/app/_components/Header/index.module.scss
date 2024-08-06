@@ -64,7 +64,7 @@
   .headerLogo {
     display: flex;
     align-items: center;
-    width: 15%;
+    width: min(30%, 132px);
     img {
       margin-left: 0;
       width: min(100%, 132px);

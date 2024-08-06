@@ -19,6 +19,7 @@ export const CustomModal: React.FC<ModalProps> = ({ className, children, isOpen,
       overlayClassName={styles.modalOverlay}
       isOpen={isOpen}
       onRequestClose={onRequestClose}
+      ariaHideApp={false} 
     >
       {children}
     </Modal>

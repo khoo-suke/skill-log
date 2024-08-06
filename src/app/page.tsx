@@ -43,13 +43,13 @@ export default function Home() {
       </div>
 
       <section className={styles.oneLank}>
-        <Wrapper size={800}>
+        <Wrapper size={700}>
           <h2 className={styles.cap}>
             日々のナレッジを蓄積して、<br className={styles.displaySpNone} />ワンランク上のエンジニアに。
           </h2>
           <div className={styles.flexBox}>
               <div className={styles.img}>
-                <Image src="/images/index_img01.png" alt="" width={476} height={358} />
+                <Image src="/images/onerank.png" alt="" width={306} height={361} />
               </div>
               <div  className={styles.text}>
                 <p>

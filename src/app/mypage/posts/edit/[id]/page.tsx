@@ -87,6 +87,16 @@ export default function Page() {
     e.preventDefault();
     if (!token) return;
 
+  // データベースに合わせた形式に変更　カテゴリー
+  const postCategories = selectCategories.map(category => ({
+    category: { id: category.id, name: category.name }
+  }));
+  
+  // データベースに合わせた形式に変更　タグ
+  const postTags = selectTags.map(tag => ({
+    tag: { id: tag.id, name: tag.name }
+  }));
+    
     try {
       await fetch(`/api/posts/${id}`, {
         method: 'PUT',
@@ -98,8 +108,8 @@ export default function Page() {
           title,
           content: JSON.stringify(content), 
           createdAt,
-          selectCategories,
-          selectTags,
+          postCategories,
+          postTags,
         }),
       });
 

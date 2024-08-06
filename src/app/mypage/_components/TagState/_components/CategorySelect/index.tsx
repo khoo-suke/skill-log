@@ -145,11 +145,13 @@ export const CategorySelect: React.FC<CategoryProps> = ({ selectCategories, setS
               </button>
             </div>
             <Label value='新規カテゴリー名' />
-            <input
-              type="text"
-              value={newCategory}
-              onChange={(e) => setNewCategory(e.target.value)}
-            />
+            <div className={styles.newAdd}>
+              <input
+                type="text"
+                value={newCategory}
+                onChange={(e) => setNewCategory(e.target.value)}
+                />
+            </div>
             <Button
               type='button'
               color='black'

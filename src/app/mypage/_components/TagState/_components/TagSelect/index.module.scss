@@ -25,3 +25,10 @@
     }
   }
 }
+
+.newAdd {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: wrap-start;
+  margin-bottom: 2rem;
+}

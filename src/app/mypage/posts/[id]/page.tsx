@@ -3,9 +3,9 @@
 import React,{ useEffect, useState } from 'react';
 import styles from './_styles/PostId.module.scss';
 import { useParams } from 'next/navigation'
-import { Category } from "@/app/mypage/_types/Category";
+import { Category } from '@/app/mypage/_types/Category';
 import { Tag } from '@/app/mypage/_types/Tag';
-import { useSupabaseSession } from "@/app/_hooks/useSupabaseSession";
+import { useSupabaseSession } from '@/app/_hooks/useSupabaseSession';
 import { createEditor, Descendant } from 'slate';
 import { Slate, Editable } from 'slate-react';
 import { RenderLeaf } from '@/app/mypage/_components/RenderLeaf';

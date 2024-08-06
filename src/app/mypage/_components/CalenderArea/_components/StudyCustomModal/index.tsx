@@ -1,6 +1,6 @@
 'use-client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { CustomModal } from '@/app/_components/CustomModal';
 import styles from './index.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -14,7 +14,7 @@ import { useCalender } from '@/app/_hooks/useCalender';
 interface CustomModalProps {
   isOpen: boolean;
   onRequestClose: () => void;
-  selectedDate: Date;
+  selectedDate: Date | null;
 }
 
 export const StudyCustomModal: React.FC<CustomModalProps> = ({
@@ -56,13 +56,18 @@ export const StudyCustomModal: React.FC<CustomModalProps> = ({
           <FontAwesomeIcon icon={faCircleXmark} />
         </button>
       </div>
-      {selectedDate && <h2>登録日時：{formatDate(selectedDate)}</h2>}
+      {selectedDate ? (
+        <h2>登録日時：{formatDate(selectedDate)}</h2>
+      ) : (
+        <p>日付が選択されていません</p>
+      )}
       <Label value="勉強時間" />
       <input
         type="text"
         value={isStudyTime}
         onChange={handleInputChange}
-      /><span>(h)</span>
+      />
+      <span>(h)</span>
       <Button
         type="button"
         color="pink"
