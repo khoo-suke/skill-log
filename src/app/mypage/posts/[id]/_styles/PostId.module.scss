@@ -17,32 +17,55 @@
       padding: 2rem clamp(2rem, 4vw, 5rem) clamp(3rem, 6vw, 7rem);
     .topArea {
         display: flex;
+        align-items: flex-start;
         justify-content: space-between;
+        flex-wrap: wrap;
         margin-bottom: 2rem;
       h2 {
         font-size: 150%;
         font-weight: 600;
         margin-bottom: 1rem;
+        width: 70%;
+        @include mq(md) {
+          order: 2;
+          width: 100%;
+        }
       }
       .markArea {
         display: flex;
-        justify-content: space-between;
+        justify-content: end;
+        flex-wrap: wrap;
+        width: 30%;
+        @include mq(md) {
+          justify-content: start;
+          order: 1;
+          width: 100%;
+        }
         .home_categories {
+          display: flex;
+          justify-content: end;
           li {
             border: 1px solid #111;
             border-radius: 3px;
+            font-size: 80%;
             text-align: center;
             padding: 0 0.5em;
             margin-right: 0.5em;
+            margin-bottom: 0.3em;
           }
         }
         .home_tags {
+          display: flex;
+          justify-content: end;
           li {
             background-color: #111;
             border-radius: 3px;
             color: #fff;
+            font-size: 80%;
             text-align: center;
             padding: 0 0.5em;
+            margin-right: 0.5em;
+            margin-bottom: 0.3em;
           }
         }
       }

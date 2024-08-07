@@ -14,9 +14,12 @@ export const CalendarArea = () => {
     averageStudyTime,
     getStudyTimes,
     selectedDate,
+    isStudyTime,
     handleMonthChange,
     handleCalendarClick,
+    handleStudyTime,
     setModalOpen,
+    setIsStudyTime,
   } = useCalender();
 
   return (
@@ -39,11 +42,14 @@ export const CalendarArea = () => {
               <span>多</span>
             </div>
             {selectedDate &&
-              <StudyCustomModal
-                isOpen={modalOpen}
-                onRequestClose={() => setModalOpen(false)}
-                selectedDate={selectedDate}
-              />
+            <StudyCustomModal
+              isOpen={modalOpen}
+              onRequestClose={() => setModalOpen(false)}
+              selectedDate={selectedDate}
+              isStudyTime={isStudyTime}
+              setIsStudyTime={setIsStudyTime}
+              handleStudyTime={handleStudyTime}
+            />
             }
           </div>
           <div className={styles.averageStudyTime}>

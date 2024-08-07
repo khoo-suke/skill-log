@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Category } from '@/app/mypage/_types/Category';
 import { CategorySelect } from './_components/CategorySelect';
 import { Tag } from '@/app/mypage/_types/Tag';

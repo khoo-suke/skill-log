@@ -11,8 +11,8 @@ import { Label } from '@/app/_components/Label';
 import { TextEditor } from '@/app/mypage/posts/new/_components/TextEditor';
 import { Title } from '../../new/_components/Title';
 import { DateInput } from '../../new/_components/DateInput';
-import { CategoryList } from '../../new/_components/CategoryList';
-import { TagList } from '../../new/_components/TagList';
+import { CategoryList } from '../../../_components/CategoryList';
+import { TagList } from '../../../_components/TagList';
 import { Breadcrumb } from './_components/Breadcrumb';
 import { CustomElement } from '../../new/_types/CustomElement';
 import { useParams, useRouter } from 'next/navigation';
@@ -87,6 +87,16 @@ export default function Page() {
     e.preventDefault();
     if (!token) return;
 
+  // データベースに合わせた形式に変更　カテゴリー
+  const postCategories = selectCategories.map(category => ({
+    category: { id: category.id, name: category.name }
+  }));
+  
+  // データベースに合わせた形式に変更　タグ
+  const postTags = selectTags.map(tag => ({
+    tag: { id: tag.id, name: tag.name }
+  }));
+    
     try {
       await fetch(`/api/posts/${id}`, {
         method: 'PUT',
@@ -98,8 +108,8 @@ export default function Page() {
           title,
           content: JSON.stringify(content), 
           createdAt,
-          selectCategories,
-          selectTags,
+          postCategories,
+          postTags,
         }),
       });
 

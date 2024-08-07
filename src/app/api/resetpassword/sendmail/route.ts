@@ -1,5 +1,5 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { supabase } from '@/utils/supabase';
+import { NextRequest, NextResponse } from "next/server";
+import { supabase } from "@/utils/supabase";
 
 //POST
 export const POST = async (request: NextRequest) => {
@@ -15,15 +15,17 @@ export const POST = async (request: NextRequest) => {
 
     if (error) {
       return NextResponse.json({ status: error.message }, { status: 400 });
-    };
+    }
 
     return NextResponse.json({
-      status: 'OK',
-      message: 'リセットパスワードメール送信完了',
+      status: "OK",
+      message: "リセットパスワードメール送信完了",
     });
-
   } catch (error) {
-    console.log('リセットパスワードメール送信失敗');
-    return NextResponse.json({ status: 'パスワード再設定に失敗しました' }, { status: 500 });
-  };
+    console.log("リセットパスワードメール送信失敗");
+    return NextResponse.json(
+      { status: "パスワード再設定に失敗しました" },
+      { status: 500 }
+    );
+  }
 };

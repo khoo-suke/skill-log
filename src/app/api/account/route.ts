@@ -1,27 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
-import { supabase } from "@/utils/supabase";
+import { authRequest } from "@/app/_utils/Auth";
 
 const prisma = new PrismaClient();
 
 // GET
 export const GET = async (request: NextRequest) => {
-  const token = request.headers.get("Authorization") ?? "";
-
-  // supabaseに対してtoken
-  const { data, error } = await supabase.auth.getUser(token);
-
-  if (error) {
-    console.log("トークンの取得に失敗:", error);
-    return NextResponse.json({ status: "トークン無効" }, { status: 400 });
-  }
-
-  // SupabaseのユーザーIDを取得
-  const userId = data.user.id;
-  console.log(userId);
-
-  // Profileテーブルからユーザー情報を取得
   try {
+    // 認証関数
+    const user = await authRequest(request);
+    // SupabaseのユーザーIDを取得
+    const userId = user.id;
     const profile = await prisma.profile.findUnique({
       where: {
         supabaseUserId: userId,
@@ -45,24 +34,16 @@ export const GET = async (request: NextRequest) => {
         { status: 400 }
       );
   }
-  
 };
 
 //PUT
 export const PUT = async (request: NextRequest) => {
-  const token = request.headers.get("Authorization") ?? "";
-  // supabaseに対してtoken
-  const { data, error } = await supabase.auth.getUser(token);
-
-  if (error)
-    return NextResponse.json({ status: "トークン無効" }, { status: 400 });
-
-  // SupabaseのユーザーIDを取得
-  const userId = data.user.id;
-
-  const { name, goal, profileImageKey } = await request.json();
-
   try {
+    // 認証関数
+    const user = await authRequest(request);
+    // SupabaseのユーザーIDを取得
+    const userId = user.id;
+    const { name, goal, profileImageKey } = await request.json();
     const profile = await prisma.profile.update({
       where: {
         supabaseUserId: userId,

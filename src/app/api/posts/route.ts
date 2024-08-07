@@ -1,25 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
-import { supabase } from "@/utils/supabase";
+import { authRequest } from "@/app/_utils/Auth";
 
 const prisma = new PrismaClient();
 
 // POST
 export const POST = async (request: NextRequest) => {
-  const token = request.headers.get("Authorization") ?? "";
-
-  // supabaseに対してtoken
-  const { data, error } = await supabase.auth.getUser(token);
-
-  if (error) {
-    console.log("トークンの取得に失敗:", error);
-    return NextResponse.json({ status: "トークン無効" }, { status: 400 });
-  }
-
-  // SupabaseのユーザーIDを取得
-  const userId = data.user.id;
-
   try {
+    // 認証関数
+    const user = await authRequest(request);
+    // SupabaseのユーザーIDを取得
+    const userId = user.id;
     const body = await request.json();
 
     const { title, content, postCategories, postTags } = body;
@@ -49,26 +40,24 @@ export const POST = async (request: NextRequest) => {
 
     // カテゴリー 紐づけ
     if (postCategories && Array.isArray(postCategories)) {
-      for (const category of postCategories) {
-        await prisma.postCategory.create({
-          data: {
-            categoryId: category.id,
-            postId: data.id,
-          },
-        });
-      }
+      const postCategoriesData = postCategories.map((category) => ({
+        categoryId: category.id,
+        postId: data.id,
+      }));
+      await prisma.postCategory.createMany({
+        data: postCategoriesData,
+      });
     }
 
     // タグ 紐づけ
     if (postTags && Array.isArray(postTags)) {
-      for (const tag of postTags) {
-        await prisma.postTag.create({
-          data: {
-            tagId: tag.id,
-            postId: data.id,
-          },
-        });
-      }
+      const postTagsData = postTags.map((tag) => ({
+        tagId: tag.id,
+        postId: data.id,
+      }));
+      await prisma.postTag.createMany({
+        data: postTagsData,
+      });
     }
 
     return NextResponse.json({
@@ -86,18 +75,11 @@ export const POST = async (request: NextRequest) => {
 
 //GET
 export const GET = async (request: NextRequest) => {
-  const token = request.headers.get("Authorization") ?? "";
-
-  // supabaseに対してtoken
-  const { data, error } = await supabase.auth.getUser(token);
-
-  if (error)
-    return NextResponse.json({ status: "トークン無効" }, { status: 400 });
-
-  // SupabaseのユーザーIDを取得
-  const userId = data.user.id;
-
   try {
+    // 認証関数
+    const user = await authRequest(request);
+    // SupabaseのユーザーIDを取得
+    const userId = user.id;
     const posts = await prisma.post.findMany({
       where: {
         profile: {

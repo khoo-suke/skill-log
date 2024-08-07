@@ -18,8 +18,8 @@ import { Label } from '@/app/_components/Label';
 import { TextEditor } from '@/app/mypage/posts/new/_components/TextEditor';
 import { Title } from './_components/Title';
 import { DateInput } from './_components/DateInput';
-import { CategoryList } from './_components/CategoryList';
-import { TagList } from './_components/TagList';
+import { CategoryList } from '../../_components/CategoryList';
+import { TagList } from '../../_components/TagList';
 import { ReturnTop } from './_components/ReturnTop';
 import { CustomElement } from './_types/CustomElement';
 

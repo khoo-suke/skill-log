@@ -79,10 +79,14 @@ export const useCalender = () => {
     }
   }, [selectedDate, getStudyTimes]);
 
-  // POST or PUT 勉強時間登録・更新
-  const handleStudyTime = async (e: React.FormEvent<HTMLButtonElement>) => {
-    e.preventDefault();
+  // カレンダーを開いたとき
+  const handleCalendarClick = (date: Date) => {
+    setSelectedDate(date);
+    setModalOpen(true);
+  };
 
+  // POST or PUT 勉強時間登録・更新
+  const handleStudyTime = async () => {
     if (!token) return;
 
     if (!isStudyTime) {
@@ -90,7 +94,6 @@ export const useCalender = () => {
       return;
     }
 
-    // studyTimeの型をnumberに変換 10進数に
     const studyTimeNumber = parseInt(isStudyTime, 10);
     if (isNaN(studyTimeNumber)) {
       alert("勉強時間は半角数字で入力してください");
@@ -102,13 +105,11 @@ export const useCalender = () => {
       return;
     }
 
-    // すでに登録されているデータの抽出
     const existingEntry = getStudyTimes.find(
       (entry) =>
         new Date(entry.date).toDateString() === selectedDate?.toDateString()
     );
 
-    // PUTリクエストの場合に確認メッセージを表示
     if (existingEntry) {
       const userConfirmed = window.confirm("この日の勉強時間を更新しますか？");
 
@@ -117,12 +118,7 @@ export const useCalender = () => {
       }
     }
 
-    // PUTリクエストとPOSTリクエストの条件分岐
     const method = existingEntry ? "PUT" : "POST";
-
-    // デバッグログを追加
-    console.log("selectedDate:", selectedDate);
-    console.log("date to be sent:", selectedDate?.toISOString());
 
     try {
       const response = await fetch(`/api/studyTime`, {
@@ -143,20 +139,11 @@ export const useCalender = () => {
 
       await response.json();
       setIsStudyTime("");
-      setModalOpen(false); // modalを閉じる
-
-      // 勉強時間データを再取得
+      setModalOpen(false);
       fetchStudyTimeData();
     } catch (error) {
       console.error(error);
     }
-  };
-
-  // カレンダー日付クリック時
-  const handleCalendarClick = (date: Date) => {
-    setSelectedDate(date);
-    setModalOpen(true);
-    console.log("選択された日付:", date); // デバッグログ追加
   };
 
   return {
