@@ -39,27 +39,28 @@ export const useProfileIcon = () => {
     }
 
     // data.pathに、画像固有のkeyが入っているので、thumbnailImageKeyに格納する
+    console.log("アップロードされた画像のパス:", data.path);
     setProfileImageKey(data.path);
   };
 
   useEffect(() => {
     if (!profileImageKey) return;
 
-    const featcher = async () => {
+    const fetcher = async () => {
       try {
         const {
           data: { publicUrl },
         } = await supabase.storage
           .from("profile_img")
           .getPublicUrl(profileImageKey);
-  
+
         setProfileImageUrl(publicUrl);
       } catch (error) {
-        console.error('プロフィール画像URLの取得中にエラー', error);
-      };
+        console.error("プロフィール画像URLの取得中にエラー", error);
+      }
     };
-
-    featcher();
+    console.log("現在のプロフィール画像キー:", profileImageKey);
+    fetcher();
   }, [profileImageKey]);
 
   // ファブボタンを押したら、画像選択ダイアログを表示

@@ -3,4 +3,5 @@ export type CustomText = {
   bold?: boolean;
   italic?: boolean;
   code?: boolean;
-}
+  link?: boolean;
+};

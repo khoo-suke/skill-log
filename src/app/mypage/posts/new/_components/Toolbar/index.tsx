@@ -6,7 +6,7 @@ import { ReactEditor } from 'slate-react';
 import { HistoryEditor } from 'slate-history';
 import styles from './index.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faItalic, faCode } from '@fortawesome/free-solid-svg-icons';
+import { faItalic, faCode, faLink } from '@fortawesome/free-solid-svg-icons';
 import FormatBoldIcon from '@mui/icons-material/FormatBold';
 
 
@@ -15,6 +15,7 @@ interface CustomEditorType {
   toggleBoldMark: (editor: BaseEditor & ReactEditor & HistoryEditor) => void;
   toggleItalicMark: (editor: BaseEditor & ReactEditor & HistoryEditor) => void;
   toggleCodeMark: (editor: BaseEditor & ReactEditor & HistoryEditor) => void;
+  toggleLinkMark: (editor: BaseEditor & ReactEditor & HistoryEditor) => void;
 };
 
 interface ToolbarProps {
@@ -55,8 +56,18 @@ export const Toolbar: React.FC<ToolbarProps> = ({ editor, CustomEditor }) => {
         event.preventDefault();
         CustomEditor.toggleCodeMark(editor);
         }}
-    >
-      <FontAwesomeIcon icon={faCode} />
+      >
+        <FontAwesomeIcon icon={faCode} />
+      </button>
+    {/* リンク */}
+      <button
+        type="button"
+        onMouseDown={event => {
+          event.preventDefault();
+          CustomEditor.toggleLinkMark(editor);
+          }}
+      >
+      <FontAwesomeIcon icon={faLink} />
       </button>
     </div>
   );

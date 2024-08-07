@@ -44,6 +44,7 @@ export const PUT = async (request: NextRequest) => {
     // SupabaseのユーザーIDを取得
     const userId = user.id;
     const { name, goal, profileImageKey } = await request.json();
+    console.log(name, goal, profileImageKey); // デバッグ用
     const profile = await prisma.profile.update({
       where: {
         supabaseUserId: userId,
@@ -56,7 +57,7 @@ export const PUT = async (request: NextRequest) => {
     });
 
     return NextResponse.json(
-      { status: "OK", plofile: profile },
+      { status: "OK", profile: profile },
       { status: 200 }
     );
   } catch (error) {

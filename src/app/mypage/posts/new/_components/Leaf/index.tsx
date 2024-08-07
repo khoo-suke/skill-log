@@ -34,6 +34,12 @@ const Leaf: React.FC<LeafProps> = ({ attributes, children, leaf }) => {
     styles.display = 'block';
     styles.padding = '4px 10px';
   }
+  // リンク
+  if (leaf.link) {
+    styles.color = '#4a76af';
+    styles.borderBottom = '1px solid #4a76af';
+    styles.paddingBottom = '0.1em';
+  }
 
   return (
     <span

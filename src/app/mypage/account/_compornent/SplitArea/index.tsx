@@ -10,14 +10,25 @@ import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import Image from 'next/image';
-import { useProfileIcon } from '@/app/_hooks/useProfileIcon';
-import { useProfile } from '@/app/_hooks/useProfile';
 
-export const SplitArea = () => {
-  // フックから値取得
-  const { name, setName, email, setEmail } = useProfile();
-  const { profileImageUrl, handleFabClick } = useProfileIcon();
+interface SplitAreaProps {
+  name: string;
+  setName: React.Dispatch<React.SetStateAction<string>>;
+  email: string;
+  setEmail: React.Dispatch<React.SetStateAction<string>>;
+  profileImageUrl: string | null;
+  handleFabClick: () => void;
+}
 
+export const SplitArea: React.FC<SplitAreaProps> = ({
+  name,
+  setName,
+  email,
+  setEmail,
+  profileImageUrl,
+  handleFabClick
+}) => {
+  
   return (
       <div className={styles.SplitArea}>
         <div className={styles.InputArea}>

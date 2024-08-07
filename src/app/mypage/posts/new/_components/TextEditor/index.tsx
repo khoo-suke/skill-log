@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useCallback, Dispatch, SetStateAction } from 'react';
-import { Transforms, createEditor, BaseEditor, Editor, Descendant } from 'slate';
+import { createEditor, BaseEditor, Editor, Descendant } from 'slate';
 import { ReactEditor } from 'slate-react';
 import { HistoryEditor, withHistory } from 'slate-history';
 import { Slate, Editable, withReact, RenderLeafProps } from 'slate-react';
@@ -58,6 +58,21 @@ const CustomEditor = {
       Editor.addMark(editor, 'code', true);
     }
   },
+
+    // リンクスタイルのチェック
+    isLinkMarkActive(editor: BaseEditor & ReactEditor & HistoryEditor) {
+      const marks = Editor.marks(editor);
+      return marks ? marks.link === true : false;
+    },
+  
+    toggleLinkMark(editor: BaseEditor & ReactEditor & HistoryEditor) {
+      const isActive = CustomEditor.isLinkMarkActive(editor);
+      if (isActive) {
+        Editor.removeMark(editor, 'link');
+      } else {
+        Editor.addMark(editor, 'link', true);
+      }
+    },
 }
 
 // Slate.js でのカスタムタイプの定義
@@ -109,9 +124,10 @@ export const TextEditor = ({ content, setContent }: ContentProps) => {
         };
         return;
       };
-      // ctrl + Z でデフォルトのスタイル
-      case 'z': {
+      // ctrl + l でリンク
+      case 'l': {
         event.preventDefault();
+        CustomEditor.toggleLinkMark(editor);
         return;
       };
     };

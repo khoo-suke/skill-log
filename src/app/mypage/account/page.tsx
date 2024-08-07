@@ -10,9 +10,21 @@ import { Textarea } from './_compornent/Textarea';
 import { Label } from '@/app/_components/Label';
 import { SplitArea } from './_compornent/SplitArea';
 import { useProfile } from '@/app/_hooks/useProfile';
+import { useProfileIcon } from '@/app/_hooks/useProfileIcon';
 
 export default function Account() {
-  const { goal, setGoal, handleSubmit } = useProfile();
+  // フックから値取得
+  const {
+    name,
+    setName,
+    email,
+    setEmail,
+    goal,
+    setGoal,
+    handleSubmit
+  } = useProfile();
+
+  const { profileImageUrl, handleFabClick } = useProfileIcon();
 
   return (
     <>
@@ -25,7 +37,14 @@ export default function Account() {
       </div>
       <Wrapper size={700}>
         <form onSubmit={handleSubmit} className={styles.Account}>
-          <SplitArea/>
+          <SplitArea
+            name={name}
+            setName={setName}
+            email={email}
+            setEmail={setEmail}
+            profileImageUrl={profileImageUrl}
+            handleFabClick={handleFabClick}
+          />
           <div className={styles.Label}>
           <Label value='パスワード'/>
             <Input
