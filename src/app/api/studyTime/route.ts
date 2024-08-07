@@ -1,29 +1,21 @@
 import { NextRequest, NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
-import { supabase } from "@/utils/supabase";
 import { isWithinInterval } from "date-fns";
+import { authRequest } from "@/app/_utils/Auth";
 
 const prisma = new PrismaClient();
 
 // GET
 export const GET = async (request: NextRequest) => {
-  const token = request.headers.get("Authorization") ?? "";
-  const url = new URL(request.url);
-  const year = parseInt(url.searchParams.get("year") || "", 10);
-  const month = parseInt(url.searchParams.get("month") || "", 10);
-
-  // supabaseに対してtoken
-  const { data, error } = await supabase.auth.getUser(token);
-
-  if (error) {
-    console.log("トークンの取得に失敗", error);
-    return NextResponse.json({ status: "トークン無効" }, { status: 400 });
-  }
-
-  // supabaseのユーザーID取得
-  const userId = data.user.id;
-
   try {
+    const url = new URL(request.url);
+    const year = parseInt(url.searchParams.get("year") || "", 10);
+    const month = parseInt(url.searchParams.get("month") || "", 10);
+
+    // 認証関数
+    const user = await authRequest(request);
+    // SupabaseのユーザーIDを取得
+    const userId = user.id;
     const studyTimes = await prisma.studyTime.findMany({
       where: {
         profile: {
@@ -82,20 +74,11 @@ export const GET = async (request: NextRequest) => {
 
 // POST
 export const POST = async (request: NextRequest) => {
-  const token = request.headers.get("Authorization") ?? "";
-
-  // supabaseに対してtoken
-  const { data, error } = await supabase.auth.getUser(token);
-
-  if (error) {
-    console.log("トークンの取得に失敗:", error);
-    return NextResponse.json({ status: "トークン無効" }, { status: 400 });
-  }
-
-  // SupabaseのユーザーIDを取得
-  const userId = data.user.id;
-
   try {
+    // 認証関数
+    const user = await authRequest(request);
+    // SupabaseのユーザーIDを取得
+    const userId = user.id;
     const body = await request.json();
     console.log("リクエストボディ:", body);
 
@@ -145,17 +128,11 @@ export const POST = async (request: NextRequest) => {
 
 // PUT
 export const PUT = async (request: NextRequest) => {
-  const token = request.headers.get("Authorization") ?? "";
-  // supabaseに対してtoken
-  const { data, error } = await supabase.auth.getUser(token);
-
-  if (error)
-    return NextResponse.json({ status: "トークン無効" }, { status: 400 });
-
-  // SupabaseのユーザーIDを取得
-  const userId = data.user.id;
-
   try {
+    // 認証関数
+    const user = await authRequest(request);
+    // SupabaseのユーザーIDを取得
+    const userId = user.id;
     const { date, studyTime } = await request.json();
 
     // ISO-8601形式に変換

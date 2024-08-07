@@ -1,6 +1,6 @@
 'use-client';
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import { CustomModal } from '@/app/_components/CustomModal';
 import styles from './index.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -8,31 +8,27 @@ import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import { Button } from '@/app/_components/Button';
 import { Label } from '@/app/_components/Label';
 import { format } from 'date-fns';
-import { useCalender } from '@/app/_hooks/useCalender';
 
 // 親からステートを受け取る
 interface CustomModalProps {
   isOpen: boolean;
   onRequestClose: () => void;
   selectedDate: Date | null;
+  isStudyTime: string;
+  setIsStudyTime: (value: string) => void;
+  handleStudyTime: () => void;
 }
 
 export const StudyCustomModal: React.FC<CustomModalProps> = ({
   isOpen,
   onRequestClose,
   selectedDate,
+  isStudyTime,
+  setIsStudyTime,
+  handleStudyTime,
 }) => {
 
-  const {
-    modalOpen,
-    isStudyTime,
-    handleStudyTime,
-    setModalOpen,
-    setIsStudyTime,
-  } = useCalender();
-
   const handleModalClose = () => {
-    setModalOpen(false);
     onRequestClose();
   };
 
@@ -47,7 +43,7 @@ export const StudyCustomModal: React.FC<CustomModalProps> = ({
 
   return (
     <CustomModal
-      isOpen={isOpen || modalOpen}
+      isOpen={isOpen}
       onRequestClose={handleModalClose}
       className={styles.modal}
     >

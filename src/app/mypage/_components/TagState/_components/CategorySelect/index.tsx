@@ -99,11 +99,9 @@ export const CategorySelect: React.FC<CategoryProps> = ({ selectCategories, setS
       const selectedCategory = allCategories.find(
         (category) => category.id === categoryId
       );
-
-      if (selectedCategory) {
-        setSelectCategories([...selectCategories, selectedCategory]);
-      };
+      setSelectCategories([...selectCategories, selectedCategory!]);
     };
+    
     fetchPosts();
   };
 

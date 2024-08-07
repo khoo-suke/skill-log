@@ -7,7 +7,7 @@ import {
 } from 'react';
 import { useSupabaseSession } from '@/app/_hooks/useSupabaseSession';
 import { Tag } from '@/app/mypage/_types/Tag';
-import styles from '@/app/mypage/posts/new/_components/TagList/index.module.scss';
+import styles from './index.module.scss';
 import { Label } from '@/app/_components/Label';
 import { CustomModal } from '@/app/_components/CustomModal';
 import { Button } from '@/app/_components/Button';

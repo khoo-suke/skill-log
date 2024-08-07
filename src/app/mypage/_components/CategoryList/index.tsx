@@ -13,7 +13,6 @@ import { Label } from '@/app/_components/Label';
 import { CustomModal } from '@/app/_components/CustomModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleXmark, faSquarePlus } from '@fortawesome/free-solid-svg-icons';
-import { ColorPicker } from '@/app/mypage/_components/ColorPicker';
 
 interface CategoryProps {
   selectCategories: Category[];

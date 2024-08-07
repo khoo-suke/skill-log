@@ -88,7 +88,6 @@ export const useCalender = () => {
   // POST or PUT 勉強時間登録・更新
   const handleStudyTime = async () => {
     if (!token) return;
-    console.log("handleStudyTimeフック内のselectedDate:", selectedDate); // デバッグ用
 
     if (!isStudyTime) {
       alert("勉強時間が未入力です");
@@ -160,6 +159,5 @@ export const useCalender = () => {
     handleCalendarClick,
     setModalOpen,
     setIsStudyTime,
-    setSelectedDate,
   };
 };

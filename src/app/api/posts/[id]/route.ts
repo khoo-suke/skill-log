@@ -101,14 +101,13 @@ export const PUT = async (
     });
 
     // 新しいカテゴリを追加
-    for (const category of postCategories) {
-      await prisma.postCategory.create({
-        data: {
-          postId: post.id,
-          categoryId: category.category.id,
-        },
-      });
-    }
+    const postCategoriesData = postCategories.map((category) => ({
+      postId: parseInt(id),
+      categoryId: category.category.id,
+    }));
+    await prisma.postCategory.createMany({
+      data: postCategoriesData,
+    });
 
     // 既存のタグを削除
     await prisma.postTag.deleteMany({
@@ -118,14 +117,13 @@ export const PUT = async (
     });
 
     // 新しいタグを追加
-    for (const tag of postTags) {
-      await prisma.postTag.create({
-        data: {
-          postId: post.id,
-          tagId: tag.tag.id,
-        },
-      });
-    }
+    const postTagsData = postTags.map((tag) => ({
+      postId: parseInt(id),
+      tagId: tag.tag.id,
+    }));
+    await prisma.postTag.createMany({
+      data: postTagsData,
+    });
 
     return NextResponse.json({ status: "OK", post: post }, { status: 200 });
   } catch (error) {

@@ -1,7 +1,7 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from "next/server";
 // import nodemailer from 'nodemailer';
-import { PrismaClient } from '@prisma/client';
-import { supabase } from '@/utils/supabase';
+import { PrismaClient } from "@prisma/client";
+import { supabase } from "@/utils/supabase";
 
 const prisma = new PrismaClient();
 
@@ -23,10 +23,11 @@ export const POST = async (request: NextRequest) => {
 
     if (error) {
       return NextResponse.json({ status: error.message }, { status: 400 });
-    }
-    
-    else if (!data.user) {
-        return NextResponse.json({ status: "error", message: "ユーザー作成失敗" }, { status: 400 });
+    } else if (!data.user) {
+      return NextResponse.json(
+        { status: "error", message: "ユーザー作成失敗" },
+        { status: 400 }
+      );
     }
 
     // SupabaseのユーザーIDを取得
@@ -64,14 +65,13 @@ export const POST = async (request: NextRequest) => {
 
     //成功
     return NextResponse.json({
-      status: 'OK',
-      message: 'ユーザー登録完了',
-      profile: newProfile
+      status: "OK",
+      message: "ユーザー登録完了",
+      profile: newProfile,
     });
-
   } catch (error) {
-    console.error('メール送信エラー:', error);
+    console.error("メール送信エラー:", error);
     if (error instanceof Error)
-      return NextResponse.json({ status: error.message }, { status: 400 })
-  };
+      return NextResponse.json({ status: error.message }, { status: 400 });
+  }
 };
