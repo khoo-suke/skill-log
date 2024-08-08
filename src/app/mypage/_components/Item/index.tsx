@@ -75,7 +75,7 @@ const filteredPosts = posts.filter(post => {
               <div className={styles.top}>
                 <div onClick={() => router.push(`/mypage/posts/${post.id}`)}>
                   <h2>{post.title}</h2>
-                  <div>
+                  <div className={styles.flexItem}>
                     <ul className={styles.home_categories}>
                     {post.postCategories.map(cate => (
                       <li key={cate.category.id}>{cate.category.name}</li>
