@@ -2,86 +2,86 @@
 
 .react-calendar {
   border: none !important;
-  margin-bottom: 5rem;
+  margin-bottom: 5rem !important;
   @include mq(md) {
-    margin-right: auto;
-    margin-left: auto;
+    margin-right: auto !important;
+    margin-left: auto !important;
   }
   &__month-view__weekdays {
-    color: #888;
-    font-size: 0.75em;
-    gap: 8px;
-    text-align: center;
+    color: #888 !important;
+    font-size: 0.75em !important;
+    gap: 8px !important;
+    text-align: center !important;
     &__weekday {
       flex: 0 0 calc(14.2857% - 8px) !important;
-      padding: 0.5em;
+      padding: 0.5em !important;
       abbr {
-        border-bottom: none;
-        text-decoration: none;
+        border-bottom: none !important;
+        text-decoration: none !important;
       }
     }
   }
   &__month-view__days {
-    gap: 8px;
+    gap: 8px !important;
     button abbr {
-      visibility: hidden;
+      visibility: hidden !important;
     }
     &__day {
       background: #f0f0f0 !important;
       &--neighboringMonth {
-        background-color: #fff;
+        background-color: #fff !important;
       }
     }
   }
   &__tile {
-    border-radius: 7px;
+    border-radius: 7px !important;
     flex: 0 0 calc(14.2857% - 8px) !important;
-    font-size: 0.5em;
+    font-size: 0.5em !important;
     &:active {
-      background-color: #46A997;
+      background-color: #46A997 !important;
     }
     &--active {
       &:enabled:focus {
-        background-color: #46A997;
+        background-color: #46A997 !important;
       }
     }
     &:hover {
-      background-color: #46A997;
+      background-color: #46A997 !important;
     }
     &:enabled:hover {
-      background-color: #46A997;
+      background-color: #46A997 !important;
     }
     &--now {
-      background: #ffeb3b;
+      background: #ffeb3b !important;
     }
   }
   &__navigation {
     button {
       &:disabled {
-        background-color: #fff;
+        background-color: #fff !important;
       }
     }
     &__label {
       &__labelText {
-        color: #333;
-        font-size: 170%;
-        font-weight: 600;
+        color: #333 !important;
+        font-size: 170% !important;
+        font-weight: 600 !important;
       }
     }
   }
   .zero {
-    background-color: #f0f0f0;
+    background-color: #f0f0f0 !important;
   }
   .low {
-    background-color: #FFDCD8;
+    background-color: #FFDCD8 !important;
   }
   .medium {
-    background-color: #FFB3A9;
+    background-color: #FFB3A9 !important;
   }
   .high {
-    background-color: #F88A7B;
+    background-color: #F88A7B !important;
   }
   .veryHigh {
-    background-color: #E56452;
+    background-color: #E56452 !important;
   }
 }
