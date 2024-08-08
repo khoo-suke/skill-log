@@ -1,7 +1,7 @@
 @use '@/app/_styles/mixin.module.scss' as *;
 
 .react-calendar {
-  border: none;
+  border: none !important;
   margin-bottom: 5rem;
   @include mq(md) {
     margin-right: auto;
@@ -27,7 +27,7 @@
       visibility: hidden;
     }
     &__day {
-      background: #f0f0f0;
+      background: #f0f0f0 !important;
       &--neighboringMonth {
         background-color: #fff;
       }
