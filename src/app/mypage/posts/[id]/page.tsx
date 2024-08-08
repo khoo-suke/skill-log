@@ -1,6 +1,6 @@
 'use client';
 
-import React,{ useEffect, useState } from 'react';
+import React,{ useEffect, useState, useCallback } from 'react';
 import styles from './_styles/PostId.module.scss';
 import { useParams } from 'next/navigation'
 import { Category } from '@/app/mypage/_types/Category';
@@ -27,7 +27,7 @@ export default function Page() {
   const [content, setContent] = useState<Descendant[]>([]);
 
   //GET 記事用
-  const fetchPosts = async () => {
+  const fetchPosts = useCallback(async () => {
     if (!token) return;
     
     try {
@@ -51,11 +51,11 @@ export default function Page() {
     catch (error) {
       console.error(error);
     };
-  };
+  }, [token, id]);
 
   useEffect(() => {
     fetchPosts();
-  }, [token, id]);
+  }, [token, id, fetchPosts]);
 
   return (
     <>

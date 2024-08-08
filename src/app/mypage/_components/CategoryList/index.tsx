@@ -4,6 +4,7 @@ import React, {
   useState,
   useEffect,
   MouseEventHandler,
+  useCallback,
 } from 'react';
 import { useSupabaseSession } from '@/app/_hooks/useSupabaseSession';
 import { Category } from '@/app/mypage/_types/Category';
@@ -25,7 +26,7 @@ export const CategoryList: React.FC<CategoryProps> = ({ selectCategories, setSel
   const [newCategory, setNewCategory] = useState('');
   const [isCategoryModalOpen, setCategoryModalOpen] = useState(false);
 
-  const fetchCategories = async () => {
+  const fetchCategories = useCallback(async () => {
     
     // GET カテゴリー用
     if (!token) return;
@@ -38,43 +39,43 @@ export const CategoryList: React.FC<CategoryProps> = ({ selectCategories, setSel
       });
       const data = await response.json();
       setAllCategories(data.categories);
-    };
+    }, [token]);
 
     // 初回レンダリング時にカテゴリーを取得
     useEffect(() => {
       fetchCategories();
-    }, [token]);
+    }, [token, fetchCategories]);
 
     //POST カテゴリー作成用
-    const handleAddCategory: MouseEventHandler<HTMLButtonElement> = async (e) => {
-      e.preventDefault();
+  const handleAddCategory: MouseEventHandler<HTMLButtonElement> = async (e) => {
+    e.preventDefault();
   
-      if (!token) return;
+    if (!token) return;
   
-      // カテゴリーがnullの場合
-      if (!newCategory) {
-        alert('カテゴリー名を入力してください');
-        return;
-      }
+    // カテゴリーがnullの場合
+    if (!newCategory) {
+      alert('カテゴリー名を入力してください');
+      return;
+    }
   
-      const response = await fetch(`/api/categories`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: token,
-        },
-        body: JSON.stringify({
-          name: newCategory,
-        }),
-      });
+    const response = await fetch(`/api/categories`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: token,
+      },
+      body: JSON.stringify({
+        name: newCategory,
+      }),
+    });
   
-      if (response.ok) {
-        const data = await response.json();
-        setAllCategories((categories) => [...categories, data.name]);
-        setNewCategory('');
-        setCategoryModalOpen(false);
-        fetchCategories();
-      }
+    if (response.ok) {
+      const data = await response.json();
+      setAllCategories((categories) => [...categories, data.name]);
+      setNewCategory('');
+      setCategoryModalOpen(false);
+      fetchCategories();
+    }
   };
   
   // SELECT カテゴリー

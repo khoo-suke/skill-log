@@ -1,6 +1,6 @@
 'use-client';
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import "@/app/mypage/_components/CalenderArea/_components/CustomCalender/customCalender.scss";
@@ -48,18 +48,18 @@ export const CustomCalendar: React.FC<CalendarComponentProps> = ({ getStudyTimes
   };
 
   // 月変更時に呼ばれる
-  const handleMonthChange = (value: Date) => {
+  const handleMonthChange = useCallback((value: Date) => {
     if (value instanceof Date) { 
       setDate(value);
       const year = value.getFullYear();
       const month = value.getMonth() + 1; // 月は1から始まる
       onMonthChange(year, month);
     }
-  };
+  }, [onMonthChange]);
 
   useEffect(() => {
     handleMonthChange(date);
-  }, [date]);
+  }, [date, handleMonthChange]);
 
   return (
     <Calendar
