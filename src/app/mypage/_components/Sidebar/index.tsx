@@ -51,8 +51,6 @@ export const Sidebar = () => {
             setIsStudyTime={setIsStudyTime}
             handleStudyTime={handleStudyTime}
             isStudyTime={isStudyTime}
-            onStudyTimeChange={(e) => setIsStudyTime(e.target.value)}
-            onSubmit={handleStudyTime}
           />
         </div>
       </div>
