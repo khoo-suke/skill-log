@@ -66,14 +66,14 @@ const filteredPosts = posts.filter(post => {
         <ul className={styles.post} key={post.id}>
           <li
             className={styles.postList}
-            onClick={() => router.push(`/mypage/posts/${post.id}`)}
           >
             <div className={styles.postListInner}>
               <ItemMenu
                 postId={post.id}
                 fetchPosts={fetchPosts}
               />
-                <div className={styles.top}>
+              <div className={styles.top}>
+                <div onClick={() => router.push(`/mypage/posts/${post.id}`)}>
                   <h2>{post.title}</h2>
                   <div>
                     <ul className={styles.home_categories}>
@@ -87,6 +87,7 @@ const filteredPosts = posts.filter(post => {
                     ))}
                     </ul>
                   </div>
+                </div>
                 </div>
                 <div>
                   <span>{new Date(post.createdAt).toLocaleDateString()}</span>
