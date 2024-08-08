@@ -4,6 +4,7 @@ import {
   useState,
   useEffect,
   FormEventHandler,
+  useCallback,
 } from 'react';
 import { useSupabaseSession } from '@/app/_hooks/useSupabaseSession';
 import { Tag } from '@/app/mypage/_types/Tag';
@@ -27,7 +28,7 @@ export const TagSelect: React.FC<TagProps> = ({ selectTags, setSelectTags, fetch
   const [newTag, setNewTag] = useState('');
   const [isTagModalOpen, setTagModalOpen] = useState(false);
 
-  const fetchTags = async () => {
+  const fetchTags = useCallback(async () => {
 
     // GET タグ用
     if (!token) return;
@@ -40,13 +41,13 @@ export const TagSelect: React.FC<TagProps> = ({ selectTags, setSelectTags, fetch
     });
     const data = await response.json();
     setAllTags(data.tags);
-  };
+  }, [token]);
   
   // 初回レンダリング時にタグを取得
   useEffect(() => {
     fetchTags();
     fetchPosts();
-  }, [token]);
+  }, [token, fetchPosts, fetchTags]);
 
   // POST タグ作成用
   const handleAddTag: FormEventHandler<HTMLButtonElement> = async (e) => {

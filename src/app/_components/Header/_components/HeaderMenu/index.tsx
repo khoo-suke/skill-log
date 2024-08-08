@@ -39,7 +39,7 @@ export const HeaderMenu = () => {
   // プロフィール画像を取得
   useEffect(() => {
     fetchProfileData();
-  }, []);
+  }, [fetchProfileData]);
 
   return (
     <>

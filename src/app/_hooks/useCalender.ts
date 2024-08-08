@@ -1,6 +1,6 @@
 "use-client";
 
-import React, { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useSupabaseSession } from "@/app/_hooks/useSupabaseSession";
 
 // 型を定義
@@ -24,7 +24,7 @@ export const useCalender = () => {
   );
 
   // GET 勉強時間取得
-  const fetchStudyTimeData = async () => {
+  const fetchStudyTimeData = useCallback(async () => {
     try {
       if (!token) return [];
       const response = await fetch(
@@ -52,12 +52,12 @@ export const useCalender = () => {
     } catch (error) {
       console.error(error);
     }
-  };
+  }, [token, currentMonth, currentYear]);
 
   // 初回ロード・token変更時に取得
   useEffect(() => {
     fetchStudyTimeData();
-  }, [token, currentYear, currentMonth]);
+  }, [token, currentYear, currentMonth, fetchStudyTimeData]);
 
   // 月が変更されたとき
   const handleMonthChange = (year: number, month: number) => {
@@ -86,7 +86,7 @@ export const useCalender = () => {
   };
 
   // POST or PUT 勉強時間登録・更新
-  const handleStudyTime = async () => {
+  const handleStudyTime = useCallback(async () => {
     if (!token) return;
 
     if (!isStudyTime) {
@@ -144,7 +144,7 @@ export const useCalender = () => {
     } catch (error) {
       console.error(error);
     }
-  };
+  }, [token, isStudyTime, selectedDate, getStudyTimes, fetchStudyTimeData]);
 
   return {
     selectedDate,

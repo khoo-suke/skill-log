@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, ChangeEvent } from "react";
+import React, { useState, useEffect, ChangeEvent, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { useSupabaseSession } from "@/app/_hooks/useSupabaseSession";
 import { supabase } from "@/utils/supabase";
@@ -16,7 +16,7 @@ export const useProfile = () => {
   const router = useRouter();
 
   // GET profile情報
-  const fetchProfileData = async () => {
+  const fetchProfileData = useCallback(async () => {
     if (!token) return;
 
     try {
@@ -53,11 +53,11 @@ export const useProfile = () => {
     } catch (error) {
       console.error("プロフィール情報の取得中にエラー", error);
     }
-  };
+  }, [token]);
 
   useEffect(() => {
     fetchProfileData();
-  }, [token]);
+  }, [token, fetchProfileData]);
 
   // プロフィール画像の取得
   useEffect(() => {

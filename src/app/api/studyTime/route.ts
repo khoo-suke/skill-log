@@ -3,6 +3,12 @@ import { PrismaClient } from "@prisma/client";
 import { isWithinInterval } from "date-fns";
 import { authRequest } from "@/app/_utils/Auth";
 
+// StudyTimeインターフェースの定義
+interface StudyTime {
+  date: Date;
+  studyTime: number;
+}
+
 const prisma = new PrismaClient();
 
 // GET
@@ -36,7 +42,7 @@ export const GET = async (request: NextRequest) => {
     const now = new Date();
 
     // 現在の日付までのデータをフィルタリング
-    const filteredStudyTimes = studyTimes.filter((entry) => {
+    const filteredStudyTimes = studyTimes.filter((entry: StudyTime) => {
       const entryDate = new Date(entry.date);
       return (
         isWithinInterval(entryDate, {
@@ -55,7 +61,7 @@ export const GET = async (request: NextRequest) => {
 
     // 現在の日付までのデータを基に勉強時間を合計
     const totalStudyTime = filteredStudyTimes.reduce(
-      (total, entry) => total + entry.studyTime,
+      (total: number, entry: StudyTime) => total + entry.studyTime,
       0
     );
 
@@ -92,13 +98,11 @@ export const POST = async (request: NextRequest) => {
 
     // 日付のバリデーション
     if (!date || isNaN(new Date(date).getTime())) {
-      console.log("無効な日付:", date);
       return NextResponse.json({ status: "無効な日付" }, { status: 400 });
     }
 
     // studyTimeのバリデーション
     if (typeof studyTime !== "number" || studyTime <= 0) {
-      console.log("無効な勉強時間:", studyTime);
       return NextResponse.json({ status: "無効な勉強時間" }, { status: 400 });
     }
 
@@ -143,8 +147,6 @@ export const PUT = async (request: NextRequest) => {
 
     // ISO-8601形式に変換
     const isDate = new Date(date).toISOString();
-
-    console.log("登録する値:", studyTime);
 
     // レコードの確認
     const recordId = await prisma.studyTime.findFirst({

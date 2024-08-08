@@ -4,6 +4,7 @@ import React, {
   useState,
   useEffect,
   MouseEventHandler,
+  useCallback,
 } from 'react';
 import { useSupabaseSession } from '@/app/_hooks/useSupabaseSession';
 import { Category } from '@/app/mypage/_types/Category';
@@ -26,7 +27,7 @@ export const CategorySelect: React.FC<CategoryProps> = ({ selectCategories, setS
   const [newCategory, setNewCategory] = useState('');
   const [isCategoryModalOpen, setCategoryModalOpen] = useState(false);
 
-  const fetchCategories = async () => {
+  const fetchCategories = useCallback(async () => {
     
     // GET カテゴリー用
     if (!token) return;
@@ -40,15 +41,15 @@ export const CategorySelect: React.FC<CategoryProps> = ({ selectCategories, setS
     const data = await response.json();
     setAllCategories(data.categories);
     fetchPosts();
-  };
+  }, [token, fetchPosts]);
 
   // 初回レンダリング時にカテゴリーを取得
   useEffect(() => {
     fetchCategories();
-  }, [token]);
+  }, [token, fetchCategories]);
 
   //POST カテゴリー作成用
-  const handleAddCategory: MouseEventHandler<HTMLButtonElement> = async (e) => {
+  const handleAddCategory: MouseEventHandler<HTMLButtonElement> = useCallback(async (e) => {
     e.preventDefault();
   
     if (!token) return;
@@ -79,7 +80,7 @@ export const CategorySelect: React.FC<CategoryProps> = ({ selectCategories, setS
       fetchCategories();
       fetchPosts();
     };
-  };
+  }, [token, newCategory, setAllCategories, setNewCategory, setCategoryModalOpen, fetchCategories, fetchPosts]);
   
   // SELECT カテゴリー
   const handleSelectCategory = (categoryId: number) => {
