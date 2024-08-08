@@ -10,7 +10,6 @@ import { Textarea } from './_compornent/Textarea';
 import { Label } from '@/app/_components/Label';
 import { SplitArea } from './_compornent/SplitArea';
 import { useProfile } from '@/app/_hooks/useProfile';
-import { useProfileIcon } from '@/app/_hooks/useProfileIcon';
 
 export default function Account() {
   // フックから値取得
@@ -21,10 +20,10 @@ export default function Account() {
     setEmail,
     goal,
     setGoal,
-    handleSubmit
+    handleSubmit,
+    profileImageUrl,
+    handleFabClick,
   } = useProfile();
-
-  const { profileImageUrl, handleFabClick } = useProfileIcon();
 
   return (
     <>

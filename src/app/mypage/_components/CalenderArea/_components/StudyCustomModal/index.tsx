@@ -17,8 +17,6 @@ interface CustomModalProps {
   isStudyTime: string;
   setIsStudyTime: (value: string) => void;
   handleStudyTime: () => void;
-  onStudyTimeChange: (e: any) => void;
-  onSubmit: () => Promise<void>;
 }
 
 export const StudyCustomModal: React.FC<CustomModalProps> = ({

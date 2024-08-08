@@ -21,7 +21,7 @@ export const RenderLeaf = (props: RenderLeafProps) => {
   }
   if (leaf.link) {
     return (
-      <Link href={children} {...attributes} className={`custom-leaf ${styles.link}`}>
+      <Link href={children.props.leaf.text} {...attributes} className={`custom-leaf ${styles.link}`}>
         {children}
       </Link>
     );
