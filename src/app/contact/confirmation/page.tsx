@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import styles from '@/app/contact/_styles/Contact.module.scss';
 
@@ -40,7 +40,7 @@ const Confirmation: React.FC = () => {
   };
   
   return (
-    <section className={styles.confirmation}> {/* wrapper--600 */}
+    <section className={styles.confirmation}>
       <div className={styles.cap}> 
         <h2>お問い合わせ確認</h2>
       </div>
@@ -63,4 +63,12 @@ const Confirmation: React.FC = () => {
   );
 };
 
-export default Confirmation;
+const ConfirmationPage: React.FC = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <Confirmation />
+    </Suspense>
+  );
+};
+
+export default ConfirmationPage;
