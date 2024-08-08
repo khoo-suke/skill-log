@@ -3,12 +3,12 @@
 import React from 'react';
 import styles from '@/app/mypage/_components/Item/index.module.scss';
 import { PostRequestBody } from '@/app/mypage/_types/PostRequestBody';
-import Link from 'next/link';
 import 'react-calendar/dist/Calendar.css';
 import { ItemMenu } from '@/app/mypage/_components/Item/_components/ItemMenu';
 import { Category } from '@/app/mypage/_types/Category';
 import { Tag } from '@/app/mypage/_types/Tag';
 import { SlateEditor } from '@/app/mypage/_components/Item/_components/SlateEditor';
+import { useRouter } from 'next/navigation';
 
 // 親からステートを受け取る
 interface ItemProps {
@@ -22,7 +22,8 @@ interface ItemProps {
 };
 
 export const Item = ({ activeTab, posts, fetchPosts, selectCategories, selectTags, currentPage, itemsPerPage }: ItemProps) => {
-  
+  const router = useRouter();
+
 // activeTabによってフィルタリングを変える
 const filteredPosts = posts.filter(post => {
   switch (activeTab) {
@@ -63,13 +64,15 @@ const filteredPosts = posts.filter(post => {
     <>
       {paginatedPosts.map((post) => (
         <ul className={styles.post} key={post.id}>
-          <li className={styles.postList}>
+          <li
+            className={styles.postList}
+            onClick={() => router.push(`/mypage/posts/${post.id}`)}
+          >
             <div className={styles.postListInner}>
               <ItemMenu
                 postId={post.id}
                 fetchPosts={fetchPosts}
               />
-              <Link href={`/mypage/posts/${post.id}`}>
                 <div className={styles.top}>
                   <h2>{post.title}</h2>
                   <div>
@@ -91,7 +94,6 @@ const filteredPosts = posts.filter(post => {
                 <SlateEditor
                   post={post}
                 />
-              </Link>
             </div>
           </li>
         </ul>
