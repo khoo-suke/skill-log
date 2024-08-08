@@ -46,15 +46,21 @@ export const GET = async (request: NextRequest) => {
       );
     });
 
+    // 現在の日付がフィルタリングした月内にあるかどうかを確認
+    const isCurrentMonth = now >= startMonthDate && now <= endMonthDate;
+
+    // 平均値を計算する際の分母を決定
+    const daysInMonth = endMonthDate.getDate();
+    const divisor = isCurrentMonth ? now.getDate() : daysInMonth;
+
     // 現在の日付までのデータを基に勉強時間を合計
     const totalStudyTime = filteredStudyTimes.reduce(
       (total, entry) => total + entry.studyTime,
       0
     );
 
-    // 現在の日にちで割って平均値を出す
-    const currentDayOfMonth = now.getDate();
-    const averageTime = totalStudyTime / currentDayOfMonth;
+    // 平均値を出す
+    const averageTime = totalStudyTime / divisor;
 
     return NextResponse.json(
       {

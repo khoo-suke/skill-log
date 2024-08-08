@@ -1,6 +1,6 @@
 'use-client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -10,11 +10,11 @@ import IconButton from '@mui/material/IconButton';
 import Logout from '@mui/icons-material/Logout';
 import Link from 'next/link';
 import { supabase } from '@/utils/supabase';
-import { useProfileIcon } from '@/app/_hooks/useProfileIcon';
+import { useProfile } from '@/app/_hooks/useProfile';
 
 export const HeaderMenu = () => {
   // プロフィール画像URL取得
-  const { profileImageUrl } = useProfileIcon();
+  const { profileImageUrl, fetchProfileData } = useProfile();
 
   // メニューのステート
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -35,6 +35,11 @@ export const HeaderMenu = () => {
     await supabase.auth.signOut();
     window.location.href = '/';
   };
+
+  // プロフィール画像を取得
+  useEffect(() => {
+    fetchProfileData();
+  }, []);
 
   return (
     <>

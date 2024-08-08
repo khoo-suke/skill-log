@@ -48,7 +48,9 @@ export const Sidebar = () => {
             isOpen={modalOpen}
             onRequestClose={() => setModalOpen(false)}
             selectedDate={selectedDate}
-            studyTime={isStudyTime}
+            setIsStudyTime={setIsStudyTime}
+            handleStudyTime={handleStudyTime}
+            isStudyTime={isStudyTime}
             onStudyTimeChange={(e) => setIsStudyTime(e.target.value)}
             onSubmit={handleStudyTime}
           />

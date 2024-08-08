@@ -62,8 +62,6 @@ const HeaderThanks: React.FC = () => (
 export const Header: React.FC = () => {
   const currentUrl = usePathname();
 
-  console.log(currentUrl);
-
   if (currentUrl === '/signup/thanks') {
     return <HeaderThanks />;
   };

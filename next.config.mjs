@@ -1,7 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['nrorkenuurnazzmosfcq.supabase.co'],
+    remotePatterns: [
+      {
+        hostname: 'nrorkenuurnazzmosfcq.supabase.co',
+      },
+    ],
   },
 };
 

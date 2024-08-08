@@ -12,7 +12,18 @@ import { SplitArea } from './_compornent/SplitArea';
 import { useProfile } from '@/app/_hooks/useProfile';
 
 export default function Account() {
-  const { goal, setGoal, handleSubmit } = useProfile();
+  // フックから値取得
+  const {
+    name,
+    setName,
+    email,
+    setEmail,
+    goal,
+    setGoal,
+    handleSubmit,
+    profileImageUrl,
+    handleFabClick,
+  } = useProfile();
 
   return (
     <>
@@ -25,7 +36,14 @@ export default function Account() {
       </div>
       <Wrapper size={700}>
         <form onSubmit={handleSubmit} className={styles.Account}>
-          <SplitArea/>
+          <SplitArea
+            name={name}
+            setName={setName}
+            email={email}
+            setEmail={setEmail}
+            profileImageUrl={profileImageUrl}
+            handleFabClick={handleFabClick}
+          />
           <div className={styles.Label}>
           <Label value='パスワード'/>
             <Input

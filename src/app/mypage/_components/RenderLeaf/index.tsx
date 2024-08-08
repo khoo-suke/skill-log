@@ -3,6 +3,7 @@
 import React from 'react';
 import { RenderLeafProps } from 'slate-react';
 import styles from '@/app/mypage/_components/RenderLeaf/index.module.scss';
+import Link from 'next/link';
 
 export const RenderLeaf = (props: RenderLeafProps) => {
   let { attributes, children, leaf } = props;
@@ -17,6 +18,13 @@ export const RenderLeaf = (props: RenderLeafProps) => {
 
   if (leaf.code) {
     children = <code>{children}</code>;
+  }
+  if (leaf.link) {
+    return (
+      <Link href={children.props.leaf.text} {...attributes} className={`custom-leaf ${styles.link}`}>
+        {children}
+      </Link>
+    );
   }
 
   return (
