@@ -3,6 +3,12 @@ import { PrismaClient } from "@prisma/client";
 import { isWithinInterval } from "date-fns";
 import { authRequest } from "@/app/_utils/Auth";
 
+// StudyTimeインターフェースの定義
+interface StudyTime {
+  date: Date;
+  studyTime: number;
+}
+
 const prisma = new PrismaClient();
 
 // GET
@@ -36,7 +42,7 @@ export const GET = async (request: NextRequest) => {
     const now = new Date();
 
     // 現在の日付までのデータをフィルタリング
-    const filteredStudyTimes = studyTimes.filter((entry) => {
+    const filteredStudyTimes = studyTimes.filter((entry: StudyTime) => {
       const entryDate = new Date(entry.date);
       return (
         isWithinInterval(entryDate, {
