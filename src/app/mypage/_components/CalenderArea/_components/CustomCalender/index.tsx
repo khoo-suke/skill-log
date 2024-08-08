@@ -1,4 +1,4 @@
-'use-client';
+'use client';
 
 import React, { useState, useEffect, useCallback } from "react";
 import Calendar from "react-calendar";
@@ -35,7 +35,7 @@ export const CustomCalendar: React.FC<CalendarComponentProps> = ({ getStudyTimes
   const tileClassName = useCallback(({ date }: { date: Date }) => {
     const dateYear = date.getFullYear();
     const dateMonth = date.getMonth();
-    
+
     // 現在の月の場合のみクラスを付与
     if (dateYear === date.getFullYear() && dateMonth === date.getMonth()) {
       const studyTimeEntry = getStudyTimes.find(entry => new Date(entry.date).toDateString() === date.toDateString());
@@ -45,11 +45,11 @@ export const CustomCalendar: React.FC<CalendarComponentProps> = ({ getStudyTimes
       }
     }
     return '';
-  }, [getClassByStudyTime]);
+  }, [getStudyTimes]);
 
   // 月変更時に呼ばれる
   const handleMonthChange = useCallback((value: Date) => {
-    if (value instanceof Date) { 
+    if (value instanceof Date) {
       setDate(value);
       const year = value.getFullYear();
       const month = value.getMonth() + 1; // 月は1から始まる
@@ -58,8 +58,10 @@ export const CustomCalendar: React.FC<CalendarComponentProps> = ({ getStudyTimes
   }, [onMonthChange]);
 
   useEffect(() => {
-    handleMonthChange(date);
-  }, [date, handleMonthChange]);
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1; // 月は1から始まる
+    onMonthChange(year, month);
+  }, [date, onMonthChange]);
 
   return (
     <Calendar
