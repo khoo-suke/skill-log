@@ -73,9 +73,8 @@ const filteredPosts = posts.filter(post => {
                 fetchPosts={fetchPosts}
               />
               <div className={styles.top}>
-                <div onClick={() => router.push(`/mypage/posts/${post.id}`)}>
                   <h2>{post.title}</h2>
-                  <div className={styles.flexItem}>
+                  <div>
                     <ul className={styles.home_categories}>
                     {post.postCategories.map(cate => (
                       <li key={cate.category.id}>{cate.category.name}</li>
@@ -87,9 +86,8 @@ const filteredPosts = posts.filter(post => {
                     ))}
                     </ul>
                   </div>
-                </div>
-                </div>
-                <div>
+              </div>
+              <div onClick={() => router.push(`/mypage/posts/${post.id}`)}>
                   <span>{new Date(post.createdAt).toLocaleDateString()}</span>
                 </div>
                 <SlateEditor
