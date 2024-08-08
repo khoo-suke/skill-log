@@ -32,7 +32,7 @@ export const CustomCalendar: React.FC<CalendarComponentProps> = ({ getStudyTimes
   };
 
   // 日付にクラスを付与
-  const tileClassName = ({ date }: { date: Date }) => {
+  const tileClassName = useCallback(({ date }: { date: Date }) => {
     const dateYear = date.getFullYear();
     const dateMonth = date.getMonth();
     
@@ -45,7 +45,7 @@ export const CustomCalendar: React.FC<CalendarComponentProps> = ({ getStudyTimes
       }
     }
     return '';
-  };
+  }, [getClassByStudyTime]);
 
   // 月変更時に呼ばれる
   const handleMonthChange = useCallback((value: Date) => {
