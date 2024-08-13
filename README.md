@@ -45,6 +45,8 @@ yarn dev
 | etc.            | ESLint, Prettier, Git, GitHub                  |
 
 # システム構成図
+![system](https://github.com/user-attachments/assets/edb0890d-73ec-42c6-9c5a-c246c66546b3)
+
 
 # ER図
 ![image](https://github.com/user-attachments/assets/6b873fe7-96a0-4afc-8d81-8c5a0e8ccdda)
