@@ -16,7 +16,7 @@ npm dev run
 ![image](https://github.com/user-attachments/assets/64139140-f716-4b8c-8d9b-6763c98f50bf)
 
 ## サービスの URL
-https://skill-log.vercel.app/
+https://skill-log.vercel.app/<br/>
 ワンクリックでゲストユーザーとしてログインできるので、お気軽にお試しください。
 
 ## サービス開発の経緯
@@ -48,8 +48,6 @@ https://skill-log.vercel.app/
 | Backend         | TypeScript, Next.js, Prisma                    |
 | Infrastructure  | Vercel, Supabase                               |
 | Database        | PostgreSQL                                     |
-| Monitoring      | Sentry                                         |
-| CI/CD           | GitHub Actions                                 |
 | Design          | Figma, photoshop                               |
 | etc.            | ESLint, Prettier, Git, GitHub                  |
 
@@ -80,5 +78,5 @@ https://skill-log.vercel.app/
    また、データの読み込み速度や処理速度も向上させます。
 
 # SNS(Instagram)
-開発過程などを発信しているSNSアカウントです。
+開発過程などを発信しているSNSアカウントです。<br/>
 https://www.instagram.com/kho_code/
