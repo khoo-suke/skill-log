@@ -16,6 +16,7 @@ npm dev run
 ![image](https://github.com/user-attachments/assets/64139140-f716-4b8c-8d9b-6763c98f50bf)
 
 ## サービスの URL
+https://skill-log.vercel.app/
 ワンクリックでゲストユーザーとしてログインできるので、お気軽にお試しください。
 
 ## サービス開発の経緯
