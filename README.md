@@ -13,6 +13,7 @@ yarn dev
 ```
 
 # 利用者向け
+![image](https://github.com/user-attachments/assets/64139140-f716-4b8c-8d9b-6763c98f50bf)
 
 ## サービスの URL
 ワンクリックでゲストユーザーとしてログインできるので、お気軽にお試しください。
