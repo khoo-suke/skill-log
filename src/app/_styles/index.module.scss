@@ -60,7 +60,7 @@
         @include mq(md) {
           margin-right: 0;
           margin-bottom: 1rem;
-          width: min(75%, 400px);
+          width: min(85%, 400px);
         }
         &.login {
           background-color: #1E1E1E;
@@ -95,7 +95,7 @@
           @include mq(md) {
             margin-right: 0;
             margin-right: 0;
-            width: min(75%, 400px);
+            width: min(85%, 400px);
           }
         }
       }
