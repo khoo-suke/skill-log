@@ -57,7 +57,7 @@ export const useProfile = () => {
 
   useEffect(() => {
     fetchProfileData();
-  }, [token, fetchProfileData]);
+  }, [fetchProfileData]);
 
   // プロフィール画像の取得
   useEffect(() => {
