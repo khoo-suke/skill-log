@@ -42,5 +42,6 @@ yarn dev
 ## システム構成図
 
 ## ER図
+![image](https://github.com/user-attachments/assets/6b873fe7-96a0-4afc-8d81-8c5a0e8ccdda)
 
 ## 今後の展望
