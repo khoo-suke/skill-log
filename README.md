@@ -31,7 +31,7 @@ https://skill-log.vercel.app/<br/>
 ## 機能一覧
 | トップ画面                                                                                      | 勉強時間登録画面                                                                  |
 | ----------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
-|     ![image](https://github.com/user-attachments/assets/64139140-f716-4b8c-8d9b-6763c98f50bf) |   ![image](https://github.com/user-attachments/assets/a18458a2-1365-43bd-91c0-67a1108d4c8c)
+| ![image](https://github.com/user-attachments/assets/263d0953-9068-466e-9bc9-d143791d7b33) |   ![image](https://github.com/user-attachments/assets/a18458a2-1365-43bd-91c0-67a1108d4c8c)
 |
 | トップページ(/)をLPの構成にし、訪問者がサービスの内容を理解し、登録してもらいやすくしました。 | ユーザーが勉強時間の登録を簡単に実施できるように実装しました。 |
 
