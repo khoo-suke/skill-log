@@ -72,27 +72,27 @@ const filteredPosts = posts.filter(post => {
                 postId={post.id}
                 fetchPosts={fetchPosts}
               />
-              <div className={styles.top}>
-                  <h2>{post.title}</h2>
-                  <div>
-                    <ul className={styles.home_categories}>
-                    {post.postCategories.map(cate => (
-                      <li key={cate.category.id}>{cate.category.name}</li>
-                    ))}
-                    </ul>
-                    <ul className={styles.home_tags}>
-                    {post.postTags.map(tag => (
-                      <li key={tag.tag.id}>{tag.tag.name}</li>
-                    ))}
-                    </ul>
-                  </div>
-              </div>
-              <div onClick={() => router.push(`/mypage/posts/${post.id}`)}>
-                  <span>{new Date(post.createdAt).toLocaleDateString()}</span>
+                <div onClick={() => router.push(`/mypage/posts/${post.id}`)}>
+                <div className={styles.top}>
+                    <h2>{post.title}</h2>
+                    <div>
+                      <ul className={styles.home_categories}>
+                      {post.postCategories.map(cate => (
+                        <li key={cate.category.id}>{cate.category.name}</li>
+                      ))}
+                      </ul>
+                      <ul className={styles.home_tags}>
+                      {post.postTags.map(tag => (
+                        <li key={tag.tag.id}>{tag.tag.name}</li>
+                      ))}
+                      </ul>
+                    </div>
                 </div>
+                  <span>{new Date(post.createdAt).toLocaleDateString()}</span>
                 <SlateEditor
                   post={post}
-                />
+                  />
+                </div>
             </div>
           </li>
         </ul>
