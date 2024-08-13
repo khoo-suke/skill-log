@@ -144,7 +144,7 @@ export const useCalender = () => {
     } catch (error) {
       console.error(error);
     }
-  }, [token, isStudyTime, selectedDate, getStudyTimes, fetchStudyTimeData]);
+  }, [token, isStudyTime, fetchStudyTimeData]);
 
   return {
     selectedDate,
