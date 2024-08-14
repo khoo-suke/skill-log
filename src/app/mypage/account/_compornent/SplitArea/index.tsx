@@ -51,9 +51,9 @@ export const SplitArea: React.FC<SplitAreaProps> = ({
               value={email}
               onChange={setEmail}
               />
-            <p>
+            {/* <p>
               ※メールアドレス（ユーザーID）の変更はこのページから変更できません。変更したい場合は、<Link href="">こちら</Link>から実施してください。
-            </p>
+            </p> */}
           </div>
         </div>
         <div className={styles.ImageArea}>
