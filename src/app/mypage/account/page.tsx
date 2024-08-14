@@ -52,7 +52,7 @@ export default function Account() {
               type={'password'}
               value={'••••••••'}
             />
-            <p>※パスワードはこの画面からは変更できません。変更したい場合は<Link href="">こちら</Link>のページから再設定してください。</p>
+            {/* <p>※パスワードはこの画面からは変更できません。変更したい場合は<Link href="">こちら</Link>のページから再設定してください。</p> */}
           </div>
           <div className={styles.Label}>
             <label>目標</label>

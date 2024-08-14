@@ -8,15 +8,20 @@ import hljs from 'highlight.js';
 import 'highlight.js/styles/atom-one-dark.css';
 
 export const RenderLeaf = (props: RenderLeafProps) => {
-  
+
   let { attributes, children, leaf } = props;
-  
+
   // コードハイライト
   const codeRef = useRef(null);
 
   useEffect(() => {
     if (leaf.code && codeRef.current) {
-      hljs.highlightElement(codeRef.current);
+      console.log('Highlighting code:', codeRef.current);
+      try {
+        hljs.highlightElement(codeRef.current);
+      } catch (error) {
+        console.error('Highlight.js error:', error);
+      }
     }
   }, [leaf.code, children]);
 
@@ -29,11 +34,19 @@ export const RenderLeaf = (props: RenderLeafProps) => {
   }
 
   if (leaf.code) {
-    children = <code ref={codeRef}>{children}</code>;
-  }
-  if (leaf.link) {
+
     return (
-      <Link href={children.props.leaf.text} {...attributes} className={`custom-leaf ${styles.link}`}>
+      <code ref={codeRef} {...attributes} className={`custom-leaf ${styles.code}`}>
+        {children}
+      </code>
+    );
+  }
+
+  if (leaf.link) {
+    const linkText = children.props?.leaf?.text || '';
+
+    return (
+      <Link href={linkText} {...attributes} className={`custom-leaf ${styles.link}`}>
         {children}
       </Link>
     );
@@ -42,7 +55,7 @@ export const RenderLeaf = (props: RenderLeafProps) => {
   return (
     <span
       {...attributes}
-      className={`custom-leaf ${leaf.bold ? styles.bold : ''} ${leaf.italic ? styles.italic : ''} ${leaf.code ? styles.code : ''}`}
+      className={`custom-leaf ${leaf.bold ? styles.bold : ''} ${leaf.italic ? styles.italic : ''} `}
     >
       {children}
     </span>
