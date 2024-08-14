@@ -30,6 +30,8 @@ export const ItemMenu: React.FC<ItemMenuProps> = ({ postId, fetchPosts }) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  
+  console.log(postId);
 
   // DELETE 記事を削除
   const handleDelete = async () => {
@@ -41,8 +43,6 @@ export const ItemMenu: React.FC<ItemMenuProps> = ({ postId, fetchPosts }) => {
       handleClose();
       return;
     };
-
-    console.log('削除');
 
     try {
       const response = await fetch(`api/posts/${postId}`, {

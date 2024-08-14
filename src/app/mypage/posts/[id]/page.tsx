@@ -15,19 +15,26 @@ import { ItemMenu } from '@/app/mypage/_components/Item/_components/ItemMenu';
 import { PostRequestBody } from '@/app/mypage/_types/PostRequestBody';
 import { ReturnTop } from '../new/_components/ReturnTop';
 import { Sidebar } from '@/app/mypage/_components/Sidebar';
+// import { colors } from '@mui/material';
+import { useGetPost } from '../../_hooks/useGetPost';
 
 export default function Page() {
   const [post, setPost] = useState<PostRequestBody | null>(null);
   const [title, setTitle] = useState('');
-  const { id } = useParams();
+  const { id: paramId } = useParams();
   const { token } = useSupabaseSession();
   const [selectCategories, setSelectCategories] = useState<Category[]>([]);
   const [selectTags, setSelectTags] = useState<Tag[]>([]);
   const [editor] = useState(() => withHistory(withReact(createEditor())));
   const [content, setContent] = useState<Descendant[]>([]);
 
+  const { fetchPosts } = useGetPost();
+
+    // idをナンバー型に変換
+  const id = Array.isArray(paramId) ? parseInt(paramId[0], 10) : parseInt(paramId, 10);
+  
   //GET 記事用
-  const fetchPosts = useCallback(async () => {
+  const fetchPost = useCallback(async () => {
     if (!token) return;
     
     try {
@@ -54,8 +61,8 @@ export default function Page() {
   }, [token, id]);
 
   useEffect(() => {
-    fetchPosts();
-  }, [token, id, fetchPosts]);
+    fetchPost();
+  }, [token, id, fetchPost]);
 
   return (
     <>
@@ -63,12 +70,10 @@ export default function Page() {
         <div className={styles.main}>
           <ReturnTop/>
           <div className={styles.inner}>
-            {post && (
-              <ItemMenu
-                postId={post.id}
-                fetchPosts={fetchPosts}
-              />
-            )}
+            <ItemMenu
+              postId={id}
+              fetchPosts={fetchPosts}
+            />
             <div className={styles.topArea}>
               <h2>{title}</h2>
               <div className={styles.markArea}>

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import styles from './index.module.scss';
-import Link from 'next/link';
+// import Link from 'next/link';
 import { Input } from '@/app/_components/Input';
 import { Label } from '@/app/_components/Label';
 import Box from '@mui/material/Box';
