@@ -1,12 +1,24 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { RenderLeafProps } from 'slate-react';
 import styles from '@/app/mypage/_components/RenderLeaf/index.module.scss';
 import Link from 'next/link';
+import hljs from 'highlight.js';
+import 'highlight.js/styles/atom-one-dark.css';
 
 export const RenderLeaf = (props: RenderLeafProps) => {
+  
   let { attributes, children, leaf } = props;
+  
+  // コードハイライト
+  const codeRef = useRef(null);
+
+  useEffect(() => {
+    if (leaf.code && codeRef.current) {
+      hljs.highlightElement(codeRef.current);
+    }
+  }, [leaf.code, children]);
 
   if (leaf.bold) {
     children = <strong>{children}</strong>;
@@ -17,7 +29,7 @@ export const RenderLeaf = (props: RenderLeafProps) => {
   }
 
   if (leaf.code) {
-    children = <code>{children}</code>;
+    children = <code ref={codeRef}>{children}</code>;
   }
   if (leaf.link) {
     return (

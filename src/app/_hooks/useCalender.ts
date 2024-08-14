@@ -63,7 +63,6 @@ export const useCalender = () => {
   const handleMonthChange = (year: number, month: number) => {
     setCurrentYear(year);
     setCurrentMonth(month);
-    fetchStudyTimeData(); // 月が変更されたときにデータを再取得
   };
 
   // 既に値がある場合はモーダル内の勉強時間入力欄の値を設定
@@ -144,7 +143,7 @@ export const useCalender = () => {
     } catch (error) {
       console.error(error);
     }
-  }, [token, isStudyTime, selectedDate, getStudyTimes, fetchStudyTimeData]);
+  }, [token, isStudyTime, fetchStudyTimeData]);
 
   return {
     selectedDate,
