@@ -9,7 +9,7 @@ npm install
 
 ## ローカルサーバー起動
 ```bash
-npm dev run
+npm run dev
 ```
 
 # 利用者向け
