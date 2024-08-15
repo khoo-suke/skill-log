@@ -45,7 +45,7 @@ export const ItemMenu: React.FC<ItemMenuProps> = ({ postId, fetchPosts }) => {
     };
 
     try {
-      const response = await fetch(`api/posts/${postId}`, {
+      const response = await fetch(`/api/posts/${postId}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',

@@ -6,6 +6,7 @@ import styles from '@/app/mypage/_components/RenderLeaf/index.module.scss';
 import Link from 'next/link';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/atom-one-dark.css';
+import { EscapeHtml } from '../../_utils/EscapeHtml';
 
 export const RenderLeaf = (props: RenderLeafProps) => {
 
@@ -34,10 +35,13 @@ export const RenderLeaf = (props: RenderLeafProps) => {
   }
 
   if (leaf.code) {
+    // children を文字列として扱い、タグをエスケープする
+    const textContent = typeof children === 'string' ? children : '';
+    const escapedChildren = EscapeHtml(textContent);
 
     return (
       <code ref={codeRef} {...attributes} className={`custom-leaf ${styles.code}`}>
-        {children}
+        {escapedChildren}
       </code>
     );
   }
