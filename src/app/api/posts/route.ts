@@ -74,7 +74,10 @@ export const POST = async (request: NextRequest) => {
 };
 
 //GET
-export const GET = async (request: NextRequest) => {
+export const GET = async (
+  request: NextRequest
+) => {
+  
   try {
     // 認証関数
     const user = await authRequest(request);

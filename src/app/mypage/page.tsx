@@ -1,9 +1,7 @@
 'use client';
 
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import styles from '@/app/mypage/_styles/Mypage.module.scss';
-import { PostRequestBody } from '@/app/mypage/_types/PostRequestBody';
-import { useSupabaseSession } from '@/app/_hooks/useSupabaseSession';
 import 'react-calendar/dist/Calendar.css';
 import { CalendarArea } from './_components/CalenderArea';
 import { Wrapper } from '../_components/Wrapper';
@@ -14,40 +12,17 @@ import { Item } from './_components/Item';
 import { TagState } from './_components/TagState';
 import { PaginationArea } from './_components/PaginationArea';
 import { Tab } from './_types/Tab';
+import { useGetPost } from './_hooks/useGetPost';
 
 const Mypage = () => {
-  const [posts, setPosts] = useState<PostRequestBody[]>([]);
-  const { token } = useSupabaseSession();
   const [activeTab, setActiveTab] = useState<Tab>('all');
   const [selectCategories, setSelectCategories] = useState<Category[]>([]);
   const [selectTags, setSelectTags] = useState<Tag[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5; // 1ページあたりのアイテム数
 
-  // GET 記事用
-  const fetchPosts = useCallback(async () => {
-    if (!token) return;
-
-    const response = await fetch('/api/posts', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: token,
-      },
-    });
-    
-    if (response.ok) {
-      const { posts } = await response.json();
-      setPosts([...posts]);
-
-    };
-  }, [token]);
-
-  // ステートが変更されるたびに更新する
-  useEffect(() => {
-    fetchPosts();
-  }, [fetchPosts]);
-
+  const { posts, fetchPosts } = useGetPost();
+  
   return (
     <>
       <div className={styles.calendarTop}>

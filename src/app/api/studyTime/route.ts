@@ -109,8 +109,6 @@ export const POST = async (request: NextRequest) => {
     // ISO-8601形式に変換
     const isDate = new Date(date).toISOString();
 
-    console.log("登録する値:", date, studyTime);
-
     const data = await prisma.studyTime.create({
       data: {
         studyTime: studyTime,
