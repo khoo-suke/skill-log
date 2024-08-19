@@ -3,10 +3,10 @@
 import React, { useEffect, useRef } from 'react';
 import { RenderLeafProps } from 'slate-react';
 import styles from '@/app/mypage/_components/RenderLeaf/index.module.scss';
-import Link from 'next/link';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/atom-one-dark.css';
 import { EscapeHtml } from '../../_utils/EscapeHtml';
+import Link from 'next/link';
 
 export const RenderLeaf = (props: RenderLeafProps) => {
 
@@ -17,7 +17,6 @@ export const RenderLeaf = (props: RenderLeafProps) => {
 
   useEffect(() => {
     if (leaf.code && codeRef.current) {
-      console.log('Highlighting code:', codeRef.current);
       try {
         hljs.highlightElement(codeRef.current);
       } catch (error) {
@@ -35,14 +34,16 @@ export const RenderLeaf = (props: RenderLeafProps) => {
   }
 
   if (leaf.code) {
-    // children を文字列として扱い、タグをエスケープする
-    const textContent = typeof children === 'string' ? children : '';
+    const textContent = leaf.text || '';
     const escapedChildren = EscapeHtml(textContent);
 
     return (
-      <code ref={codeRef} {...attributes} className={`custom-leaf ${styles.code}`}>
-        {escapedChildren}
-      </code>
+      <code
+        ref={codeRef}
+        {...attributes}
+        className={`custom-leaf ${styles.code}`}
+        dangerouslySetInnerHTML={{ __html: escapedChildren }}
+      />
     );
   }
 
