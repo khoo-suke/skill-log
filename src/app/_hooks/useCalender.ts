@@ -143,7 +143,7 @@ export const useCalender = () => {
     } catch (error) {
       console.error(error);
     }
-  }, [token, isStudyTime, fetchStudyTimeData]);
+  }, [token, isStudyTime, selectedDate, getStudyTimes, fetchStudyTimeData, setIsStudyTime, setModalOpen]);
 
   return {
     selectedDate,

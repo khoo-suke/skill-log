@@ -1,4 +1,4 @@
-@use '@/app/_styles/mixin.module.scss' as *;
+@use "@/app/_styles/mixin.module.scss" as *;
 
 .calendarArea {
   padding: 3rem 3rem 10rem;
@@ -9,19 +9,19 @@
   .sticky {
     position: sticky;
     top: 100px;
-  .averageStudyTime {
-    text-align: center;
-    margin-bottom: 2rem;
-    h2 {
-      font-size: 110%;
+    .averageStudyTime {
       text-align: center;
-    }
-    p {
-      strong {
-        font-size: 200%;
+      margin-bottom: 2rem;
+      h2 {
+        font-size: 110%;
+        text-align: center;
+      }
+      p {
+        strong {
+          font-size: 200%;
+        }
       }
     }
-  }
     .calendar {
       .guide {
         display: flex;
@@ -37,19 +37,19 @@
         }
       }
       .zero {
-        background-color: #f0f0f0;
+        background-color: #f0f0f0 !important;
       }
       .low {
-        background-color: #FFDCD8;
+        background-color: #ffdcd8 !important;
       }
       .medium {
-        background-color: #FFB3A9;
+        background-color: #ffb3a9 !important;
       }
       .high {
-        background-color: #F88A7B;
+        background-color: #f88a7b !important;
       }
       .veryHigh {
-        background-color: #E56452;
+        background-color: #e56452 !important;
       }
     }
   }
