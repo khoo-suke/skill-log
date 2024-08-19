@@ -74,6 +74,8 @@ export const useCalender = () => {
       );
       if (existingEntry) {
         setIsStudyTime(existingEntry.studyTime.toString());
+      } else {
+        setIsStudyTime("");
       }
     }
   }, [selectedDate, getStudyTimes]);
@@ -143,7 +145,7 @@ export const useCalender = () => {
     } catch (error) {
       console.error(error);
     }
-  }, [token, isStudyTime, selectedDate, getStudyTimes, fetchStudyTimeData, setIsStudyTime, setModalOpen]);
+  }, [token, isStudyTime, fetchStudyTimeData, setIsStudyTime]);
 
   return {
     selectedDate,
