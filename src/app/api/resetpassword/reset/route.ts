@@ -7,8 +7,6 @@ export const POST = async (request: NextRequest) => {
     // リクエストボディからパスワードを取得
     const { password } = await request.json();
 
-    console.log("受け取ったパスワード:", password); // デバッグ用ログ
-
     // パスワードを更新
     const { error } = await supabase.auth.updateUser({
       password,

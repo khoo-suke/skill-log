@@ -30,8 +30,6 @@ export const ItemMenu: React.FC<ItemMenuProps> = ({ postId, fetchPosts }) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  
-  console.log(postId);
 
   // DELETE 記事を削除
   const handleDelete = async () => {
@@ -59,7 +57,6 @@ export const ItemMenu: React.FC<ItemMenuProps> = ({ postId, fetchPosts }) => {
 
       // ステートの更新
       fetchPosts();
-      console.log(fetchPosts);
       // メニューを閉じる
       handleClose();
 
