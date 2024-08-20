@@ -15,8 +15,6 @@ export const POST = async (request: NextRequest) => {
 
     const { title, content, postCategories, postTags } = body;
 
-    console.log("登録する値:", body);
-
     if (!title || !content) {
       throw new Error("必須項目が未入力");
     }

@@ -15,7 +15,6 @@ import { ItemMenu } from '@/app/mypage/_components/Item/_components/ItemMenu';
 import { PostRequestBody } from '@/app/mypage/_types/PostRequestBody';
 import { ReturnTop } from '../new/_components/ReturnTop';
 import { Sidebar } from '@/app/mypage/_components/Sidebar';
-// import { colors } from '@mui/material';
 import { useGetPost } from '../../_hooks/useGetPost';
 
 export default function Page() {
