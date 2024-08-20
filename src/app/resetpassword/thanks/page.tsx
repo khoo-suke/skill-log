@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import styles from '@/app/resetpassword/thanks/_styles/resetThanks.module.scss';
-import { Wrapper } from '@/app/_components/Wrapper';
+import styles from "@/app/resetpassword/thanks/_styles/resetThanks.module.scss";
+import { Wrapper } from "@/app/_components/Wrapper";
 
 export default function Page() {
   return (
@@ -12,11 +12,12 @@ export default function Page() {
         </div>
         <div className={styles.text}>
           <p>
-          パスワード再設定用のリンクをメールアドレスに送信しました。<br />
+            パスワード再設定用のリンクをメールアドレスに送信しました。
+            <br />
             メール内のリンクをクリックし、パスワード再設定画面に進んでください。
           </p>
         </div>
       </Wrapper>
     </section>
   );
-};
+}

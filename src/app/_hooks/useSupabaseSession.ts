@@ -1,7 +1,7 @@
-import { supabase } from '@/utils/supabase';
-import { Session } from '@supabase/supabase-js';
-import { usePathname } from 'next/navigation';
-import { useState, useEffect } from 'react';
+import { supabase } from "@/utils/supabase";
+import { Session } from "@supabase/supabase-js";
+import { usePathname } from "next/navigation";
+import { useState, useEffect } from "react";
 
 export const useSupabaseSession = () => {
   // undefind: ログイン状態ロード中, null: ログインしていない, Session: ログインしている
@@ -18,7 +18,7 @@ export const useSupabaseSession = () => {
       setSession(session);
       setToken(session?.access_token || null);
       setIsLoading(false);
-    }
+    };
 
     fetcher();
   }, [pathname]);

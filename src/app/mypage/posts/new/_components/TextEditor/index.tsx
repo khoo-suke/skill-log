@@ -1,19 +1,18 @@
-'use client';
+"use client";
 
-import React, { useState, useCallback, Dispatch, SetStateAction } from 'react';
-import { createEditor, BaseEditor, Editor, Descendant } from 'slate';
-import { ReactEditor } from 'slate-react';
-import { HistoryEditor, withHistory } from 'slate-history';
-import { Slate, Editable, withReact, RenderLeafProps } from 'slate-react';
-import Leaf from '../Leaf';
-import { Toolbar } from '../Toolbar';
-import styles from '@/app/mypage/posts/new/_components/TextEditor/index.module.scss';
-import { CustomText } from '../../_types/CustomText';
-import { CustomElement } from '../../_types/CustomElement';
+import React, { useState, useCallback, Dispatch, SetStateAction } from "react";
+import { createEditor, BaseEditor, Editor, Descendant } from "slate";
+import { ReactEditor } from "slate-react";
+import { HistoryEditor, withHistory } from "slate-history";
+import { Slate, Editable, withReact, RenderLeafProps } from "slate-react";
+import Leaf from "../Leaf";
+import { Toolbar } from "../Toolbar";
+import styles from "@/app/mypage/posts/new/_components/TextEditor/index.module.scss";
+import { CustomText } from "../../_types/CustomText";
+import { CustomElement } from "../../_types/CustomElement";
 
 // カスタムエディター関数
 const CustomEditor = {
-
   // 太字
   isBoldMarkActive(editor: BaseEditor & ReactEditor & HistoryEditor) {
     const marks = Editor.marks(editor);
@@ -23,9 +22,9 @@ const CustomEditor = {
   toggleBoldMark(editor: BaseEditor & ReactEditor & HistoryEditor) {
     const isActive = CustomEditor.isBoldMarkActive(editor);
     if (isActive) {
-      Editor.removeMark(editor, 'bold');
+      Editor.removeMark(editor, "bold");
     } else {
-      Editor.addMark(editor, 'bold', true);
+      Editor.addMark(editor, "bold", true);
     }
   },
 
@@ -38,9 +37,9 @@ const CustomEditor = {
   toggleItalicMark(editor: BaseEditor & ReactEditor & HistoryEditor) {
     const isActive = CustomEditor.isItalicMarkActive(editor);
     if (isActive) {
-      Editor.removeMark(editor, 'italic');
+      Editor.removeMark(editor, "italic");
     } else {
-      Editor.addMark(editor, 'italic', true);
+      Editor.addMark(editor, "italic", true);
     }
   },
 
@@ -53,36 +52,36 @@ const CustomEditor = {
   toggleCodeMark(editor: BaseEditor & ReactEditor & HistoryEditor) {
     const isActive = CustomEditor.isCodeMarkActive(editor);
     if (isActive) {
-      Editor.removeMark(editor, 'code');
+      Editor.removeMark(editor, "code");
     } else {
-      Editor.addMark(editor, 'code', true);
+      Editor.addMark(editor, "code", true);
     }
   },
 
-    // リンクスタイルのチェック
-    isLinkMarkActive(editor: BaseEditor & ReactEditor & HistoryEditor) {
-      const marks = Editor.marks(editor);
-      return marks ? marks.link === true : false;
-    },
-  
-    toggleLinkMark(editor: BaseEditor & ReactEditor & HistoryEditor) {
-      const isActive = CustomEditor.isLinkMarkActive(editor);
-      if (isActive) {
-        Editor.removeMark(editor, 'link');
-      } else {
-        Editor.addMark(editor, 'link', true);
-      }
-    },
-}
+  // リンクスタイルのチェック
+  isLinkMarkActive(editor: BaseEditor & ReactEditor & HistoryEditor) {
+    const marks = Editor.marks(editor);
+    return marks ? marks.link === true : false;
+  },
+
+  toggleLinkMark(editor: BaseEditor & ReactEditor & HistoryEditor) {
+    const isActive = CustomEditor.isLinkMarkActive(editor);
+    if (isActive) {
+      Editor.removeMark(editor, "link");
+    } else {
+      Editor.addMark(editor, "link", true);
+    }
+  },
+};
 
 // Slate.js でのカスタムタイプの定義
-declare module 'slate' {
+declare module "slate" {
   interface CustomTypes {
     Editor: BaseEditor & ReactEditor & HistoryEditor;
     Element: CustomElement;
     Text: CustomText;
   }
-};
+}
 
 // 型を定義
 interface ContentProps {
@@ -97,46 +96,52 @@ export const TextEditor = ({ content, setContent }: ContentProps) => {
     return <Leaf {...props} />;
   }, []);
 
-  const handleKeyDown = useCallback((event: React.KeyboardEvent) => {
-    if (!event.ctrlKey) {
-      return;
-    };
+  const handleKeyDown = useCallback(
+    (event: React.KeyboardEvent) => {
+      if (!event.ctrlKey) {
+        return;
+      }
 
-    switch (event.key) {
-      // ctrl + b で太字
-      case 'b': {
-        event.preventDefault();
-        CustomEditor.toggleBoldMark(editor);
-        return;
-      };
-      // ctrl + i でイタリック
-      case 'i': {
-        event.preventDefault();
-        CustomEditor.toggleItalicMark(editor);
-        return;
-      };
-      // ctrl + shift + c でコード
-      case 'c': {
-        if (event.shiftKey) {
+      switch (event.key) {
+        // ctrl + b で太字
+        case "b": {
           event.preventDefault();
-          CustomEditor.toggleCodeMark(editor);
+          CustomEditor.toggleBoldMark(editor);
           return;
-        };
-        return;
-      };
-      // ctrl + l でリンク
-      case 'l': {
-        event.preventDefault();
-        CustomEditor.toggleLinkMark(editor);
-        return;
-      };
-    };
-  }, [editor]);
+        }
+        // ctrl + i でイタリック
+        case "i": {
+          event.preventDefault();
+          CustomEditor.toggleItalicMark(editor);
+          return;
+        }
+        // ctrl + shift + c でコード
+        case "c": {
+          if (event.shiftKey) {
+            event.preventDefault();
+            CustomEditor.toggleCodeMark(editor);
+            return;
+          }
+          return;
+        }
+        // ctrl + l でリンク
+        case "l": {
+          event.preventDefault();
+          CustomEditor.toggleLinkMark(editor);
+          return;
+        }
+      }
+    },
+    [editor]
+  );
 
   // コンテンツが変更された際に呼び出される関数
-  const handleContentChange = useCallback((newValue: Descendant[]) => {
-    setContent(newValue as CustomElement[]);  // Descendantが初期値のため型を変換
-  },[setContent]);
+  const handleContentChange = useCallback(
+    (newValue: Descendant[]) => {
+      setContent(newValue as CustomElement[]); // Descendantが初期値のため型を変換
+    },
+    [setContent]
+  );
 
   return (
     <div className={styles.editorArea}>
@@ -146,10 +151,7 @@ export const TextEditor = ({ content, setContent }: ContentProps) => {
           initialValue={content}
           onChange={handleContentChange}
         >
-          <Toolbar
-            editor={editor}
-            CustomEditor={CustomEditor}
-          />
+          <Toolbar editor={editor} CustomEditor={CustomEditor} />
           <div className={styles.text}>
             <Editable
               renderLeaf={renderLeaf}

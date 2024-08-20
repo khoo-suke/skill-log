@@ -1,5 +1,5 @@
 export type ContactForm = {
-  name: string,
-  email: string,
-  content: string,
-}
+  name: string;
+  email: string;
+  content: string;
+};

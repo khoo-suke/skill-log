@@ -1,7 +1,7 @@
-'use client';
-import styles from './_styles/SignupThanks.module.scss';
-import { Wrapper } from '@/app/_components/Wrapper';
-import Image from 'next/image';
+"use client";
+import styles from "./_styles/SignupThanks.module.scss";
+import { Wrapper } from "@/app/_components/Wrapper";
+import Image from "next/image";
 
 export default function Page() {
   return (
@@ -13,15 +13,17 @@ export default function Page() {
         <Image
           src="/images/thanks_mail.png"
           alt="ユーザー認証メール送信"
-          width={313} height={218}
+          width={313}
+          height={218}
         />
         <div className={styles.text}>
           <p>
-            登録いただいたメールアドレスに、認証メールを送信しました。<br/>
+            登録いただいたメールアドレスに、認証メールを送信しました。
+            <br />
             メールのURLリンクをクリックして、メール認証を完了させてください。
           </p>
         </div>
       </Wrapper>
     </section>
   );
-};
+}

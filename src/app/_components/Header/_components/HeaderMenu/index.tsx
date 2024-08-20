@@ -1,16 +1,16 @@
-'use-client';
+"use-client";
 
-import React, { useState, useEffect } from 'react';
-import Avatar from '@mui/material/Avatar';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import Logout from '@mui/icons-material/Logout';
-import Link from 'next/link';
-import { supabase } from '@/utils/supabase';
-import { useProfile } from '@/app/_hooks/useProfile';
+import React, { useState, useEffect } from "react";
+import Avatar from "@mui/material/Avatar";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import Divider from "@mui/material/Divider";
+import IconButton from "@mui/material/IconButton";
+import Logout from "@mui/icons-material/Logout";
+import Link from "next/link";
+import { supabase } from "@/utils/supabase";
+import { useProfile } from "@/app/_hooks/useProfile";
 
 export const HeaderMenu = () => {
   // プロフィール画像URL取得
@@ -33,7 +33,7 @@ export const HeaderMenu = () => {
   // ログアウト
   const handleLogout = async () => {
     await supabase.auth.signOut();
-    window.location.href = '/';
+    window.location.href = "/";
   };
 
   // プロフィール画像を取得
@@ -47,21 +47,21 @@ export const HeaderMenu = () => {
         onClick={handleClick}
         size="small"
         sx={{
-          border: '1px solid #bbb',
+          border: "1px solid #bbb",
           ml: 2,
         }}
-        aria-controls={open ? 'account-menu' : undefined}
+        aria-controls={open ? "account-menu" : undefined}
         aria-haspopup="true"
-        aria-expanded={open ? 'true' : undefined}
+        aria-expanded={open ? "true" : undefined}
       >
         <Avatar
-          src={profileImageUrl || undefined }
+          src={profileImageUrl || undefined}
           sx={{
             padding: 0,
             height: 40,
             width: 40,
-        }}>
-        </Avatar>
+          }}
+        ></Avatar>
       </IconButton>
       <Menu
         anchorEl={anchorEl}
@@ -69,31 +69,32 @@ export const HeaderMenu = () => {
         open={open}
         onClose={handleClose}
         onClick={handleClose}
-        elevation= {0}
+        elevation={0}
         sx={{
-          overflow: 'visible',
-          filter: 'drop-shadow(0px 2px 5px rgba(0,0,0,0.32))',
-          marginTop: '1rem',
-          '& .MuiAvatar-root': {
+          overflow: "visible",
+          filter: "drop-shadow(0px 2px 5px rgba(0,0,0,0.32))",
+          marginTop: "1rem",
+          "& .MuiAvatar-root": {
             width: 30,
             height: 30,
-            marginLeft: '-0.5rem',
-            marginRight: '1rem',
+            marginLeft: "-0.5rem",
+            marginRight: "1rem",
           },
         }}
-        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+        transformOrigin={{ horizontal: "right", vertical: "top" }}
+        anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
         <Link href="/mypage/account" passHref>
           <MenuItem>
             <Avatar
-            src={profileImageUrl || undefined }
-            sx={{
-              padding: 0,
-              height: 40,
-              width: 40,
+              src={profileImageUrl || undefined}
+              sx={{
+                padding: 0,
+                height: 40,
+                width: 40,
               }}
-            /> アカウント設定
+            />{" "}
+            アカウント設定
           </MenuItem>
         </Link>
         <Divider />
@@ -106,4 +107,4 @@ export const HeaderMenu = () => {
       </Menu>
     </>
   );
-}
+};

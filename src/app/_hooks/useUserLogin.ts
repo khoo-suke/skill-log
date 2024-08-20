@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
+import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { supabase } from '@/utils/supabase';
+import { supabase } from "@/utils/supabase";
 
 export const useUserLogin = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const router = useRouter();
 
   // ユーザーログイン
@@ -19,16 +19,16 @@ export const useUserLogin = () => {
     });
 
     if (error) {
-      alert(`ログイン失敗: ${error.message}`)
+      alert(`ログイン失敗: ${error.message}`);
     } else {
-      router.replace('/mypage')
-    };
+      router.replace("/mypage");
+    }
   };
 
   // テストユーザー用のログイン
   const loginTestUser = async () => {
-    const testUserEmail = 'skill.log.customer@gmail.com';
-    const testUserPassword = 'testtesttest';
+    const testUserEmail = "skill.log.customer@gmail.com";
+    const testUserPassword = "testtesttest";
 
     const { error } = await supabase.auth.signInWithPassword({
       email: testUserEmail,
@@ -38,7 +38,7 @@ export const useUserLogin = () => {
     if (error) {
       alert(`テストユーザーのログイン失敗: ${error.message}`);
     } else {
-      router.replace('/mypage');
+      router.replace("/mypage");
     }
   };
 

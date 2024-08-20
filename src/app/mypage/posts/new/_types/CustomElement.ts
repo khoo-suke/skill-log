@@ -1,7 +1,7 @@
-import { CustomText } from './CustomText';
+import { CustomText } from "./CustomText";
 
 // カスタムエレメント型の定義
 export type CustomElement = {
-  type: 'paragraph';
+  type: "paragraph";
   children: CustomText[];
-}
+};

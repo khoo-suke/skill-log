@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import styles from '@/app/_components/BtnArea/index.module.scss';
-import React from 'react';
-import { Button } from '../Button';
+import styles from "@/app/_components/BtnArea/index.module.scss";
+import React from "react";
+import { Button } from "../Button";
 
 export const BtnAera = () => {
   return (
@@ -16,5 +16,5 @@ export const BtnAera = () => {
         </Button>
       </div>
     </>
-  )
-}
+  );
+};
