@@ -1,8 +1,8 @@
-'use-client';
+"use-client";
 
-import React, { Dispatch, SetStateAction } from 'react';
-import { Label } from '@/app/_components/Label';
-import styles from './index.module.scss';
+import React, { Dispatch, SetStateAction } from "react";
+import { Label } from "@/app/_components/Label";
+import styles from "./index.module.scss";
 
 // 型を定義
 interface TitleProps {
@@ -17,11 +17,11 @@ export const Title = ({ title, setTitle }: TitleProps) => {
 
   return (
     <>
-      <Label value='タイトル' />
+      <Label value="タイトル" />
       <input
-        type='text'
-        name='title'
-        id='title'
+        type="text"
+        name="title"
+        id="title"
         className={styles.Input}
         value={title}
         onChange={handleTitleChange}

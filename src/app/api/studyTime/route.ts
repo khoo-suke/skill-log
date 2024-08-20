@@ -42,7 +42,12 @@ export const GET = async (request: NextRequest) => {
     const now = new Date();
 
     // 平均勉強時間を計算する
-    const averageTime = calculateAverage(studyTimes, startMonthDate, endMonthDate, now);
+    const averageTime = calculateAverage(
+      studyTimes,
+      startMonthDate,
+      endMonthDate,
+      now
+    );
 
     return NextResponse.json(
       {

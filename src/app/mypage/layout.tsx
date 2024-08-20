@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import "../globals.scss";
 import { useRouteGuard } from "./_hooks/useRouteGuard";
@@ -6,13 +6,9 @@ import { useRouteGuard } from "./_hooks/useRouteGuard";
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   useRouteGuard();
 
-  return (
-    <>
-      {children}
-    </>
-  );
-};
+  return <>{children}</>;
+}

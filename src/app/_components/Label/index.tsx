@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import React from 'react';
-import styles from '@/app/_components/Label/index.module.scss';
+import React from "react";
+import styles from "@/app/_components/Label/index.module.scss";
 
 interface LabelProps {
   value: string;
@@ -9,5 +9,9 @@ interface LabelProps {
 }
 
 export const Label: React.FC<LabelProps> = ({ value, htmlfor }) => {
-  return <label className={styles.label} htmlFor={htmlfor}>{value}</label>
-}
+  return (
+    <label className={styles.label} htmlFor={htmlfor}>
+      {value}
+    </label>
+  );
+};

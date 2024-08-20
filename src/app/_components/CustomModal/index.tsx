@@ -1,25 +1,29 @@
-'use-client';
+"use-client";
 
-import React from 'react';
-import Modal from 'react-modal';
-import styles from '@/app/_components/CustomModal/index.module.scss';
+import React from "react";
+import Modal from "react-modal";
+import styles from "@/app/_components/CustomModal/index.module.scss";
 
 interface ModalProps {
-  className?: string,
-  children?: React.ReactNode,
-  isOpen: boolean,
-  onRequestClose: () => void,
-};
+  className?: string;
+  children?: React.ReactNode;
+  isOpen: boolean;
+  onRequestClose: () => void;
+}
 
-export const CustomModal: React.FC<ModalProps> = ({ className, children, isOpen, onRequestClose }) => {
-
+export const CustomModal: React.FC<ModalProps> = ({
+  className,
+  children,
+  isOpen,
+  onRequestClose,
+}) => {
   return (
     <Modal
       className={`${styles.modalContent} ${className}`}
       overlayClassName={styles.modalOverlay}
       isOpen={isOpen}
       onRequestClose={onRequestClose}
-      ariaHideApp={false} 
+      ariaHideApp={false}
     >
       {children}
     </Modal>

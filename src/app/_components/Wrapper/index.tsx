@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import React from 'react';
-import styles from '@/app/_components/Wrapper/index.module.scss';
+import React from "react";
+import styles from "@/app/_components/Wrapper/index.module.scss";
 
 interface WrapperProps {
   size: 600 | 700 | 800 | 900 | 1000 | 1100;
@@ -9,7 +9,6 @@ interface WrapperProps {
 }
 
 export const Wrapper: React.FC<WrapperProps> = ({ size = 1000, children }) => {
-
   const Size = () => {
     switch (size) {
       case 600:
@@ -24,12 +23,8 @@ export const Wrapper: React.FC<WrapperProps> = ({ size = 1000, children }) => {
         return styles.wrapper1000;
       default:
         return styles.wrapper1000;
-    };
+    }
   };
 
-  return (
-    <div className={Size()}>
-      {children}
-    </div>
-  );
+  return <div className={Size()}>{children}</div>;
 };

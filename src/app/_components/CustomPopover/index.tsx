@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { Popover, Typography } from '@mui/material';
+import React from "react";
+import { Popover, Typography } from "@mui/material";
 
 interface CustomPopoverProps {
   open: boolean;
@@ -10,18 +10,23 @@ interface CustomPopoverProps {
   text?: string;
 }
 
-export const CustomPopover: React.FC<CustomPopoverProps> = ({ open, anchorEl, onClose, text }) => {
+export const CustomPopover: React.FC<CustomPopoverProps> = ({
+  open,
+  anchorEl,
+  onClose,
+  text,
+}) => {
   return (
     <Popover
       open={open}
       anchorEl={anchorEl}
       anchorOrigin={{
-        vertical: 'bottom',
-        horizontal: 'left',
+        vertical: "bottom",
+        horizontal: "left",
       }}
       transformOrigin={{
-        vertical: 'top',
-        horizontal: 'left',
+        vertical: "top",
+        horizontal: "left",
       }}
       onClose={onClose}
       disableRestoreFocus

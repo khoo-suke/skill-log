@@ -1,0 +1,24 @@
+{
+  "prettier.printWidth": 80,
+  "eslint.nodePath": "C:\\path\\to\\global\\node_modules",
+  // デフォルトのフォーマッタを prettier に設定
+  //"editor.defaultFormatter": "SimonSiefke.prettier-vscode",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  // ファイル保存時、prettier による自動フォーマット
+  "editor.formatOnSave": true,
+  // ファイル保存時、ESLint による自動フォーマット
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit"
+  },
+
+  // CSSのチェック機能をオフ
+  "css.validate": false,
+  "scss.validate": true,
+  // JSXでもCSSクラスを補完できるように
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+
+  // 関数がいくつ参照されているか表示してくれる
+  "typescript.referencesCodeLens.enabled": false
+}
