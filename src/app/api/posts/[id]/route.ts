@@ -40,8 +40,6 @@ export const GET = async (
       },
     });
 
-    console.log(post);
-
     return NextResponse.json({ status: "OK", post: post }, { status: 200 });
   } catch (error) {
     if (error instanceof Error)
@@ -78,8 +76,6 @@ export const PUT = async (
   const { id } = params;
   const body: PostRequestBody = await request.json();
   const { title, content, createdAt, postCategories, postTags } = body;
-
-  console.log(body);
 
   try {
     const post = await prisma.post.update({

@@ -20,7 +20,7 @@ import { useParams, useRouter } from 'next/navigation';
 const initialValue: CustomElement[] = [
   {
     type: 'paragraph',
-    children: [{ text: '初期設定のテキスト' }],
+    children: [{ text: '' }],
   },
 ];
 
@@ -62,10 +62,11 @@ export default function Page() {
 
         const date = new Date(post.createdAt);
         setYear(String(date.getFullYear()));
-        setMonth(String(date.getMonth() + 1));
-        setDay(String(date.getDate()));
-        setHour(String(date.getHours()));
-        setMinutes(String(date.getMinutes()));
+        setMonth(String(date.getMonth() + 1).padStart(2, '0'));
+        setDay(String(date.getDate()).padStart(2, '0'));
+        setHour(String(date.getHours()).padStart(2, '0'));
+        setMinutes(String(date.getMinutes()).padStart(2, '0'));
+        console.log('Fetched CreatedAt:', post.createdAt); // 追加
 
         setSelectCategories(post.postCategories.map((cate: any) => cate.category));
         setSelectTags(post.postTags.map((tag: any) => tag.tag));
@@ -98,6 +99,7 @@ export default function Page() {
   }));
     
     try {
+      const formattedCreatedAt = new Date(createdAt).toISOString();
       await fetch(`/api/posts/${id}`, {
         method: 'PUT',
         headers: {
@@ -107,7 +109,7 @@ export default function Page() {
         body: JSON.stringify({
           title,
           content: JSON.stringify(content), 
-          createdAt,
+          createdAt: formattedCreatedAt,
           postCategories,
           postTags,
         }),
@@ -141,6 +143,7 @@ export default function Page() {
               setHour={setHour}
               minutes={minutes}
               setMinutes={setMinutes}
+              setCreatedAt={setCreatedAt}
             />
             <CategoryList
               selectCategories={selectCategories}

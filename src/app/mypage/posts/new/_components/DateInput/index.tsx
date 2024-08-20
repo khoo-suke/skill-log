@@ -1,6 +1,6 @@
 'use-client';
 
-import React, { Dispatch, SetStateAction }  from 'react';
+import React, { Dispatch, SetStateAction, useEffect }  from 'react';
 import { Label } from '@/app/_components/Label';
 import styles from '@/app/mypage/posts/new/_components/DateInput/index.module.scss';
 
@@ -16,17 +16,47 @@ interface DateProps {
   setHour: Dispatch<SetStateAction<string>>,
   minutes: string,
   setMinutes: Dispatch<SetStateAction<string>>,
+  setCreatedAt: Dispatch<SetStateAction<string>>,
 }
 
-export const DateInput: React.FC<DateProps> = ({ year, setYear, month, setMonth, day, setDay, hour, setHour, minutes, setMinutes }) => {
+export const DateInput: React.FC<DateProps> = ({
+  year, setYear,
+  month, setMonth,
+  day, setDay,
+  hour, setHour,
+  minutes, setMinutes,
+  setCreatedAt
+}) => {
+
+  useEffect(() => {
+    const formattedCreatedAt = `${year.padStart(4, '0')}-${month.padStart(2, '0')}-${day.padStart(2, '0')}T${hour.padStart(2, '0')}:${minutes.padStart(2, '0')}:00`;
+    setCreatedAt(formattedCreatedAt);
+  }, [year, month, day, hour, minutes]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setYear(e.target.value);
-    setMonth(e.target.value);
-    setDay(e.target.value);
-    setHour(e.target.value);
-    setMinutes(e.target.value);
-  };
+    const { name, value } = e.target;
+
+    if (name === 'year') {
+      setYear(value);
+      return;
+    }
+    if (name === 'month') {
+      setMonth(value);
+      return;
+    }
+    if (name === 'day') {
+      setDay(value);
+      return;
+    }
+    if (name === 'hour') {
+      setHour(value);
+      return;
+    }
+    if (name === 'minutes') {
+      setMinutes(value);
+      return;
+    }
+};
 
   return (
     <div className={styles.date}>

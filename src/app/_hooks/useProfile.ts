@@ -76,7 +76,6 @@ export const useProfile = () => {
         console.error("プロフィール画像URLの取得中にエラー", error);
       }
     };
-    console.log("現在のプロフィール画像キー:", profileImageKey);
     fetcher();
   }, [profileImageKey]);
 
@@ -84,8 +83,6 @@ export const useProfile = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!token) return;
-
-    console.log("送信前のプロフィール画像キー:", profileImageKey);
 
     try {
       await fetch(`/api/account`, {
@@ -136,7 +133,6 @@ export const useProfile = () => {
     }
 
     // data.pathに、画像固有のkeyが入っているので、thumbnailImageKeyに格納する
-    console.log("アップロードされた画像のパス:", data.path);
     setProfileImageKey(data.path);
   };
 
