@@ -1,3 +1,5 @@
+@use "@/app/_styles/variables.scss" as *;
+
 .selectArea {
   margin-bottom: 5rem;
   .tag {
@@ -9,16 +11,16 @@
       li {
         margin-right: 1rem;
         button {
-          background-color: #fff;
-          border: 1px solid #111;
+          background-color: $white;
+          border: 1px solid $black;
           border-radius: 3px;
-          color: #111;
+          color: $black;
           padding: 0.2em 0.5em 0.3em;
           &.selected {
-            background-color: #111;
-            border: 1px solid #111;
+            background-color: $black;
+            border: 1px solid $black;
             border-radius: 3px;
-            color: #fff;
+            color: $white;
           }
         }
       }

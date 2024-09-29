@@ -1,5 +1,7 @@
+@use "@/app/_styles/variables.scss" as *;
+
 .newPost {
-  background-color: #EEF6F6;
+  background-color: $light-green;
   padding-top: clamp(4rem, 6vw, 8rem);
   padding-bottom: clamp(6rem, 8vw, 10rem);
   form {

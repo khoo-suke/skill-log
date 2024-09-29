@@ -66,7 +66,6 @@ export default function Page() {
         setDay(String(date.getDate()).padStart(2, "0"));
         setHour(String(date.getHours()).padStart(2, "0"));
         setMinutes(String(date.getMinutes()).padStart(2, "0"));
-        console.log("Fetched CreatedAt:", post.createdAt); // 追加
 
         setSelectCategories(
           post.postCategories.map((cate: any) => cate.category)

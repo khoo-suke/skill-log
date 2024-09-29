@@ -1,8 +1,10 @@
+@use "@/app/_styles/variables.scss" as *;
+
 .breadcrumb {
   margin-bottom: 2rem;
   a {
-    border-bottom: 1px solid #111;
-    color: #111;
+    border-bottom: 1px solid $black;
+    color: $black;
     text-decoration: none;
     padding-bottom: 0.1em;
   }

@@ -1,76 +1,77 @@
-@use '@/app/_styles/mixin.module.scss' as *;
+@use "@/app/_styles/mixin.module.scss" as *;
+@use "@/app/_styles/variables.scss" as *;
 
 .postId {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   .main {
-    background-color: #EEF6F6;
+    background-color: $light-green;
     padding: clamp(4rem, 6vw, 8rem) clamp(4rem, 6vw, 8rem) clamp(6rem, 8vw, 10rem);
     width: calc(100% - 380px);
     @include mq(md) {
       width: 100%;
     }
     .inner {
-      background-color: #fff;
+      background-color: $white;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
       padding: 2rem clamp(2rem, 4vw, 5rem) clamp(3rem, 6vw, 7rem);
-    .topArea {
+      .topArea {
         display: flex;
         align-items: flex-start;
         justify-content: space-between;
         flex-wrap: wrap;
         margin-bottom: 2rem;
-      h2 {
-        font-size: 150%;
-        font-weight: 600;
-        line-height: 1.5;
-        margin-bottom: 1rem;
-        width: 75%;
-        @include mq(md) {
-          order: 2;
-          width: 100%;
-        }
-      }
-      .markArea {
-        display: flex;
-        justify-content: end;
-        flex-wrap: wrap;
-        width: 25%;
-        @include mq(md) {
-          justify-content: start;
-          order: 1;
-          width: 100%;
-        }
-        .home_categories {
-          display: flex;
-          justify-content: end;
-          li {
-            border: 1px solid #111;
-            border-radius: 3px;
-            font-size: 80%;
-            text-align: center;
-            padding: 0 0.5em;
-            margin-right: 0.5em;
-            margin-bottom: 0.3em;
+        h1 {
+          font-size: 150%;
+          font-weight: 600;
+          line-height: 1.5;
+          margin-bottom: 1rem;
+          width: 75%;
+          @include mq(md) {
+            order: 2;
+            width: 100%;
           }
         }
-        .home_tags {
+        .markArea {
           display: flex;
           justify-content: end;
-          li {
-            background-color: #111;
-            border-radius: 3px;
-            color: #fff;
-            font-size: 80%;
-            text-align: center;
-            padding: 0 0.5em;
-            margin-right: 0.5em;
-            margin-bottom: 0.3em;
+          flex-wrap: wrap;
+          width: 25%;
+          @include mq(md) {
+            justify-content: start;
+            order: 1;
+            width: 100%;
+          }
+          .home_categories {
+            display: flex;
+            justify-content: end;
+            li {
+              border: 1px solid $black;
+              border-radius: 3px;
+              font-size: 80%;
+              text-align: center;
+              padding: 0 0.5em;
+              margin-right: 0.5em;
+              margin-bottom: 0.3em;
+            }
+          }
+          .home_tags {
+            display: flex;
+            justify-content: end;
+            li {
+              background-color: $black;
+              border-radius: 3px;
+              color: #fff;
+              font-size: 80%;
+              text-align: center;
+              padding: 0 0.5em;
+              margin-right: 0.5em;
+              margin-bottom: 0.3em;
+            }
           }
         }
       }
     }
   }
-}
 }

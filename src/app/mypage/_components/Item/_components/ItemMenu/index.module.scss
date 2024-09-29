@@ -1,3 +1,5 @@
+@use "@/app/_styles/variables.scss" as *;
+
 .editButton {
   text-align: end;
   margin-bottom: 1rem;
@@ -8,7 +10,7 @@
     box-shadow: none;
   }
   ul {
-    border: 1px solid #616161;
+    border: 1px solid $dark-gray;
     border-radius: 4px;
     padding: 0;
     li {

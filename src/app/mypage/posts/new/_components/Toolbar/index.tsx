@@ -15,6 +15,10 @@ interface CustomEditorType {
   toggleItalicMark: (editor: BaseEditor & ReactEditor & HistoryEditor) => void;
   toggleCodeMark: (editor: BaseEditor & ReactEditor & HistoryEditor) => void;
   toggleLinkMark: (editor: BaseEditor & ReactEditor & HistoryEditor) => void;
+  toggleTitleMark: (
+    editor: BaseEditor & ReactEditor & HistoryEditor,
+    level: string
+  ) => void;
 }
 
 interface ToolbarProps {
@@ -23,6 +27,11 @@ interface ToolbarProps {
 }
 
 export const Toolbar: React.FC<ToolbarProps> = ({ editor, CustomEditor }) => {
+  const handleTitleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedValue = event.target.value;
+    CustomEditor.toggleTitleMark(editor, selectedValue);
+  };
+
   return (
     <div className={styles.button}>
       {/* 太字 */}
@@ -65,6 +74,24 @@ export const Toolbar: React.FC<ToolbarProps> = ({ editor, CustomEditor }) => {
       >
         <FontAwesomeIcon icon={faLink} />
       </button>
+      {/* 見出し2 */}
+      {/* <button
+        type="button"
+        onMouseDown={(event) => {
+          event.preventDefault();
+          CustomEditor.toggleTitleMark(editor);
+        }}
+      >
+        見出し2
+      </button> */}
+      {/* <label>
+        見出し:
+        <select name="CapBox" onChange={handleTitleChange}>
+          <option value="h2">見出し2 (h2)</option>
+          <option value="h3">見出し3 (h3)</option>
+          <option value="h4">見出し4 (h4)</option>
+        </select>
+      </label> */}
     </div>
   );
 };
