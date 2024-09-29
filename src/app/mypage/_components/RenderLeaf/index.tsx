@@ -1,15 +1,14 @@
-'use client';
+"use client";
 
-import React, { useEffect, useRef } from 'react';
-import { RenderLeafProps } from 'slate-react';
-import styles from '@/app/mypage/_components/RenderLeaf/index.module.scss';
-import hljs from 'highlight.js';
-import 'highlight.js/styles/atom-one-dark.css';
-import { EscapeHtml } from '../../_utils/EscapeHtml';
-import Link from 'next/link';
+import React, { useEffect, useRef } from "react";
+import { RenderLeafProps } from "slate-react";
+import styles from "@/app/mypage/_components/RenderLeaf/index.module.scss";
+import hljs from "highlight.js";
+import "highlight.js/styles/atom-one-dark.css";
+import { EscapeHtml } from "../../_utils/EscapeHtml";
+import Link from "next/link";
 
 export const RenderLeaf = (props: RenderLeafProps) => {
-
   let { attributes, children, leaf } = props;
 
   // コードハイライト
@@ -20,7 +19,7 @@ export const RenderLeaf = (props: RenderLeafProps) => {
       try {
         hljs.highlightElement(codeRef.current);
       } catch (error) {
-        console.error('Highlight.js error:', error);
+        console.error("Highlight.js error:", error);
       }
     }
   }, [leaf.code, children]);
@@ -33,8 +32,12 @@ export const RenderLeaf = (props: RenderLeafProps) => {
     children = <em>{children}</em>;
   }
 
+  if (leaf.title2) {
+    children = <h2>{children}</h2>;
+  }
+
   if (leaf.code) {
-    const textContent = leaf.text || '';
+    const textContent = leaf.text || "";
     const escapedChildren = EscapeHtml(textContent);
 
     return (
@@ -48,10 +51,14 @@ export const RenderLeaf = (props: RenderLeafProps) => {
   }
 
   if (leaf.link) {
-    const linkText = children.props?.leaf?.text || '';
+    const linkText = children.props?.leaf?.text || "";
 
     return (
-      <Link href={linkText} {...attributes} className={`custom-leaf ${styles.link}`}>
+      <Link
+        href={linkText}
+        {...attributes}
+        className={`custom-leaf ${styles.link}`}
+      >
         {children}
       </Link>
     );
@@ -60,7 +67,9 @@ export const RenderLeaf = (props: RenderLeafProps) => {
   return (
     <span
       {...attributes}
-      className={`custom-leaf ${leaf.bold ? styles.bold : ''} ${leaf.italic ? styles.italic : ''} `}
+      className={`custom-leaf ${leaf.bold ? styles.bold : ""} ${
+        leaf.italic ? styles.italic : ""
+      } `}
     >
       {children}
     </span>

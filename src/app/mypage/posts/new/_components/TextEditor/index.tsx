@@ -72,6 +72,21 @@ const CustomEditor = {
       Editor.addMark(editor, "link", true);
     }
   },
+
+  // 見出しスタイルのチェック
+  isTitleMarkActive(editor: BaseEditor & ReactEditor & HistoryEditor) {
+    const marks = Editor.marks(editor);
+    return marks ? marks.title2 === true : false;
+  },
+
+  toggleTitleMark(editor: BaseEditor & ReactEditor & HistoryEditor) {
+    const isActive = CustomEditor.isTitleMarkActive(editor);
+    if (isActive) {
+      Editor.removeMark(editor, "title2");
+    } else {
+      Editor.addMark(editor, "title2", true);
+    }
+  },
 };
 
 // Slate.js でのカスタムタイプの定義
@@ -128,6 +143,15 @@ export const TextEditor = ({ content, setContent }: ContentProps) => {
         case "l": {
           event.preventDefault();
           CustomEditor.toggleLinkMark(editor);
+          return;
+        }
+        // ctrl + shift + 2 でコード
+        case "2": {
+          if (event.shiftKey) {
+            event.preventDefault();
+            CustomEditor.toggleTitleMark(editor);
+            return;
+          }
           return;
         }
       }
