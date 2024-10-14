@@ -1,9 +1,9 @@
-@use '@/app/_styles/mixin.module.scss' as *;
+@use "@/app/_styles/mixin.module.scss" as *;
 
 .tabs {
   text-align: center;
   button {
-    background-color: #268C7A;
+    background-color: #268c7a;
     border-radius: 4px 4px 0 0;
     color: #fff;
     padding: 0.4em 1.5em;
@@ -12,8 +12,8 @@
       margin-right: 0;
     }
     &.active {
-      background-color: #EEF6F6;
-      color: #111;
+      background-color: #eef6f6;
+      color: $black;
       font-weight: bold;
     }
   }

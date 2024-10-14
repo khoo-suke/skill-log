@@ -1,3 +1,5 @@
+@use "@/app/_styles/variables.scss" as *;
+
 .home_container {
   margin: 4rem auto;
   width: min(92%, 800px);
@@ -7,13 +9,13 @@
     li {
       list-style-type: none;
       a {
-        color: #111;
+        color: $black;
         text-decoration: none;
       }
     }
   }
   .home_inner {
-    border: 1px solid #ccc;
+    border: 1px solid $gray;
     padding: 1rem;
     .home_info {
       display: flex;
@@ -22,9 +24,9 @@
         display: flex;
         justify-content: space-between;
         p {
-          border: 1px solid #57d0d4;
+          border: 1px solid $green;
           border-radius: 3px;
-          color: #57d0d4;
+          color: $green;
           padding: 0.3em 0.5em;
           margin: 0;
           &:first-child {
@@ -35,6 +37,6 @@
     }
   }
   h2 {
-    color: #111;
+    color: $black;
   }
 }
