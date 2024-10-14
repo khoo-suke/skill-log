@@ -11,6 +11,7 @@ interface InputProps {
   value?: string;
   required?: boolean;
   placeholder?: string;
+  disabled?: boolean;
 }
 
 export const Input: React.FC<InputProps> = ({
@@ -20,6 +21,7 @@ export const Input: React.FC<InputProps> = ({
   onChange,
   value,
   placeholder,
+  disabled,
   required,
 }) => {
   return (
@@ -30,6 +32,7 @@ export const Input: React.FC<InputProps> = ({
       className={styles.Input}
       value={value}
       placeholder={placeholder}
+      disabled={disabled}
       required={required}
       readOnly={!onChange}
       onChange={onChange ? (e) => onChange(e.target.value) : undefined}

@@ -1,17 +1,37 @@
 "use client";
 
-import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/utils/supabase";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { LoginArgs } from "@/app/_types/LoginArgs";
+
+// Zodスキーマの定義
+const schema = z.object({
+  email: z
+    .string()
+    .min(1, { message: "メールアドレスは必須です" })
+    .email({ message: "無効なメールアドレスです" }),
+  password: z.string().min(1, { message: "パスワードは必須です" }),
+});
 
 export const useUserLogin = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const router = useRouter();
 
-  // ユーザーログイン
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const {
+    handleSubmit,
+    formState: { isSubmitting, errors },
+    setValue,
+    register,
+  } = useForm<LoginArgs>({
+    resolver: zodResolver(schema),
+    mode: "onSubmit",
+  });
+
+  // ユーザーログイン処理
+  const handleLogin = async (data: LoginArgs) => {
+    const { email, password } = data;
 
     const { error } = await supabase.auth.signInWithPassword({
       email,
@@ -19,7 +39,7 @@ export const useUserLogin = () => {
     });
 
     if (error) {
-      alert(`ログイン失敗: ${error.message}`);
+      alert("ログイン失敗: メールアドレスもしくはパスワードが正しくありません");
     } else {
       router.replace("/mypage");
     }
@@ -30,22 +50,18 @@ export const useUserLogin = () => {
     const testUserEmail = "skill.log.customer@gmail.com";
     const testUserPassword = "testtesttest";
 
-    const { error } = await supabase.auth.signInWithPassword({
-      email: testUserEmail,
-      password: testUserPassword,
-    });
+    setValue("email", testUserEmail);
+    setValue("password", testUserPassword);
 
-    if (error) {
-      alert(`テストユーザーのログイン失敗: ${error.message}`);
-    } else {
-      router.replace("/mypage");
-    }
+    // テストユーザーでログイン
+    await handleLogin({ email: testUserEmail, password: testUserPassword });
   };
 
   return {
-    setEmail,
-    setPassword,
-    handleSubmit,
+    handleSubmit: handleSubmit(handleLogin),
+    isSubmitting,
+    errors,
+    register,
     loginTestUser,
   };
 };

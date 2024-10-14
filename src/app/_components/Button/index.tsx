@@ -12,6 +12,7 @@ interface ButtonProps {
   isLink?: boolean;
   href?: string;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  disabled?: boolean;
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -22,6 +23,7 @@ export const Button: React.FC<ButtonProps> = ({
   isLink,
   href,
   onClick,
+  disabled,
 }) => {
   const Color = () => {
     switch (color) {
@@ -58,7 +60,12 @@ export const Button: React.FC<ButtonProps> = ({
   }
 
   return (
-    <button type={type} className={`${Color()} ${Size()}`} onClick={onClick}>
+    <button
+      type={type}
+      className={`${Color()} ${Size()}`}
+      onClick={onClick}
+      disabled={disabled}
+    >
       {children}
     </button>
   );
