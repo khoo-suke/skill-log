@@ -30,7 +30,7 @@ export const CustomCalendar: React.FC<CalendarComponentProps> = ({ getStudyTimes
     if (studyTime > 0 && studyTime <= 1) return 'low';
     if (studyTime > 1 && studyTime <= 3) return 'medium';
     if (studyTime > 3 && studyTime <= 5) return 'high';
-    if (studyTime > 5) return 'very-high';
+    if (studyTime > 5) return 'veryHigh';
     return '';
   };
 
