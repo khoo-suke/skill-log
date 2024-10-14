@@ -1,10 +1,10 @@
-@use '@/app/_styles/mixin.module.scss' as *;
+@use "@/app/_styles/mixin.module.scss" as *;
 
 .black {
-  background-color: #1E1E1E;
-  border: 1px solid #FFF;
+  background-color: #1e1e1e;
+  border: 1px solid #fff;
   border-radius: 5px;
-  color: #FFF;
+  color: #fff;
   display: block;
   font-weight: bold;
   text-align: center;
@@ -16,10 +16,10 @@
 }
 
 .white {
-  background-color: #FFF;
-  border: 1px solid #1E1E1E;
+  background-color: #fff;
+  border: 1px solid #1e1e1e;
   border-radius: 5px;
-  color: #1E1E1E;
+  color: #1e1e1e;
   display: block;
   font-weight: bold;
   margin-right: auto;
@@ -30,10 +30,10 @@
 }
 
 .pink {
-  background-color: #E56452;
-  border: 1px solid #1E1E1E;
+  background-color: #e56452;
+  border: 1px solid #1e1e1e;
   border-radius: 5px;
-  color: #FFF;
+  color: #fff;
   display: block;
   font-weight: bold;
   margin-right: auto;

@@ -1,9 +1,6 @@
-'use client';
+"use client";
 
-import React, {
-  useState,
-  useCallback,
-} from "react";
+import React, { useState, useCallback } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import "@/app/mypage/_components/CalenderArea/_components/CustomCalender/customCalender.scss";
@@ -21,48 +18,63 @@ interface CalendarComponentProps {
   onMonthChange: (year: number, month: number) => void;
 }
 
-export const CustomCalendar: React.FC<CalendarComponentProps> = ({ getStudyTimes, onCalendarClick, onMonthChange }) => {
+export const CustomCalendar: React.FC<CalendarComponentProps> = ({
+  getStudyTimes,
+  onCalendarClick,
+  onMonthChange,
+}) => {
   const [date, setDate] = useState(new Date());
 
   // クラス名を生成
   const getClassByStudyTime = (studyTime: number) => {
-    if (studyTime === 0) return 'zero';
-    if (studyTime > 0 && studyTime <= 1) return 'low';
-    if (studyTime > 1 && studyTime <= 3) return 'medium';
-    if (studyTime > 3 && studyTime <= 5) return 'high';
-    if (studyTime > 5) return 'veryHigh';
-    return '';
+    if (studyTime === 0) return "zero";
+    if (studyTime > 0 && studyTime <= 1) return "low";
+    if (studyTime > 1 && studyTime <= 3) return "medium";
+    if (studyTime > 3 && studyTime <= 5) return "high";
+    if (studyTime > 5) return "veryHigh";
+    return "";
   };
 
   // 日付にクラスを付与
-  const tileClassName = useCallback(({ date }: { date: Date }) => {
-    const dateYear = date.getFullYear();
-    const dateMonth = date.getMonth();
+  const tileClassName = useCallback(
+    ({ date }: { date: Date }) => {
+      const dateYear = date.getFullYear();
+      const dateMonth = date.getMonth();
 
-    // 現在の月の場合のみクラスを付与
-    if (dateYear === date.getFullYear() && dateMonth === date.getMonth()) {
-      const studyTimeEntry = getStudyTimes.find(entry => new Date(entry.date).toDateString() === date.toDateString());
-      if (studyTimeEntry) {
-        const className = getClassByStudyTime(studyTimeEntry.studyTime);
-        return className;
+      // 現在の月の場合のみクラスを付与
+      if (dateYear === date.getFullYear() && dateMonth === date.getMonth()) {
+        const studyTimeEntry = getStudyTimes.find(
+          (entry) => new Date(entry.date).toDateString() === date.toDateString()
+        );
+        if (studyTimeEntry) {
+          const className = getClassByStudyTime(studyTimeEntry.studyTime);
+          return className;
+        }
       }
-    }
-    return '';
-  }, [getStudyTimes]);
+      return "";
+    },
+    [getStudyTimes]
+  );
 
   // 月変更時に呼ばれる
-  const handleMonthChange = useCallback((value: Date) => {
-    if (value instanceof Date) {
-      const newYear = value.getFullYear();
-      const newMonth = value.getMonth() + 1; // 月は1から始まる
+  const handleMonthChange = useCallback(
+    (value: Date) => {
+      if (value instanceof Date) {
+        const newYear = value.getFullYear();
+        const newMonth = value.getMonth() + 1; // 月は1から始まる
 
-      // 日付が実際に変更された場合のみ、状態を更新し、`onMonthChange`を呼び出す
-      if (newYear !== date.getFullYear() || newMonth !== date.getMonth() + 1) {
-        setDate(value);
-        onMonthChange(newYear, newMonth);
+        // 日付が実際に変更された場合のみ、状態を更新し、`onMonthChange`を呼び出す
+        if (
+          newYear !== date.getFullYear() ||
+          newMonth !== date.getMonth() + 1
+        ) {
+          setDate(value);
+          onMonthChange(newYear, newMonth);
+        }
       }
-    }
-  }, [date, onMonthChange]);
+    },
+    [date, onMonthChange]
+  );
 
   return (
     <Calendar

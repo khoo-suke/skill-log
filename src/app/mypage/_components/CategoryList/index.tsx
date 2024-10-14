@@ -149,12 +149,7 @@ export const CategoryList: React.FC<CategoryProps> = ({
               />
               {/* <ColorPicker/> */}
             </div>
-            <Button
-              type="button"
-              color=""
-              size="small"
-              onClick={handleAddCategory}
-            >
+            <Button type="button" size="small" onClick={handleAddCategory}>
               追加
             </Button>
           </CustomModal>

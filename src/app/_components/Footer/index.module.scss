@@ -1,12 +1,12 @@
-@use '@/app/_styles/mixin.module.scss' as *;
+@use "@/app/_styles/mixin.module.scss" as *;
 
 .footer {
-  background-color: #46A997;
-  color: #FFF;
+  background-color: #46a997;
+  color: #fff;
   font-weight: bold;
-  padding:clamp(6rem, 8vw, 10rem) 0 clamp(4rem, 5vw, 6rem);
+  padding: clamp(6rem, 8vw, 10rem) 0 clamp(4rem, 5vw, 6rem);
   .flexBox {
-    border-bottom: 1px solid #FFF;
+    border-bottom: 1px solid #fff;
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
