@@ -1,4 +1,4 @@
-@use '@/app/_styles/mixin.module.scss' as *;
+@use "@/app/_styles/mixin.module.scss" as *;
 
 .btnAera {
   display: flex;
@@ -17,7 +17,7 @@
   a {
     width: min(45%, 270px);
     @include mq(md) {
-      width:  min(80%, 400px);
+      width: min(80%, 400px);
     }
     &:first-child {
       margin-right: 5rem;

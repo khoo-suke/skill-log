@@ -1,4 +1,4 @@
-@use '@/app/_styles/mixin.module.scss' as *;
+@use "@/app/_styles/mixin.module.scss" as *;
 
 .capArea {
   display: flex;
@@ -15,7 +15,7 @@
       width: 100%;
     }
     span {
-      color: #E56452;
+      color: #e56452;
       font-weight: bold;
       letter-spacing: 0.1rem;
       padding-left: 0.5em;
@@ -49,8 +49,8 @@
       margin-bottom: 0.5rem;
       width: 100%;
     }
-    input{
-      border-color: #6D6D6D;
+    input {
+      border-color: #6d6d6d;
       border-radius: 5px;
       border-width: 1px;
       padding: 1rem;
@@ -69,7 +69,7 @@
       width: 100%;
     }
     textarea {
-      border-color: #6D6D6D;
+      border-color: #6d6d6d;
       border-radius: 5px;
       border-width: 1px;
       padding: 1rem;
@@ -80,9 +80,9 @@
   .btnArea {
     text-align: center;
     button {
-      background-color: #E56452;
+      background-color: #e56452;
       color: #fff;
-      border: 1px solid #6D6D6D;
+      border: 1px solid #6d6d6d;
       border-radius: 5px;
       font-weight: bold;
       padding: 0.7rem 2rem;
@@ -112,9 +112,9 @@
   .btnArea {
     text-align: center;
     button {
-      background-color: #E56452;
+      background-color: #e56452;
       color: #fff;
-      border: 1px solid #6D6D6D;
+      border: 1px solid #6d6d6d;
       border-radius: 5px;
       font-weight: bold;
       padding: 0.7rem 2rem;

@@ -1,7 +1,7 @@
-@use '@/app/_styles/mixin.module.scss' as *;
+@use "@/app/_styles/mixin.module.scss" as *;
 
 .header {
-  background-color: #46A997;
+  background-color: #46a997;
   color: #fff;
   display: flex;
   align-items: center;
@@ -86,7 +86,7 @@
         }
       }
       &.account {
-        background-color: #46A997;
+        background-color: #46a997;
         border-radius: 50%;
         display: block;
         height: 45px;

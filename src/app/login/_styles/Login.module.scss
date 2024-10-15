@@ -4,7 +4,7 @@
   .cap {
     text-align: center;
     span {
-      color: #E56452;
+      color: #e56452;
       font-weight: bold;
       letter-spacing: 0.1rem;
       padding-left: 0.5em;
@@ -21,8 +21,21 @@
     width: min(100%, 700px);
     .loginInner {
       margin-bottom: 3rem;
+      input {
+        border-color: #6d6d6d;
+        border-radius: 5px;
+        border-width: 1px;
+        padding: 0.7em 1.4rem;
+        margin-bottom: 0.5rem;
+        max-width: 100%;
+        width: 100%;
+      }
       .errorMessage {
         color: rgb(204, 10, 10);
+        display: block;
+        font-size: 90%;
+        margin-bottom: 1.5rem;
+        margin-left: 0.5em;
       }
     }
     .btnArea {
